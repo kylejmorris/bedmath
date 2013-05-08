@@ -1,0 +1,30 @@
+
+		Ethan Mendelson Derelict Public License
+		      Version 2.6, January 2013
+
+	Every man, woman, child, or republican is permitted to copy and distribute verbatim or modified 
+	copies of this license document. If you want the legal equivalent
+	of throwing your paper off of the Eiffel Tower, see EMNPL
+
+                Ethan Mendelson Derelict Public License 
+     TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION 
+
+	  1. Make any names 0% similar to the original, except for due credit(see 2.).
+             1a. Releasing with "0% similarity" recognizes no use of the same terms, nor pseudonyms, homonyms, homophones, or homophobes.
+
+	  2. Do not give credit if you intend to fuck it up.
+             2a. "Fucking up" is described as intentional or unintentional reduction of efficiency, performance, or elegance.
+             2b. Credit must be given for any parts of the software not "fucked up" as described above.
+             2c. Said credit must only be displayed where the user will see the direct product of the code.
+
+	  3. Do not obfuscate it at any time in the future.
+              3a. Obfuscation is described as any attempt to reduce intelligibility, readability or recognizability of the software for any reason.
+
+	  4. It must be released under the EMDPL.
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Copyright © 2010 Kyle Morris <globeofgeek@gmail.com>
+This work is free. You can redistribute it and/or modify it under the
+terms of the Ethan Mendelson Derelict Public License, Version 2.6,
+as published by Ethan Mendelson.

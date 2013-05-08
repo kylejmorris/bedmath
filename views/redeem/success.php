@@ -1,0 +1,1 @@
+You have succesfully redeemed points! Please await review from a staff member.
