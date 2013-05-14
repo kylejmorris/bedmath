@@ -60,16 +60,6 @@ foreach($this->questions as $question) {
 	}
 ?>
 </select>
-<select id=bid_range onChange=sortBids(this.value)>
-<option value=0>Minimal Bid</option>
-<option value=10>10+</option>
-<option value=25>25+</option>
-<option value=50>50+</option>
-<option value=100>100+</option>
-<option value=250>250+</option>
-<option value=500>500+</option>
-<option value=1000>1000+</option>
-</select>
 <a href="<?php echo ROOT.'ask/';?>" class="button ">Ask Question</a>
 </div>
 </div>
@@ -77,8 +67,5 @@ foreach($this->questions as $question) {
 <script type="text/javascript">
 function sortTopics(topic) {
 	location.href="<?php echo ROOT.'questions/view/1/';?>" + topic + "<?php echo '/'.$this->bid;?>";
-}
-function sortBids(minimal) {
-	location.href="<?php echo ROOT.'questions/view/1/'.$this->topic.'/';?>" + minimal;
 }
 </script>

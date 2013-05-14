@@ -23,6 +23,14 @@ class Reporting_Model extends Model {
 		$report['time'] = time();
 		$this->report->logReport($report); //record report in database with specified form data 
 	}
+        
+        public function runReportQuestion($report) {
+                $user_id = Session::get('user_id'); 
+		$report['type'] = 3; //2 represents 'writing' and lets the database know what is being reported
+		$report['reporter'] = $user_id; //ID of user who sent in report
+		$report['time'] = time();
+		$this->report->logReport($report); //record report in database with specified form data 
+        }
 }
 
 ?>

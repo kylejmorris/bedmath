@@ -66,7 +66,8 @@ class Bootstrap {
 	public function parseUrl() {
 	@$this->url = $_GET['url']; //Current URL (not including root domain name)
 	//echo $this->url;
-		if(!preg_match("/[^a-zA-z0-9_\/\-]/", $this->url)){
+		if(!preg_match("/[^a-zA-z0-9_,\/\-]/", $this->url)){
+                                $this->url = str_replace(',', '', $this->url);
 				$this->url = explode('/', $this->url); //Break apart url at / points
 				//print_r($this->url);
 				if($this->url[0]=='mod') { //the url to enter in order to activate backend. example: globeofgeek.com/lol

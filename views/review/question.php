@@ -18,7 +18,10 @@ foreach($this->answers as $answer) {
 	echo '<b>Answer:</b> '.$answer['full_text'].'<br>';
 	echo '<b>Posted:</b> '.date('M d Y', $answer['time']).'<br>';
 	echo '<b>Votes:</b> '.$answer['votes'].'<br>';
-	echo '<a href='.ROOT.'confirm/question/'.$this->question['id'].'/'.$answer['id'].'>Select Answer!</a><br><br>';
+    if($this->user==$this->question['asked_by']) {
+        echo '<a href='.ROOT.'confirm/question/'.$this->question['id'].'/'.$answer['id'].'>Select Answer!</a><br><br>';
+
+    }
 }
 ?>
 

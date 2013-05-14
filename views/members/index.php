@@ -5,7 +5,7 @@
 Page: 
 <?php
 	foreach($this->pagination as $value) {
-		echo '<b><a href='.ROOT.'members/page/'.$value.'>'.$value.'</a></b>'.', ';
+		echo '<b><a href='.ROOT.'members/page/'.str_replace(',', '',$value).'>'.$value.'</a></b>';
 	}
 ?>
 <br>

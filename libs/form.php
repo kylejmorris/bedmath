@@ -81,9 +81,11 @@ class Form {
 				}
 			}
 			if(isset($element['username_exists'])) {
-				if($this->user->usernameExists($value)==false) {
+                            if(strlen($value)>0) {
+                                if($this->user->usernameExists($value)==false) {
 					$GLOBALS['error']->addError('form', 'The user specified does not exist.');
 				}
+                            }
 			}
 			if(isset($element['is_numeric'])) {
 				if(is_numeric($value)==false) {
