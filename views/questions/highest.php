@@ -11,14 +11,15 @@
 <div id="Questions">
 Page:
 <?php
+echo '<a href='.ROOT.'questions/>Recent</a>||<a href='.ROOT.'questions/unanswered/>Unanswered</a><br>';
 if($this->topic==null) {
     $this->topic = 0;
 }
 foreach($this->pagination as $page) {
 	if($this->topic!=null) {
-		echo '<a href='.ROOT.'questions/view/'.str_replace(',', '', $page).'/'.$this->topic.'/'.$this->bid.'/>'.$page.'</a> ';
+		echo '<a href='.ROOT.'questions/highest/'.str_replace(',', '', $page).'/'.$this->topic.'/>'.$page.'</a> ';
 	} else {
-		echo '<a href='.ROOT.'questions/view/'.str_replace(',', '', $page).'/0/'.$this->bid.'/>'.$page.'</a> '; //Topic 0 = all topics, at least we'll just go with that?
+		echo '<a href='.ROOT.'questions/highest/'.str_replace(',', '', $page).'/0/>'.$page.'</a> '; //Topic 0 = all topics, at least we'll just go with that?
 	}
 }
 
@@ -66,6 +67,6 @@ foreach($this->questions as $question) {
 
 <script type="text/javascript">
 function sortTopics(topic) {
-	location.href="<?php echo ROOT.'questions/view/1/';?>" + topic + "<?php echo '/'.$this->bid;?>";
+	location.href="<?php echo ROOT.'questions/highest/1/';?>" + topic + "<?php echo '/'.$this->bid;?>";
 }
 </script>

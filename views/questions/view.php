@@ -11,6 +11,7 @@
 <div id="Questions">
 Page:
 <?php
+echo '<a href='.ROOT.'questions/highest/>Highest Bid</a>||<a href='.ROOT.'questions/unanswered/>Unanswered</a><br>';
 if($this->topic==null) {
     $this->topic = 0;
 }

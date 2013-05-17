@@ -53,21 +53,39 @@ class Questions extends Controller {
         }
         if (empty($topic) || $topic == 0) {
             $topic = null;
-        } //Giving topic the optional value of 0 to represent 'all topics', since passing a null value through url is messy
-        if (empty($bid) || $bid < 10) {
-            $bid = 10;
-        } //Minimal bids to display are 10, since you can't bid less.
-        $where = array('topic' => $topic, 'bid' => array($bid, '>=')); //Where conditions for gathering question count, used for loading pagination accurately.
+        }
+        //Giving topic the optional value of 0 to represent 'all topics', since passing a null value through url is messy
+        $where = array('topic' => $topic);
         $qCount = $this->question->getQuestionCount($where); // Returns number of questions in which can be displayed on page.
-        $questions = $this->model->view($page, $where, $limit);
+        $questions = $this->model->highest($page, $where, $limit);
         $this->view->pagination = $this->pagination->getPageList($page, $limit, $qCount);
         $this->view->topic = $topic; //Current topic id
         $this->view->page = $page; //Current page, used for sorting.
-        $this->view->bid = $bid; //Minimal bid to accept, used for sorting
         $this->view->topics = $this->category->getCategories();
         $this->view->questions = $questions; //Question data
         $this->view->available = $qCount; //Number of questions to display in statistics module as being 'available'
         $this->view->render('questions/highest');
+    }
+    
+    public function unanswered($punansweredage, $topic) {
+        $limit = 4;
+        if (empty($page)) {
+            $page = 1;
+        }
+        if (empty($topic) || $topic == 0) {
+            $topic = null;
+        }
+        //Giving topic the optional value of 0 to represent 'all topics', since passing a null value through url is messy
+        $where = array('topic' => $topic, 'unanswered'=>1);
+        $qCount = $this->question->getQuestionCount($where); // Returns number of questions in which can be displayed on page.
+        $questions = $this->model->unanswered($page, $where, $limit);
+        $this->view->pagination = $this->pagination->getPageList($page, $limit, $qCount);
+        $this->view->topic = $topic; //Current topic id
+        $this->view->page = $page; //Current page, used for sorting.
+        $this->view->topics = $this->category->getCategories();
+        $this->view->questions = $questions; //Question data
+        $this->view->available = $qCount; //Number of questions to display in statistics module as being 'available'
+        $this->view->render('questions/unanswered');
     }
 
 }

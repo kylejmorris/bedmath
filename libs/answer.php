@@ -37,6 +37,7 @@ class Answer {
 	*/
 	public function addAnswer($qid, $columns) {
 		if($this->database->insertRow('g0g1_answers', $columns)) {
+                    $this->database->update('g0g1_questions', array('unanswered'=>0), array('id'=>$qid));
 			return true;
 		} else {
 			return false;

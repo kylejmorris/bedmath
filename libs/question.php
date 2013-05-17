@@ -17,7 +17,7 @@ class Question {
      * @param $id the id of question to grab. 
      */
     public function getDetailById($id) {
-        $columns = array('id', 'topic', 'title', 'full', 'bid', 'asked_by', 'solved', 'answer', 'asked_time', 'published');
+        $columns = array('id', 'topic', 'title', 'full', 'bid', 'asked_by', 'solved', 'answer', 'asked_time', 'published', 'unanswered');
         $where = array('id' => $id);
         $question = $this->database->getRow('g0g1_questions', $columns, $where);
         return $question;
@@ -53,7 +53,7 @@ class Question {
      * @param $limit the maximum amount of records to gather
      */
     public function getQuestions($where, $order, $page, $limit) {
-        $columns = array('id', 'topic', 'title', 'full', 'bid', 'asked_by', 'solved', 'answer', 'asked_time', 'published');
+        $columns = array('id', 'topic', 'title', 'full', 'bid', 'asked_by', 'solved', 'answer', 'asked_time', 'published', 'unanswered');
         $questions = $this->database->getByPage('g0g1_questions', $columns, $where, $order, $page, $limit);
         return $questions;
     }
@@ -76,7 +76,7 @@ class Question {
      * @param $id the answer id to get question from. 
      */
     public function getQuestionByAnswer($id) {
-        $columns = array('id', 'topic', 'title', 'full', 'bid', 'asked_by', 'solved', 'answer', 'asked_time', 'published');
+        $columns = array('id', 'topic', 'title', 'full', 'bid', 'asked_by', 'solved', 'answer', 'asked_time', 'published', 'answered');
         $answer = new Answer();
         if ($answer->exists($id)) {
             $question = $this->database->getRow('g0g1_questions', $columns, array('a' => $id));

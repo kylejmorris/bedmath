@@ -83,7 +83,6 @@ class Database extends PDO {
      * Example: array('table_column'=>'null'). This would allow any table_column value to be accepted.
      */
     private function parseWhere($where) {
-        $this->query.="WHERE ";
         /* if (!empty($where)) {
           $whereKey = array_keys($where);
           for ($c = 0; $c < sizeof($where); $c++) {
@@ -113,7 +112,11 @@ class Database extends PDO {
           } else {
           $this->query.="1 ";
           } */
+
         if (!empty($where)) {
+            if ($this->includeWhere($where)) {
+                $this->query.="WHERE ";
+            }
             $whereKey = array_keys($where);
             for ($c = 0; $c < sizeof($where); $c++) {
                 if (is_array($where[$whereKey[$c]])) { //If the where element is yet another array, assume further conditions are being checked inside. 
@@ -140,12 +143,46 @@ class Database extends PDO {
                 }
             }
         } else {
-            $this->query.="1 ";
+            $this->query.="WHERE 1 ";
         }
     }
 
-    private function parseOrder($order, $dir = 'DESC') {
-        $this->query.="ORDER BY $order $dir ";
+    /**
+     * Runs through the where clause and determines if any values are 'not' null. 
+     * Sometimes multiple conditions are supplied, but they are all of the null value and therefor don't need a WHERE clause at all. 
+     * If the WHERE clause where to be included then the query looks something like: 
+     * WHERE order by, thus breaking the query by supplying a random clause.
+     * @param $where the where clause and its data
+     * @returns boolean true if where clause contains non-null value; false otherwise. 
+     */
+    private function includeWhere($where) {
+        foreach ($where as $dem1) { //First array dimension
+            if (is_array($dem1)) {
+                foreach ($dem1 as $dem2) { //Second array dimension, if exists
+                    if ($dem2 != null) {
+                        return true;
+                    }
+                }
+            } else {
+                if ($dem1 != null) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Parse order clause of sql query.
+     * Note: if array is specified, then array[0] = the column to order by, and array[1] is the direction (ie ASC/DESC)
+     * If value is only supplied as single variable being column name, the results will be ordered in DESC order.
+     */
+    private function parseOrder($order) {
+        if (is_array($order)) {
+            $this->query.="ORDER BY " . $order[0] . " " . $order[1] . " ";
+        } else {
+            $this->query.="ORDER BY $order DESC ";
+        }
     }
 
     /**
@@ -409,12 +446,12 @@ class Database extends PDO {
     public function getRowSum($table, $column, $where) {
         $this->query.="SELECT SUM($column) FROM $table ";
         $this->parseWhere($where);
-        $stmt = $this->prepare($this->query);
         $this->stmt = $this->prepare($this->query);
         $this->bind();
         $this->stmt->execute();
         $rows = $this->stmt->fetchAll();
-        return $sum[0];
+        $this->cleanQuery();
+        return $rows[0];
     }
 
     public function cleanQuery() {

@@ -167,7 +167,7 @@ class Image {
 
     public function render() {
         $path = IMAGE_ROOT . $this->getName() . '.' . $this->getExtension();
-        echo '<img src=' . $path . ' width=' . $this->getWidth() . ' height=' . $this->getHeight() . '></img>';
+        echo '<img src=' . $path . ' width=' . $this->getWidth() . ' height=' . $this->getHeight() . '>';
     }
 
     public function getName() {
@@ -193,5 +193,7 @@ class Image {
     public function setHeight($height) {
         $this->height = $height;
     }
+
 }
+
 ?>
