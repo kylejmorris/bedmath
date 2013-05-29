@@ -59,9 +59,8 @@ class Confirm extends Controller {
 		if($form->isValid()) {
 			$formData = $form->getFormData();
 			$this->model->run($formData);
-			header("Location: ".ROOT.'account/questions/');
 		}
-		
+                header("Location: ".ROOT.'account/questions/');
 	}
 }
 ?>

@@ -104,7 +104,7 @@ class Points extends Database{
     * @param $type This is representing the transfer type (as you can see within database table (g0g1_points). By default it will be set as 2 which means (points removed by system).
     * @param $object If for any reason this transaction was executed by another user, their username goes here. Such as a refund for example.
     */
-    public function removePoints($subject=1, $amount=1, $type=2, $object=0) { //Default values, type is system deduction unless otherwise specified
+    public function removePoints($subject = 1, $amount = 1, $type = 2, $object = 0) { //Default values, type is system deduction unless otherwise specified
         $currentPoints = $this->getPoints($subject);
         $result = $currentPoints - $amount;
         $query = "UPDATE g0g1_users SET points = '$result' WHERE user_id = '$subject'";

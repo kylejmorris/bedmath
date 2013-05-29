@@ -4,6 +4,8 @@ class Login_Model extends Model {
 
     function __construct() {
         parent::__construct();
+        $this->user = new User();
+        $this->pass = new Pass();
     }
 
     /**
@@ -14,10 +16,11 @@ class Login_Model extends Model {
     function run($formData = array()) {
         $username = $formData['username']; //Extracting data from form Array
         $password = $formData['password'];
-        $query = "SELECT user_id from g0g1_users WHERE username ='$username' AND password = '$password'";
-        $row = $this->database->query($query);
-        $result = $row->fetchColumn();
-        return $result;
+        $userId = $this->user->nameToId($username);
+        if($this->pass->isValid($userId, $password)) {
+            return $userId;
+        }
+        return false;
     }
 
 }

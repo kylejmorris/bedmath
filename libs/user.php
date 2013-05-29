@@ -23,6 +23,18 @@ class User {
         $result = $row->fetch();
         return $result[0];
     }
+    
+    public function isLoggedIn() {
+        if(Session::get('loggedin')==true) {
+            if(Session::sessionInDb(Session::getId())==true) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 
     /**
      * Gets full list of users and their data, returns as multidimentional array
@@ -63,7 +75,11 @@ class User {
     }
 
     public function login($userId) {
-        Session::set('user_id', $userId);
+        Session::create('loggedin', true, $userId);
+    }
+    
+    public function logout($userId) {
+        Session::kill(Session::getId());
     }
 
     /**

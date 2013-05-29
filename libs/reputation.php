@@ -16,7 +16,7 @@ class Reputation {
      * @param $topic the topic to get reputation amount from.
      */
     public function getUserRep($id, $topic) {
-        $where = array('object' => $id, 'topic' => $topic);
+        $where = array('subject' => $id, 'topic' => $topic);
         $rep = $this->database->getRowSum('g0g1_rep_log', 'amount', $where);
         if ($rep[0] == null) {
             $rep[0] = 0;
@@ -26,11 +26,16 @@ class Reputation {
 
     /**
      * Increase a users reputation and then log action in database.
-     * @param $user the user to increase reputation
+     * @param $subject the user to increase reputation
      * @param $amount numerical value representing increase.
+     * @param $type the rule associated with reputation reason.
+     * @param $topic the mathematical topic rep was earned in.
+     * @param $object the user who triggered this event, such as user who asked math question
      */
-    public function addRep($user, $amount) {
-        
+    public function addRep($subject = 1, $amount, $type, $topic, $object = 0) {
+        $time = time();
+        $columns = array('rule' => $type, 'topic' => $topic, 'subject' => $subject, 'object' => $object, 'time' => $time, 'amount' => $amount, 'status' => 1);
+        $this->database->insertRow('g0g1_rep_log', $columns);
     }
 
     /**

@@ -68,7 +68,6 @@ class Database extends PDO {
                 }
             }
         }
-        //echo $this->query;
     }
 
     /**
@@ -436,6 +435,7 @@ class Database extends PDO {
         $this->cleanQuery();
         return $rows;
     }
+    
 
     /**
      * Return value of all columns added together, based on row specification.

@@ -41,10 +41,12 @@ class Login extends Controller {
             $userId = $this->model->run($formData);
             if ($userId != false) { //If valid login was returned, and succesfull 
                 if (!$this->user->isBanned($userId)) {
-                    Session::set('user_id', $userId); //Login user session
+                    //Session::set('user_id', $userId); //Login user session
+                    $this->user->login($userId);
                     header("Location:../index");
                 } else {
-                    Session::set('user_id', $userId); //Login user session
+                    //Session::set('user_id', $userId); //Login user session
+                    $this->user->login($userId);
                     header("Location:" . ROOT . 'login/banned');
                 }
             } else {

@@ -1,7 +1,8 @@
 		<div id="Navigation">
 			<ul>
 			<?php
-				if(Session::exists('user_id')) { 
+                        $user = new User();
+				if($user->isLoggedIn()) { 
 					echo '<li><a href="'.ROOT.'questions/"'.'>Questions</a></li>';
 					echo '<li><a href="'.ROOT.'ask/"'.'>Ask</a></li>';
 					echo '<li><a href="'.ROOT.'buy/points/"'.'>Buy</a></li>';  
@@ -17,7 +18,7 @@
 		</div>
 		<div id="Sign-up">
 		<?php 
-			if(Session::exists('user_id')) {
+			if($user->isLoggedIn()) {
 				echo '<a href='.ROOT.'login/logout class="button normal">Logout</a>';
 				echo '<a href='.ROOT.'account/ class="button normal">Account</a>';
 					} else {
@@ -32,8 +33,7 @@
 
 <?php
 //Code below will determine if navigation bar for staff will be loaded.
-if(Session::exists('user_id')) { 
-    $user = new User(); 
+if($user->isLoggedIn()) { 
     $userLevel = $user->getUserLevel(Session::get('user_id')); //Getting userlevel based on the logged in session id
     if($userLevel >= 3) { //Only include if user is marking staff group, or higher in power.
         include 'staff_nav.php';
