@@ -32,7 +32,7 @@ CREATE TABLE `g0g1_answers` (
   `published` tinyint(1) NOT NULL,
   `accepted` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,6 +41,7 @@ CREATE TABLE `g0g1_answers` (
 
 LOCK TABLES `g0g1_answers` WRITE;
 /*!40000 ALTER TABLE `g0g1_answers` DISABLE KEYS */;
+INSERT INTO `g0g1_answers` VALUES (1,1,3,'This is a test answer, required to meet the current minimal character requirement of 100 chars. I shall definitely change it. \r\n',1368828103,0,1,1);
 /*!40000 ALTER TABLE `g0g1_answers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -247,7 +248,7 @@ CREATE TABLE `g0g1_points` (
   `name` varchar(32) NOT NULL,
   `description` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -256,7 +257,7 @@ CREATE TABLE `g0g1_points` (
 
 LOCK TABLES `g0g1_points` WRITE;
 /*!40000 ALTER TABLE `g0g1_points` DISABLE KEYS */;
-INSERT INTO `g0g1_points` VALUES (1,1,'System Reward','Points rewarded by system.'),(2,2,'System Deduction','Points removed by system.'),(3,3,'PPS Reward','Content submitted as PayPerSubmit was accepted. '),(4,4,'PPU Reward','PPU content was unlocked by another user. '),(5,5,'PPU Deduction','Unlocked PPU content'),(6,6,'Points Purchase','User successfully purchased points!'),(7,7,'Donation Sent','Sent points to another user.'),(8,8,'Donation Received','Received points from another user. '),(9,9,'New User','User obtained some free points for successfully creating an account!'),(10,10,'Successful Invite','Influenced 1 new user to join the site!');
+INSERT INTO `g0g1_points` VALUES (1,1,'System Reward','Points rewarded by system.'),(2,2,'System Deduction','Points removed by system.'),(3,3,'PPS Reward','Content submitted as PayPerSubmit was accepted. '),(4,4,'PPU Reward','PPU content was unlocked by another user. '),(5,5,'PPU Deduction','Unlocked PPU content'),(6,6,'Points Purchase','User successfully purchased points!'),(7,7,'Donation Sent','Sent points to another user.'),(8,8,'Donation Received','Received points from another user. '),(9,9,'New User','User obtained some free points for successfully creating an account!'),(10,10,'Successful Invite','Influenced 1 new user to join the site!'),(11,11,'Answered Question','Tutor has been selected for their support on a question and receives the bid'),(12,12,'Asked Question','User asked question and places bid');
 /*!40000 ALTER TABLE `g0g1_points` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -275,7 +276,7 @@ CREATE TABLE `g0g1_points_log` (
   `points` int(11) NOT NULL,
   `time` int(11) NOT NULL,
   PRIMARY KEY (`transaction_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -284,6 +285,7 @@ CREATE TABLE `g0g1_points_log` (
 
 LOCK TABLES `g0g1_points_log` WRITE;
 /*!40000 ALTER TABLE `g0g1_points_log` DISABLE KEYS */;
+INSERT INTO `g0g1_points_log` VALUES (1,11,3,7,21,1368990549),(2,11,3,7,21,1368994341),(3,11,3,7,21,1368994663),(4,12,7,0,-152,1368996054),(5,9,0,0,10,1369082740),(6,9,0,0,10,1369082952),(7,10,7,0,25,1369083142),(8,10,7,0,25,1369083231),(9,10,7,0,25,1369083264),(10,9,19,0,10,1369083264),(11,9,0,0,10,1369083278),(12,9,0,0,10,1369083353),(13,10,7,0,25,1369083564),(14,10,7,0,25,1369083679),(15,9,21,0,10,1369083767),(16,10,7,0,25,1369083839),(17,9,22,0,10,1369083839),(18,9,23,0,10,1369084639);
 /*!40000 ALTER TABLE `g0g1_points_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -307,7 +309,7 @@ CREATE TABLE `g0g1_questions` (
   `published` tinyint(1) NOT NULL,
   `unanswered` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -316,6 +318,7 @@ CREATE TABLE `g0g1_questions` (
 
 LOCK TABLES `g0g1_questions` WRITE;
 /*!40000 ALTER TABLE `g0g1_questions` DISABLE KEYS */;
+INSERT INTO `g0g1_questions` VALUES (1,2,'Test','ASking a test question',21,7,1,0,1368825918,1,0),(2,2,'Testing points removal','asodfijads',152,7,0,0,1368996054,1,1);
 /*!40000 ALTER TABLE `g0g1_questions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -364,7 +367,7 @@ CREATE TABLE `g0g1_rep_log` (
   `amount` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -373,6 +376,7 @@ CREATE TABLE `g0g1_rep_log` (
 
 LOCK TABLES `g0g1_rep_log` WRITE;
 /*!40000 ALTER TABLE `g0g1_rep_log` DISABLE KEYS */;
+INSERT INTO `g0g1_rep_log` VALUES (1,1,2,'3','7',1368994342,21,1),(2,1,2,'3','7',1368994663,1,1);
 /*!40000 ALTER TABLE `g0g1_rep_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -446,7 +450,7 @@ CREATE TABLE `g0g1_report_log` (
   `comments` varchar(512) NOT NULL,
   `time` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -455,6 +459,7 @@ CREATE TABLE `g0g1_report_log` (
 
 LOCK TABLES `g0g1_report_log` WRITE;
 /*!40000 ALTER TABLE `g0g1_report_log` DISABLE KEYS */;
+INSERT INTO `g0g1_report_log` VALUES (1,0,3,1,0,0,'Supply evidence/description on the report','Any comments on this?',1369856587);
 /*!40000 ALTER TABLE `g0g1_report_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -482,6 +487,36 @@ LOCK TABLES `g0g1_report_reason` WRITE;
 /*!40000 ALTER TABLE `g0g1_report_reason` DISABLE KEYS */;
 INSERT INTO `g0g1_report_reason` VALUES (0,3,'Inappropriate','Content is no suitiable as a mathematics question'),(1,2,'Plagarism','Content is taken directory from a location outside Globe Of Geek without proper citation/credit given '),(2,2,'Misleading','Content is not delivered properly and gives false information that may confuse the user. '),(3,2,'Outdated','Content is no longer updated on the topic is covers and must notify the viewers of this. '),(4,2,'Inappropriate ','Content is just straight up naughty, not for out viewers. '),(5,1,'Inappropriate','Profile contains information not appropriate for the GlobeOfGeek community.'),(6,1,'Impersonation','User is clearly ripping off/copying the identity of someone else to receive personal gain. '),(7,3,'Stupid','The question is completely undefined and/or does nothing more than waste time of a tutor');
 /*!40000 ALTER TABLE `g0g1_report_reason` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `g0g1_sessions`
+--
+
+DROP TABLE IF EXISTS `g0g1_sessions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `g0g1_sessions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `session_id` varchar(26) DEFAULT NULL,
+  `type` varchar(32) DEFAULT NULL,
+  `ip` varchar(40) DEFAULT NULL,
+  `useragent` varchar(100) DEFAULT NULL,
+  `active` tinyint(1) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `expires` int(14) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `g0g1_sessions`
+--
+
+LOCK TABLES `g0g1_sessions` WRITE;
+/*!40000 ALTER TABLE `g0g1_sessions` DISABLE KEYS */;
+INSERT INTO `g0g1_sessions` VALUES (63,'rbm047c28lf7la8bb36j7j76p7','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/53',0,7,1369856751),(64,'paos8vhpac07hnek7ro9e94vj1','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/53',1,7,1369885723),(65,'6koebaqq4sqesl3tb27ru316m4','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/53',1,7,1369887443),(66,'enov7391701v3480f3b09pf6r6','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/53',0,7,1369887479),(67,'qn50r0k5vln75nd3sku6m4cuv2','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/53',0,7,1369934837),(68,'va2bcd8r74phjas59mvro2vve3','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/53',0,7,1369935367),(69,'70d2ld92h0mofct75q7esdgqs6','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/53',0,7,1369935789),(70,'s3142k8158cbe0nmbj6mr6kbp2','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/53',0,7,1369936160),(71,'3n5i5c0ai5lmpjv60s4nae9od5','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.63 Safari/53',0,7,1369949133);
+/*!40000 ALTER TABLE `g0g1_sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -520,7 +555,8 @@ DROP TABLE IF EXISTS `g0g1_users`;
 CREATE TABLE `g0g1_users` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(24) NOT NULL,
-  `password` varchar(32) NOT NULL,
+  `password` varchar(40) DEFAULT NULL,
+  `salt` varchar(32) DEFAULT NULL,
   `points` int(11) NOT NULL,
   `join_date` int(255) NOT NULL,
   `email` varchar(1044) NOT NULL,
@@ -532,7 +568,7 @@ CREATE TABLE `g0g1_users` (
   `invites` int(11) NOT NULL,
   PRIMARY KEY (`user_id`),
   FULLTEXT KEY `username` (`username`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -541,7 +577,7 @@ CREATE TABLE `g0g1_users` (
 
 LOCK TABLES `g0g1_users` WRITE;
 /*!40000 ALTER TABLE `g0g1_users` DISABLE KEYS */;
-INSERT INTO `g0g1_users` VALUES (9,'Romney','testaccount3',991,1327512362,'justice_4evar@gmail.com',NULL,1,0,1,0,0),(3,'Plato ','testaccount1',714,1367512362,'asdfads@gmail.com',NULL,1,2,3,0,0),(4,'Socrates ','testaccount2',230,1367412362,'gaposidjfad@gmail.com',NULL,1,2,4,0,0),(5,'Julius','testaccount4',15,1367512362,'52351@gmail.com',NULL,1,2,6,0,0),(6,'Aristotle','testaccount5',662,1367512362,'asdfad@gmail.com',NULL,1,4,7,0,0),(7,'Kyle','testaccount6',1996507,1366512362,'tesdtf@gmail.com','0fb95cce484c8646ec61a619f613ac4b',1,5,5,0,26),(10,'Bobby1','oasidjfad',10,1367510925,'asdfasdf@gmail.com',NULL,0,2,2,7,0),(11,'tommy6','globeofgeek12',10,1367518635,'gaspodjf@gmail.com',NULL,0,2,1,7,0),(12,'Nathan','globeofgeek12',10,1367519599,'ilovemath@gmail.com',NULL,0,2,1,7,0),(13,'nonny','globeofgeek12',5,1367520617,'asdfasdf@gmail.com',NULL,0,2,1,7,0),(14,'johnneh','globeofgeek12',10,1367521328,'qwefasdfaf@gmail.com',NULL,0,2,1,7,0),(15,'amy123','globeofgeek12',10,1367522791,'asdfasdfasdf@gmail.com',NULL,0,2,1,7,0),(16,'Algebra','globeofgeek12',10,1367523251,'apowiefawef@gmail.com',NULL,0,2,1,7,0),(17,'Kpasdf','oapsijdf',10,1368322158,'aosijdf@gmail.com',NULL,0,2,1,0,0),(18,'pasiodfaj','paoisjdf',10,1368322182,'poaisdjf@hotmail.com',NULL,0,2,1,7,0);
+INSERT INTO `g0g1_users` VALUES (9,'Romney','testaccount3','´z©ãê«ªÖþF”èÕp\n„Á®¬Ç-h¹ÉSË‘ÉÅ',991,1327512362,'justice_4evar@gmail.com',NULL,1,0,1,0,0),(3,'Plato ','testaccount1','´z©ãê«ªÖþF”èÕp\n„Á®¬Ç-h¹ÉSË‘ÉÅ',777,1367512362,'asdfads@gmail.com',NULL,1,2,3,0,0),(4,'Socrates ','testaccount2','´z©ãê«ªÖþF”èÕp\n„Á®¬Ç-h¹ÉSË‘ÉÅ',230,1367412362,'gaposidjfad@gmail.com',NULL,1,2,4,0,0),(5,'Julius','testaccount4','´z©ãê«ªÖþF”èÕp\n„Á®¬Ç-h¹ÉSË‘ÉÅ',15,1367512362,'52351@gmail.com',NULL,1,2,6,0,0),(6,'Aristotle','testaccount5','´z©ãê«ªÖþF”èÕp\n„Á®¬Ç-h¹ÉSË‘ÉÅ',662,1367512362,'asdfad@gmail.com',NULL,1,4,7,0,0),(7,'Kyle','29272a59544f13bd514fe0d0e52f9b543135068e','ôfBË„÷0>Nÿr¤Ççç9½@Ã‰ÃÅV~“=°',1996505,1366512362,'tesdtf@gmail.com','0fb95cce484c8646ec61a619f613ac4b',1,5,5,0,32),(10,'Bobby1','oasidjfad','´z©ãê«ªÖþF”èÕp\n„Á®¬Ç-h¹ÉSË‘ÉÅ',10,1367510925,'asdfasdf@gmail.com',NULL,0,2,2,7,0),(11,'tommy6','globeofgeek12','´z©ãê«ªÖþF”èÕp\n„Á®¬Ç-h¹ÉSË‘ÉÅ',10,1367518635,'gaspodjf@gmail.com',NULL,0,2,1,7,0),(12,'Nathan','globeofgeek12','´z©ãê«ªÖþF”èÕp\n„Á®¬Ç-h¹ÉSË‘ÉÅ',10,1367519599,'ilovemath@gmail.com',NULL,0,2,1,7,0),(13,'nonny','globeofgeek12','´z©ãê«ªÖþF”èÕp\n„Á®¬Ç-h¹ÉSË‘ÉÅ',5,1367520617,'asdfasdf@gmail.com',NULL,0,2,1,7,0),(14,'johnneh','globeofgeek12','´z©ãê«ªÖþF”èÕp\n„Á®¬Ç-h¹ÉSË‘ÉÅ',10,1367521328,'qwefasdfaf@gmail.com',NULL,0,2,1,7,0),(15,'amy123','globeofgeek12','´z©ãê«ªÖþF”èÕp\n„Á®¬Ç-h¹ÉSË‘ÉÅ',10,1367522791,'asdfasdfasdf@gmail.com',NULL,0,2,1,7,0),(16,'Algebra','globeofgeek12','´z©ãê«ªÖþF”èÕp\n„Á®¬Ç-h¹ÉSË‘ÉÅ',10,1367523251,'apowiefawef@gmail.com',NULL,0,2,1,7,0),(17,'Kpasdf','oapsijdf','´z©ãê«ªÖþF”èÕp\n„Á®¬Ç-h¹ÉSË‘ÉÅ',10,1368322158,'aosijdf@gmail.com',NULL,0,2,1,0,0),(18,'pasiodfaj','paoisjdf','´z©ãê«ªÖþF”èÕp\n„Á®¬Ç-h¹ÉSË‘ÉÅ',10,1368322182,'poaisdjf@hotmail.com',NULL,0,2,1,7,0),(19,'Kyle2','f9750c8d969c97590a2a5a1f6451402074d99419','†\Z¼ÎÚ–¨÷ï‚}\'«\Z\'zò¹½ž°œµD[N÷¼',10,1369083264,'aposidjf@gmail.com',NULL,1,2,1,7,0),(20,'Kyle3','9beda94aea3954aed1c41584d37e9323b86aa7d9','û·iì[ÊGè½cD#ÓØ25\'I9ÍE L\\Û÷t',0,1369083740,'asoipdjf2@gmail.com',NULL,1,2,1,0,0),(21,'Kyle7','6bcab05ca174714fd313e52b5c422d1da77d3f7e','Ìo]„íŸ3RØ¬“£°gV­ÿaHBöÖURØ\n¦',10,1369083767,'aspodifjasdf@gmail.com',NULL,1,2,1,0,0),(22,'Kyle8','bb78a358390f23249936d68d776523e18de3b1ff','ÉüµÄÿÃÂ–ƒaÊ!Ù¨n%ÝáZX‰HŠ',10,1369083839,'apsoidfa@gmail.com',NULL,1,2,1,7,0),(23,'Kyle11','3bf56ee1ce339cb12663869403342bbe224c9feb','äe”WA*Ùb´g„ŽÀpY¾¾ìÒ¸áS©PšûÍ',10,1369084639,'paoisdjf@gmail.com',NULL,1,2,1,0,0);
 /*!40000 ALTER TABLE `g0g1_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -620,4 +656,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-05-17 16:20:55
+-- Dump completed on 2013-05-30 22:22:54
