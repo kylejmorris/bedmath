@@ -34,7 +34,7 @@
 <?php
 //Code below will determine if navigation bar for staff will be loaded.
 if($user->isLoggedIn()) { 
-    $userLevel = $user->getUserLevel(Session::get('user_id')); //Getting userlevel based on the logged in session id
+    $userLevel = $user->getUserLevel($user->getUserId()); //Getting userlevel based on the logged in session id
     if($userLevel >= 3) { //Only include if user is marking staff group, or higher in power.
         include 'staff_nav.php';
     }

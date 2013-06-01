@@ -7,7 +7,6 @@ class Profile extends Controller {
     
     //Nothing here really...
     public function index() {
-      
     }
     
     /**
@@ -17,10 +16,8 @@ class Profile extends Controller {
     public function user($userId) {
 	if(!empty($userId)) { //Check if id was supplied in url
 		$userDetail = $this->model->getUserDetail($userId); //Run model getting user details
-		$writingDetail = $this->writing->getDetailBy('publisher_id', $userId); //Getting users writing info
 		$userStats = $this->model->getUserStats($userId); //Calling to model, to generate specific statistical info
 		$this->view->userDetail = $userDetail; //Send to template
-		$this->view->writingDetail = $writingDetail; //Send to template
 		$this->view->userStats = $userStats; //Sending statistics to template/view
 		$this->view->avatarWidth = 100; //Width of profile image
 		$this->view->avatarHeight = 150; //height of Profile image

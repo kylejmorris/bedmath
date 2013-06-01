@@ -87,8 +87,9 @@ class User {
      * If user id is not set, it shall simply return NULL
      */
     public function getUserId() {
-        if (Session::exists('user_id')) {
-            $userId = Session::get('user_id');
+        if ($this->isLoggedIn()) {
+            $userSession = $this->database->getRow('g0g1_sessions', array('user_id'), array('session_id'=>Session::getId()));
+            return $userSession['user_id'];
         } else {
             $userId = NULL;
         }

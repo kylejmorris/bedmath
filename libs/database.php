@@ -71,6 +71,29 @@ class Database extends PDO {
     }
 
     /**
+     * Checks current where array to see if there is at least 1 upcoming value that is not null. This will declare if the current array
+     * element should include: AND at the end, as it's expecting another value.
+     * @param $where the where clause the check in array form.
+     * @param $start the starting position in where clause to begin looking from
+     * @return true if there is 1 or more non null values, false otherwise.
+     */
+    private function whereHasAnotherNonNull($where, $start) {
+        $whereKey = array_keys($where);
+        for ($c = $start + 1; $c < sizeof($where); $c++) {
+            if (is_array($where[$whereKey[$c]])) {
+                if ($where[$whereKey[$c]][0] != null) {
+                    return true;
+                }
+            } else {
+                if ($where[$whereKey[$c]] != null) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * Appends where clauses to query
      * @param $where an associative array containing column names and the condition they must meet
      * @note If an element in the $where array is to contain addition conditions, then further checks are done.
@@ -111,30 +134,38 @@ class Database extends PDO {
           } else {
           $this->query.="1 ";
           } */
-
         if (!empty($where)) {
-            if ($this->includeWhere($where)) {
+            if ($this->whereHasAnotherNonNull($where, -1)) {
                 $this->query.="WHERE ";
             }
             $whereKey = array_keys($where);
             for ($c = 0; $c < sizeof($where); $c++) {
                 if (is_array($where[$whereKey[$c]])) { //If the where element is yet another array, assume further conditions are being checked inside. 
-                    if ($where[$whereKey[$c]][0] != null) {
-                        //the line below would run something such as array('data', 'condition') which results in checking if data meets condition.
-                        if ($c + 1 < sizeof($where)) {
+                    //the line below would run something such as array('data', 'condition') which results in checking if data meets condition.
+                    if ($c + 1 < sizeof($where) && $where[$whereKey[$c]][0] != null) {
+                        if ($this->whereHasAnotherNull($where, $c)) {
                             array_push($this->binding, array(':' . $whereKey[$c], $where[$whereKey[$c]][0]));
                             $this->query.=$whereKey[$c] . " " . $where[$whereKey[$c]][1] . ':' . $whereKey[$c] . " AND "; //index 1 = operator, index 0 = value. 
                         } else {
+                            array_push($this->binding, array(':' . $whereKey[$c], $where[$whereKey[$c]][0]));
+                            $this->query.=$whereKey[$c] . " " . $where[$whereKey[$c]][1] . ':' . $whereKey[$c] . " "; //index 1 = operator, index 0 = value. 
+                        }
+                    } else {
+                        if ($where[$whereKey[$c]][0] != null) {
                             array_push($this->binding, array(':' . $whereKey[$c], $where[$whereKey[$c]][0]));
                             $this->query.=$whereKey[$c] . " " . $where[$whereKey[$c]][1] . ':' . $whereKey[$c] . ' '; //index 1 = operator, index 0 = value. 
                         }
                     }
                 } else {
-                    if ($where[$whereKey[$c]] != null) {
-                        if ($c + 1 < sizeof($where)) {
+                    if ($c + 1 < sizeof($where) && $where[$whereKey[$c]] != null) {
+                        if ($this->whereHasAnotherNonNull($where, $c)) {
                             array_push($this->binding, array(':' . $whereKey[$c], $where[$whereKey[$c]]));
                             $this->query.=$whereKey[$c] . " = " . ':' . $whereKey[$c] . ' AND '; //If no additional conditions are used, just check if column is = to specified value.
                         } else {
+                            $this->query.=$whereKey[$c] . " = " . ':' . $whereKey[$c] . ' '; //If no additional conditions are used, just check if column is = to specified value.
+                        }
+                    } else {
+                        if ($where[$whereKey[$c]] != null) {
                             array_push($this->binding, array(':' . $whereKey[$c], $where[$whereKey[$c]]));
                             $this->query.=$whereKey[$c] . " = " . ':' . $whereKey[$c] . ' ';
                         }
@@ -144,31 +175,6 @@ class Database extends PDO {
         } else {
             $this->query.="WHERE 1 ";
         }
-    }
-
-    /**
-     * Runs through the where clause and determines if any values are 'not' null. 
-     * Sometimes multiple conditions are supplied, but they are all of the null value and therefor don't need a WHERE clause at all. 
-     * If the WHERE clause where to be included then the query looks something like: 
-     * WHERE order by, thus breaking the query by supplying a random clause.
-     * @param $where the where clause and its data
-     * @returns boolean true if where clause contains non-null value; false otherwise. 
-     */
-    private function includeWhere($where) {
-        foreach ($where as $dem1) { //First array dimension
-            if (is_array($dem1)) {
-                foreach ($dem1 as $dem2) { //Second array dimension, if exists
-                    if ($dem2 != null) {
-                        return true;
-                    }
-                }
-            } else {
-                if ($dem1 != null) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     /**
@@ -400,6 +406,7 @@ class Database extends PDO {
             }
         }
         $this->query .= ")";
+        echo $this->query;
         $this->stmt = $this->prepare($this->query);
         $this->bind();
         try {
@@ -407,6 +414,7 @@ class Database extends PDO {
         } catch (Exception $e) {
             return false;
         }
+        echo $this->query;
         $this->cleanQuery();
         return true;
     }
@@ -435,7 +443,6 @@ class Database extends PDO {
         $this->cleanQuery();
         return $rows;
     }
-    
 
     /**
      * Return value of all columns added together, based on row specification.
@@ -449,7 +456,7 @@ class Database extends PDO {
         $this->stmt = $this->prepare($this->query);
         $this->bind();
         $this->stmt->execute();
-        $rows = $this->stmt->fetchAll();
+        $rows = $this->stmt->fetch();
         $this->cleanQuery();
         return $rows[0];
     }

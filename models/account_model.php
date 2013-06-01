@@ -31,7 +31,7 @@ Class Account_Model extends Model {
 		for($c=0; $c<sizeof($pointsHistory); $c++) {
 			$userDetail = $this->user->getDetailFromId($pointsHistory[$c]['object']); //Get user details from whom was involved in the points transaction
 			array_push($pointsHistory[$c], 'description'); //adding new index to array, to hold text description of transaction
-			$transactionType = $this->points->getTransactionType($pointsHistory[$c]['transaction_type']); //Getting info on transaction type, based on the ID of transaction. Each ID is associated with a string version giving stronger description/detail.
+			$transactionType = $this->points->getTransactionTypes($pointsHistory[$c]['transaction_type']); //Getting info on transaction type, based on the ID of transaction. Each ID is associated with a string version giving stronger description/detail.
 			$pointsHistory[$c]['transaction_type'] = $transactionType[0]['name'];
 			$pointsHistory[$c]['description'] = $transactionType[0]['description'];  //Transferring value of transaction type, into the main array that will be displayed
 			$pointsHistory[$c]['object'] = $userDetail['username']; 

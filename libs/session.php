@@ -22,7 +22,7 @@ class Session {
      */
     public static function sessionInDb($sessionId) {
         $database = new Database();
-        $count = $database->getCount('g0g1_sessions', array('session_id' => $sessionId, 'active'=>1));
+        $count = $database->getCount('g0g1_sessions', array('session_id' => $sessionId, 'active' => 1));
         if ($count != 0) {
             return true;
         }
@@ -35,7 +35,6 @@ class Session {
     public static function isExpired($sessionId) {
         $database = new Database();
         $row = $database->getRow('g0g1_sessions', array('expires'), array('session_id' => $sessionId));
-        echo $row['expires'];
         if ($row['expires'] <= time()) {
             return true;
         }
@@ -48,7 +47,7 @@ class Session {
      */
     public static function kill($sessionId) {
         $database = new Database();
-        $database->update('g0g1_sessions', array('active'=>false), array('session_id'=>$sessionId));
+        $database->update('g0g1_sessions', array('active' => false), array('session_id' => $sessionId));
         $_SESSION['loggedin'] = false;
         session_regenerate_id();
     }

@@ -34,7 +34,7 @@ class Ask extends Controller {
 		if($form->isValid()) {
 			$formData = $form->getFormData();
 			$this->model->runAsk($formData);
-			header('Location: '.ROOT.'/questions/');
+//header('Location: '.ROOT.'/questions/');
 		} else {
 			$this->index();
 		}

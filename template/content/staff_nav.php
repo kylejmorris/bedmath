@@ -2,8 +2,6 @@
 <?php 
 	$report = new Report();
 	$reportCount = $report->getReportCount();
-	$writing = new Writing();
-	$writingCount = $writing->getPendingCount(0);
 ?>
 <div class="staff_nav_bar">
         <a href="<?php echo ROOT.'validate/writing/'; ?>">Activate</a>
@@ -16,11 +14,6 @@
 			echo '<i>0 Reports</i>';
 		} else {
 			echo '<b>'.$reportCount.' Report(s)   </b>';
-		}
-		if($writingCount==0) {
-			echo '<i>0 Writing</i>';
-		} else {
-			echo '<b>'.$writingCount.' Writing</b>';
 		}
 		?>
 		<br><br>

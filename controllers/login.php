@@ -60,7 +60,7 @@ class Login extends Controller {
      * Ends users logged in session, returning them to public view. 
      */
     function logout() {
-        Session::destroy();
+        $this->user->logout($this->user->getUserId());
         header("Location:../index");
     }
 

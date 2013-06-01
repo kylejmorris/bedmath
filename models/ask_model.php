@@ -15,7 +15,8 @@ class Ask_Model extends Model {
 		$form['asked_time'] = time();
                 $this->points->removePoints($form['asked_by'], $form['bid'], 12);
 		$this->question->addQuestion($form);
-	}
+                
+        }
 }
 
 ?>

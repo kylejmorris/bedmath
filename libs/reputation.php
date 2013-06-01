@@ -16,7 +16,7 @@ class Reputation {
      * @param $topic the topic to get reputation amount from.
      */
     public function getUserRep($id, $topic) {
-        $where = array('subject' => $id, 'topic' => $topic);
+        $where = array('subject' => $id, 'topic'=>$topic);
         $rep = $this->database->getRowSum('g0g1_rep_log', 'amount', $where);
         if ($rep[0] == null) {
             $rep[0] = 0;

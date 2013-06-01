@@ -59,7 +59,7 @@ class Register extends Controller {
             $formData = $form->getFormData();
             if (!$this->user->usernameExists($formData['username'])) {
                 $userId = $this->model->runRegister($formData); //Making new user account and returning ID of the new user.
-                Session::set('user_id', $userId); //Setting session for new user, basically logging them in
+                $this->user->login($userId);
                 header("Location:" . ROOT . 'profile/user/' . $userId); //Redirecting new user to their own profile! woohoo
             } else {
                 $GLOBALS['error']->addError('user', 'The user ' . $formData['username'] . ' already exists');
