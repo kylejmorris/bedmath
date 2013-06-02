@@ -75,7 +75,7 @@ class Login extends Controller {
             $this->view->render('login/unbanned');
         } else {
             $this->view->details = $this->ban->getBanDetails($userId);
-            Session::destroy();
+            $this->user->logout($this->user->getUserId());
             $this->view->render('login/banned');
         }
     }
