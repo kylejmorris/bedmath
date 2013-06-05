@@ -17,7 +17,7 @@ class Question {
      * @param $id the id of question to grab. 
      */
     public function getDetailById($id) {
-        $columns = array('id', 'topic', 'title', 'full', 'bid', 'asked_by', 'solved', 'answer', 'asked_time', 'published', 'unanswered');
+        $columns = array('id', 'topic', 'title', 'full', 'bid', 'asked_by', 'answer', 'asked_time', 'published');
         $where = array('id' => $id);
         $question = $this->database->getRow('g0g1_questions', $columns, $where);
         return $question;
@@ -53,18 +53,31 @@ class Question {
      * @param $limit the maximum amount of records to gather
      */
     public function getQuestions($where, $order, $page, $limit) {
-        $columns = array('id', 'topic', 'title', 'full', 'bid', 'asked_by', 'solved', 'answer', 'asked_time', 'published', 'unanswered');
+        $columns = array('id', 'topic', 'title', 'full', 'bid', 'asked_by', 'answer', 'asked_time', 'published');
         $questions = $this->database->getByPage('g0g1_questions', $columns, $where, $order, $page, $limit);
+        $answer = new Answer();
+        for ($c = 0; $c < sizeof($questions); $c++) {
+            array_push($questions[$c], 'solved_by');
+            array_push($questions[$c], 'answer_count');
+            if ($this->isSolved($questions[$c]['id'])) {
+                $answerData = $answer->getAcceptedAnswer($questions[$c]['id']);
+                $questions[$c]['solved_by'] = $answerData['user'];
+            } else {
+                $questions[$c]['solved_by'] = null;
+            }
+            $questions[$c]['answer_count'] = $this->getAnswerCount($questions[$c]['id']);
+        }
         return $questions;
     }
 
     /**
-     * Check if specified question has been been solved by a tutor. 
+     * Check if specified question contains an answer in which was selected by student
      * @param $id the id of question to check.
      */
     public function isSolved($id) {
-        $question = $this->getDetailById($id);
-        if ($question['solved'] == true) {
+        $answer = new Answer();
+        $result = $answer->getAcceptedAnswer($id);
+        if ($result!=null) {
             return true;
         } else {
             return false;
@@ -76,7 +89,7 @@ class Question {
      * @param $id the answer id to get question from. 
      */
     public function getQuestionByAnswer($id) {
-        $columns = array('id', 'topic', 'title', 'full', 'bid', 'asked_by', 'solved', 'answer', 'asked_time', 'published', 'answered');
+        $columns = array('id', 'topic', 'title', 'full', 'bid', 'asked_by', 'solved', 'answer', 'asked_time', 'published');
         $answer = new Answer();
         if ($answer->exists($id)) {
             $question = $this->database->getRow('g0g1_questions', $columns, array('a' => $id));

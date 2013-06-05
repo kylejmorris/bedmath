@@ -153,7 +153,7 @@ class Database extends PDO {
                     } else {
                         if ($where[$whereKey[$c]][0] != null) {
                             array_push($this->binding, array(':' . $whereKey[$c], $where[$whereKey[$c]][0]));
-                            $this->query.=$whereKey[$c] . " " . $where[$whereKey[$c]][1] . ':' . $whereKey[$c] . ' '; //index 1 = operator, index 0 = value. 
+                            $this->query.=$whereKey[$c] . " " . $where[$whereKey[$c]][1] . ':' . $whereKey[$c] . " "; //index 1 = operator, index 0 = value. 
                         }
                     }
                 } else {
@@ -162,7 +162,8 @@ class Database extends PDO {
                             array_push($this->binding, array(':' . $whereKey[$c], $where[$whereKey[$c]]));
                             $this->query.=$whereKey[$c] . " = " . ':' . $whereKey[$c] . ' AND '; //If no additional conditions are used, just check if column is = to specified value.
                         } else {
-                            $this->query.=$whereKey[$c] . " = " . ':' . $whereKey[$c] . ' '; //If no additional conditions are used, just check if column is = to specified value.
+                            array_push($this->binding, array(':' . $whereKey[$c], $where[$whereKey[$c]]));
+                            $this->query.=$whereKey[$c] . " = " . ':' . $whereKey[$c] . " "; //If no additional conditions are used, just check if column is = to specified value.
                         }
                     } else {
                         if ($where[$whereKey[$c]] != null) {
@@ -309,6 +310,7 @@ class Database extends PDO {
         $stmt = $this->prepare($query);
         $stmt->execute();
         $rows = $stmt->fetchAll();
+        $this->cleanQuery();
     }
 
     /**
@@ -406,7 +408,6 @@ class Database extends PDO {
             }
         }
         $this->query .= ")";
-        echo $this->query;
         $this->stmt = $this->prepare($this->query);
         $this->bind();
         try {
@@ -414,7 +415,6 @@ class Database extends PDO {
         } catch (Exception $e) {
             return false;
         }
-        echo $this->query;
         $this->cleanQuery();
         return true;
     }
@@ -451,14 +451,15 @@ class Database extends PDO {
      * @param $where array containing column names and the values they must meet.
      */
     public function getRowSum($table, $column, $where) {
-        $this->query.="SELECT SUM($column) FROM $table ";
+        $this->query.="SELECT SUM(amount) FROM $table ";
         $this->parseWhere($where);
         $this->stmt = $this->prepare($this->query);
         $this->bind();
         $this->stmt->execute();
-        $rows = $this->stmt->fetch();
+        $rows = $this->stmt->fetchAll();
         $this->cleanQuery();
-        return $rows[0];
+        return $rows[0][0];
+        
     }
 
     public function cleanQuery() {

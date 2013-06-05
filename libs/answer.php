@@ -10,6 +10,15 @@ class Answer {
 		$this->question = new Question();
 	}
 	
+        /**
+         * 
+         * Returns integer representing number of answers posted by user.
+         * @param $where the where conditions for collecting count.
+         */
+        public function getAnswerCount($where) {
+            $count = $this->database->getCount('g0g1_answers', $where);
+            return $count;
+        }
 	/**
 	* Gather answer data based on supplied id. 
 	*/
@@ -37,13 +46,20 @@ class Answer {
 	*/
 	public function addAnswer($qid, $columns) {
 		if($this->database->insertRow('g0g1_answers', $columns)) {
-                    $this->database->update('g0g1_questions', array('unanswered'=>0), array('id'=>$qid));
 			return true;
 		} else {
 			return false;
 		}
 	}
 	
+        /**
+         * Returns accepted answer accociated with question, there can only be one.
+         */
+        public function getAcceptedAnswer($qid) {
+            $columns = array('id', 'question_id', 'user', 'full_text', 'time', 'votes', 'published', 'accepted');
+            $where = array('question_id'=>$qid, 'accepted'=>1);
+            return $this->database->getRow('g0g1_answers', $columns, $where);
+        }
 	/**
 	* Returns answers associated with specific question
 	* @param $id the question id to get answers from. 

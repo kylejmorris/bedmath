@@ -67,7 +67,7 @@ class Questions extends Controller {
         $this->view->render('questions/highest');
     }
     
-    public function unanswered($punansweredage, $topic) {
+    public function unanswered($page, $topic) {
         $limit = 4;
         if (empty($page)) {
             $page = 1;
