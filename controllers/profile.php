@@ -9,6 +9,7 @@ class Profile extends Controller {
         $this->writing = new Writing();
         $this->pagination = new Pagination();
         $this->question = new Question();
+        $this->user = new User();
     }
 
     //Nothing here really...
@@ -27,6 +28,7 @@ class Profile extends Controller {
     public function user($userId, $tab, $histTopic, $histOrder, $histPage) {
         $this->userId = $userId;
         if (!empty($this->userId)) { //Check if id was supplied in url
+            $this->user->exists($this->userId);
             if ($tab != null) {
                 switch ($tab) {
                     case "questions": $this->questions($histTopic, $histOrder, $histPage);
@@ -39,10 +41,15 @@ class Profile extends Controller {
                 }
             } else {
                 $userDetail = $this->model->getUserSummary($this->userId); //Run model getting user details
+                $this->view->userId = $this->userId;
                 $this->view->userDetail = $userDetail; //Send to template
                 $this->view->avatarWidth = 100; //Width of profile image
                 $this->view->avatarHeight = 150; //height of Profile image
-                $this->view->render('profile/user');
+                if ($GLOBALS['error']->getErrorCount('user') == 0) {
+                    $this->view->render('profile/user');
+                } else {
+                    $this->view->render('error/index');
+                }
             }
         } else {
             header("Location:" . ROOT . 'members');
@@ -62,20 +69,19 @@ class Profile extends Controller {
         $this->view->topic = $topic;
         $this->view->questionSummary = $this->model->getQuestionSummary($this->userId);
         $this->view->questionHistory = $this->model->getQuestionHistory($this->userId, $topic, $page);
-        if (sizeof($this->view->questionHistory) == 0) {
-            $GLOBALS['error']->addError('question', 'No questions to display');
+        if ($GLOBALS['error']->getErrorCount('user') == 0) {
+            $this->view->render('profile/user_questions');
+        } else {
+            $this->view->render('error/index');
         }
-        $this->view->render('profile/user_questions');
-    }
-
-    private function reputation() {
-        
     }
 
     private function answers() {
         
     }
-
+    
+    private function reputation() {
+        
+    }
 }
-
 ?>

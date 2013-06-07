@@ -1,3 +1,9 @@
+Navigate:
+<a href="<?php echo ROOT.'profile/user/'.$this->userId.'/';?>"><b>General</b></a>||
+<a href="<?php echo ROOT.'profile/user/'.$this->userId.'/questions';?>">Questions</a>||
+<a href="<?php echo ROOT.'profile/user/'.$this->userId.'/answers';?>">Answers</a>||
+<a href="<?php echo ROOT.'profile/user/'.$this->userId.'/reputation';?>">Reputation</a>
+<hr>
 <?php
 echo '<h3>'.$this->userDetail['username'].'\'s Profile'.'</h3>'.'<br>';
 $joinDate = $this->userDetail['join_date']; //Need to convert date to be readable. 
@@ -17,8 +23,3 @@ foreach($this->userDetail['top_topics'] as $topic) {
     echo $topic[1].' reputation'.'<br>';
 }
 ?>
-<a href="<?php echo ROOT.'profile/user/'.$this->userDetail['user_id'].'/questions';?>">Questions</a>||
-<a href="<?php echo ROOT.'profile/user/'.$this->userDetail['user_id'].'/answers';?>">Answers</a>||
-<a href="<?php echo ROOT.'profile/user/'.$this->userDetail['user_id'].'/reputation';?>">Reputation</a>
-
-
