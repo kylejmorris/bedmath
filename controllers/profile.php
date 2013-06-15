@@ -77,7 +77,10 @@ class Profile extends Controller {
     }
 
     private function answers() {
-        
+        $this->view->userId = $this->userId;
+        $this->view->answerSummary = $this->model->getAnswerSummary($this->userId);
+        $this->view->answerHistory = $this->model->getAnswerHistory($this->userId);
+        $this->view->render('profile/user_answers');
     }
     
     private function reputation() {

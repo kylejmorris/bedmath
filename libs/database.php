@@ -44,6 +44,23 @@ class Database extends PDO {
     }
 
     /**
+     * Run through table names feeding them into query.
+     */
+    public function parseTables($tables) {
+        if (is_array($tables)) {
+            for ($c = 0; $c < sizeof($tables); $c++) {
+                if ($c + 1 >= sizeof($tables)) {
+                    $this->query.=$tables[$c] . ' ';
+                } else {
+                    $this->query.=$tables[$c] . ', ';
+                }
+            }
+        } else {
+            $this->query.=$tables . ' ';
+        }
+    }
+
+    /**
      * Runs through array containing column values and appends them to query.
      * @param $columns array containing column names
      */
@@ -98,9 +115,11 @@ class Database extends PDO {
      * @param $where an associative array containing column names and the condition they must meet
      * @note If an element in the $where array is to contain addition conditions, then further checks are done.
      * Example: array('table_column'=>
-     * 								array('value', '>'));
+     * 								array('value', '>', 'EXCEPTION));
      * In the above example, the where clause would search for table_columns with a value (GREATER THAN) specified.
      * Any valid operators may be used in this approach, by default the == will be used.
+     * If exception is set, for example: 'table' bind parameters will not be used, but rather assign table name dynamically.
+     * This is in the rare case that literal representation is needed, where binding param doesn't work.
      * @note If for any reason you want a condition to accept everything, simply set the value to null. 
      * Example: array('table_column'=>'null'). This would allow any table_column value to be accepted.
      */
@@ -135,7 +154,7 @@ class Database extends PDO {
           $this->query.="1 ";
           } */
         if (!empty($where)) {
-            if ($this->whereHasAnotherNonNull($where, -1)) {
+            if ($this->whereHasAnotherNonNull($where, -1)) { //Checking form first element in array, if anything is not null
                 $this->query.="WHERE ";
             }
             $whereKey = array_keys($where);
@@ -143,17 +162,32 @@ class Database extends PDO {
                 if (is_array($where[$whereKey[$c]])) { //If the where element is yet another array, assume further conditions are being checked inside. 
                     //the line below would run something such as array('data', 'condition') which results in checking if data meets condition.
                     if ($c + 1 < sizeof($where) && $where[$whereKey[$c]][0] != null) {
-                        if ($this->whereHasAnotherNull($where, $c)) {
-                            array_push($this->binding, array(':' . $whereKey[$c], $where[$whereKey[$c]][0]));
-                            $this->query.=$whereKey[$c] . " " . $where[$whereKey[$c]][1] . ':' . $whereKey[$c] . " AND "; //index 1 = operator, index 0 = value. 
+                        if ($this->whereHasAnotherNonNull($where, $c)) {
+                            if ($where[$whereKey[$c]][2] != 'table') {
+                                array_push($this->binding, array(':' . $whereKey[$c], $where[$whereKey[$c]][0]));
+                                $this->query.=$whereKey[$c] . " " . $where[$whereKey[$c]][1] . ':' . $whereKey[$c] . " AND "; //index 1 = operator, index 0 = value. 
+                            } else {
+                                $this->query.=$whereKey[$c] . " " . $where[$whereKey[$c]][1] . $where[$whereKey[$c]][0] . " AND "; //index 1 = operator, index 0 = value. 
+                            }
+                            
                         } else {
-                            array_push($this->binding, array(':' . $whereKey[$c], $where[$whereKey[$c]][0]));
-                            $this->query.=$whereKey[$c] . " " . $where[$whereKey[$c]][1] . ':' . $whereKey[$c] . " "; //index 1 = operator, index 0 = value. 
+                            if ($where[$whereKey[$c]][2] != 'table') {
+                                array_push($this->binding, array(':' . $whereKey[$c], $where[$whereKey[$c]][0]));
+                                $this->query.=$whereKey[$c] . " " . $where[$whereKey[$c]][1] . ':' . $whereKey[$c] . " "; //index 1 = operator, index 0 = value. 
+                            } else {
+                                $this->query.=$whereKey[$c] . " " . $where[$whereKey[$c]][1] . $where[$whereKey[$c]][0] . " "; //index 1 = operator, index 0 = value. 
+                            }
+                            
                         }
+                        
                     } else {
                         if ($where[$whereKey[$c]][0] != null) {
-                            array_push($this->binding, array(':' . $whereKey[$c], $where[$whereKey[$c]][0]));
-                            $this->query.=$whereKey[$c] . " " . $where[$whereKey[$c]][1] . ':' . $whereKey[$c] . " "; //index 1 = operator, index 0 = value. 
+                            if ($where[$whereKey[$c]][2] != 'table') {
+                                array_push($this->binding, array(':' . $whereKey[$c], $where[$whereKey[$c]][0]));
+                                $this->query.=$whereKey[$c] . " " . $where[$whereKey[$c]][1] . ':' . $whereKey[$c] . " "; //index 1 = operator, index 0 = value. 
+                            } else {
+                                $this->query.=$whereKey[$c] . " " . $where[$whereKey[$c]][1] . $whereKey[$c] . " "; //index 1 = operator, index 0 = value. 
+                            }
                         }
                     }
                 } else {
@@ -376,7 +410,8 @@ class Database extends PDO {
      * @param $where hashmap of column names and the conditions they must meet. 
      */
     public function getCount($table, $where) {
-        $this->query = "SELECT COUNT(*) FROM $table ";
+        $this->query = "SELECT COUNT(*) FROM ";
+        $this->parseTables($table);
         $this->parseWhere($where);
         $this->stmt = $this->prepare($this->query);
         $this->bind();
@@ -459,7 +494,6 @@ class Database extends PDO {
         $rows = $this->stmt->fetchAll();
         $this->cleanQuery();
         return $rows[0][0];
-        
     }
 
     public function cleanQuery() {
