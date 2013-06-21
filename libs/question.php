@@ -77,7 +77,7 @@ class Question {
     public function isSolved($id) {
         $answer = new Answer();
         $result = $answer->getAcceptedAnswer($id);
-        if ($result!=null) {
+        if ($result != null) {
             return true;
         } else {
             return false;
@@ -115,6 +115,56 @@ class Question {
     public function addQuestion($details) {
         $columns = array('topic' => $details['topic'], 'title' => $details['title'], 'full' => $details['full'], 'bid' => $details['bid'], 'asked_by' => $details['asked_by'], 'asked_time' => $details['asked_time'], 'published' => 1);
         $this->database->insertRow('g0g1_questions', $columns);
+    }
+
+    /**
+     * Similar to getQuestionCount() however the PHP PDO object does not allow table names in the query, so we're unable to say:
+     * Select COUNT(*) from g0g1_questions WHERE *g0g1_answers.question_id*.
+     * Can't do that sadly. So instead this method will run a default query without using the database object.
+     * @param $userId the id of user who has unanswered questions
+     * @param $topic the topic of questions
+     * @param $page the page being viewed
+     * @param $limit the max amount of questions to display per page
+     */
+    public function getUnanswered($userId, $topic, $page, $limit) {
+        $start = ($page * $limit) - $limit;
+        $query = "SELECT t1.id, t1.topic, t1.title, t1.full, t1.bid, t1.asked_by, t1.answer, t1.asked_time, t1.published
+                    FROM g0g1_questions AS t1
+                    LEFT JOIN g0g1_answers AS t2 ON t1.id = t2.question_id
+                    WHERE t2.question_id IS NULL ";
+        if ($userId != null && is_numeric($userId)) {//Only include if userid is specified
+            $query.="AND t1.asked_by=" . $userId;
+        }
+        if ($topic != null && is_numeric($topic)) { //Only include where clause if topic is specified.
+            $query.=" AND t1.topic=" . $topic;
+        }
+        $query.=" LIMIT {$start}, {$limit}";
+        $stmt = $this->database->query($query);
+        $result = $stmt->fetchAll();
+        return $result;
+    }
+
+    /**
+     * Returns number of unanswered questions.
+     * @param $userId the id of user who belongs to the question
+     * @param $topic the topic of question
+     */
+    public function getUnansweredCount($userId, $topic, $page, $limit) {
+        $start = ($page * $limit) - $limit;
+        $query = "SELECT count(t1.id)
+                    FROM g0g1_questions AS t1
+                    LEFT JOIN g0g1_answers AS t2 ON t1.id = t2.question_id
+                    WHERE t2.question_id IS NULL ";
+        if ($userId != null && is_numeric($userId)) {
+            $query.=" AND t1.asked_by=" . $userId;
+        }
+        if ($topic != null && is_numeric($topic)) { //Only include where clause if topic is specified.
+            $query.=" AND t1.topic=" . $topic;
+        }
+        $query.=" LIMIT {$start}, {$limit}";
+        $stmt = $this->database->query($query);
+        $count = $stmt->fetch();
+        return $count[0];
     }
 
 }

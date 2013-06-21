@@ -54,8 +54,16 @@ class Answer {
         return $answers;
     }
     
-    public function getAnswers($userId) {
-        $answers = $this->database->getRows('g0g1_answers', array('id', 'question_id', 'user', 'full_text', 'time', 'votes', 'published', 'accepted'), array('user'=>$userId), 'id');
+    /**
+     * Returns answers based on given data.
+     * @param $where the where clause
+     * @param $order the column order to return data by
+     * @param $page the current page being viewed
+     * @param $limit the maximum amount of data to load per page.
+     */
+    public function getAnswers($where, $order, $page, $limit) {
+        $columns = array('id', 'question_id', 'user', 'full_text', 'time', 'votes', 'published', 'accepted');
+        $answers = $this->database->getByPage('g0g1_answers', $columns, $where, $order, $page, $limit);
         return $answers;
     }
 
@@ -131,7 +139,7 @@ class Answer {
     public function getMostAnsweredTopic($userId) {
         $topic = new Category();
         $topics = $topic->getCategories();
-        $mostAnswered = -1; //Topic id where most answers are present.
+        $mostAnswered = null; //Topic id where most answers are present.
         $highest = 0; //Amount in topic
         foreach ($topics as $top) {
             $query = "SELECT COUNT(*) FROM g0g1_answers, g0g1_questions WHERE g0g1_answers.user='$userId' AND g0g1_questions.id=g0g1_answers.question_id AND g0g1_questions.topic='{$top['cat_id']}'";
@@ -140,6 +148,9 @@ class Answer {
             if($count[0]>$highest) {
                 $mostAnswered = $top['name'];
             }
+        }
+        if($mostAnswered==null) {
+            $mostAnswered = "None";
         }
         return $mostAnswered;
     }

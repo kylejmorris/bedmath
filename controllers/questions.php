@@ -77,8 +77,8 @@ class Questions extends Controller {
         }
         //Giving topic the optional value of 0 to represent 'all topics', since passing a null value through url is messy
         $where = array('topic' => $topic, 'unanswered'=>1);
-        $qCount = $this->question->getQuestionCount($where); // Returns number of questions in which can be displayed on page.
-        $questions = $this->model->unanswered($page, $where, $limit);
+        $qCount = $this->question->getUnansweredCount(null, $topic, 1, $limit); // Returns number of questions in which can be displayed on page.
+        $questions = $this->model->unanswered($page, $topic, $limit);
         $this->view->pagination = $this->pagination->getPageList($page, $limit, $qCount);
         $this->view->topic = $topic; //Current topic id
         $this->view->page = $page; //Current page, used for sorting.

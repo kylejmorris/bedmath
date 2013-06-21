@@ -2,6 +2,9 @@
 
 /**
  * Inherits most functionality from PHP::PDO class. Deals with connecting to MySql database.
+ * IMPORTANT: This class is used for basic query functionality, and should not be relied on for daunting tasks.
+ * If you are needing to use more advanced queries, it is suggested to create them manually, rather than looping through the methods here.
+ * Looping through calling the same method over and over can be easier, but it is much more strain on the database and hinders loading speed.
  */
 class Database extends PDO {
 

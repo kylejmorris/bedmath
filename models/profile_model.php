@@ -86,7 +86,7 @@ class Profile_Model extends Model {
         $summary['total_accepted'] = $this->answer->getAnswerCount(array('user' => $userId, 'accepted' => '1'));
         $summary['total_pending'] = $summary['total_posted'] - $summary['total_accepted'];
         $summary['common_topic'] = $this->answer->getMostAnsweredTopic($userId);
-        $answers = $this->answer->getAnswers($userId);
+        $answers = $this->answer->getAnswers(array('user'=>$userId), 'time', 1, 100000); //Arbitrary limit value, to get all answers
         $answerCount = array(); //Index is userid, value is total answers from tutor
         $student = null; //Id of student with most help from this tutor. will be generated using the loop below
         $highest = 0; //value recording answers for most helped user. Just used as reference during loop
@@ -97,13 +97,30 @@ class Profile_Model extends Model {
                 $student = $question['asked_by'];
             }
         }
-        $summary['supported_student'] = $student;
+        $summary['supported_student'] = $this->user->getNameFromId($student);
         return $summary;
     }
     
-    public function getAnswerHistory($userId) {
-        $answers = $this->answer->getAnswers($userId);
+    public function getAnswerHistory($userId, $page, $limit) {
+        $answers = $this->answer->getAnswers(array('user'=>$userId), 'time', $page, $limit);
+        for($c=0; $c<sizeof($answers); $c++) {
+            array_push($answers[$c], 'question_name');
+            $question = $this->question->getDetailById($answers[$c]['question_id']);
+            $answers[$c]['question_name'] = $question['title'];
+        }
         return $answers;
+    }
+    
+    public function getReputationSummary($userId, $page) {
+        $summary = array('total_reputation', 'topics');
+        $summary['total_reputation'] = $this->reputation->getUserRep($userId, null);
+        $summary['topics'] = $this->reputation->getTopicsByRep($userId, 10);
+        return $summary;
+    }
+    
+    public function getReputationHistory($userId, $page, $limit) {
+        $history = $this->reputation->getRepLog($userId, null, $page, $limit);
+        return $history;
     }
 
 }

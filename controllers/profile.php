@@ -3,6 +3,9 @@
 class Profile extends Controller {
 
     public $userId;
+    public $answerHistLimit = 10; //Max amount of answers to show per page for answer history.
+    public $questionHistLimit = 10; //Max amount of answers to show per page for question history.
+    public $repHistLimit = 10;
 
     public function __construct() {
         parent::__construct();
@@ -10,6 +13,8 @@ class Profile extends Controller {
         $this->pagination = new Pagination();
         $this->question = new Question();
         $this->user = new User();
+        $this->answer = new Answer();
+        $this->reputation = new Reputation();
     }
 
     //Nothing here really...
@@ -25,19 +30,19 @@ class Profile extends Controller {
      * @param $histOrder the order to view history results on log/history pages. 
      * @param $histPage for sorting of history pages, such as questions, reputation. Defines how many results load on each page.
      */
-    public function user($userId, $tab, $histTopic, $histOrder, $histPage) {
+    public function user($userId, $tab, $histPage, $histTopic) {
         $this->userId = $userId;
         if (!empty($this->userId)) { //Check if id was supplied in url
             $this->user->exists($this->userId);
             if ($tab != null) {
                 switch ($tab) {
-                    case "questions": $this->questions($histTopic, $histOrder, $histPage);
+                    case "questions": $this->questions($histPage, $histTopic);
                         break;
-                    case "answers": $this->answers();
+                    case "answers": $this->answers($histPage, $histTopic);
                         break;
-                    case "reputation": $this->reputation();
+                    case "reputation": $this->reputation($histPage);
                         break;
-                    default: $this->user($this->userId);
+                    default: $this->user($this->userId); //re-run method just loading general user summary information
                 }
             } else {
                 $userDetail = $this->model->getUserSummary($this->userId); //Run model getting user details
@@ -64,27 +69,62 @@ class Profile extends Controller {
             $topic = null;
         }
         $count = $this->question->getQuestionCount(array('asked_by' => $this->userId));
-        $this->view->pagination = $this->pagination->getPageList($page, 10, $count);
         $this->view->userId = $this->userId;
+        $this->view->pagination = $this->pagination->getPageList($page, 10, $count);
         $this->view->topic = $topic;
         $this->view->questionSummary = $this->model->getQuestionSummary($this->userId);
         $this->view->questionHistory = $this->model->getQuestionHistory($this->userId, $topic, $page);
         if ($GLOBALS['error']->getErrorCount('user') == 0) {
-            $this->view->render('profile/user_questions');
+            if ($count > 0) {
+                $this->view->render('profile/user_questions');
+            } else {
+                $this->view->render('profile/user_questions_empty');
+            }
         } else {
             $this->view->render('error/index');
         }
     }
 
-    private function answers() {
+    private function answers($page) {
+        if ($page == null) {
+            $page = 1;
+        }
         $this->view->userId = $this->userId;
+        $count = $this->answer->getAnswerCount(array('user' => $this->userId));
+        $this->view->pagination = $this->pagination->getPageList($page, $this->answerHistLimit, $count);
         $this->view->answerSummary = $this->model->getAnswerSummary($this->userId);
-        $this->view->answerHistory = $this->model->getAnswerHistory($this->userId);
-        $this->view->render('profile/user_answers');
+        $this->view->answerHistory = $this->model->getAnswerHistory($this->userId, $page, $this->answerHistLimit);
+        if ($GLOBALS['error']->getErrorCount('user') == 0) {
+            if ($count > 0) {
+                $this->view->render('profile/user_answers');
+            } else {
+                $this->view->render('profile/user_answers_empty');
+            }
+        } else {
+            $this->view->render('error/index');
+        }
     }
-    
-    private function reputation() {
-        
+
+    private function reputation($page) {
+        if ($page == null) {
+            $page = 1;
+        }
+        $this->view->reputationHistory = $this->model->getReputationHistory($this->userId, $page, $this->repHistLimit);
+        $count = $this->reputation->getLogCount($this->userId);
+        $this->view->pagination = $this->pagination->getPageList($page, $this->repHistLimit, $count);
+        $this->view->userId = $this->userId;
+        $this->view->reputationSummary = $this->model->getReputationSummary($this->userId, $page);
+        if ($GLOBALS['error']->getErrorCount('user') == 0) {
+            if ($count > 0) {
+                $this->view->render('profile/user_reputation');
+            } else {
+                $this->view->render('profile/user_reputation_empty');
+            }
+        } else {
+            $this->view->render('error/index');
+        }
     }
+
 }
+
 ?>

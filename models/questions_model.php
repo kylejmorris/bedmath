@@ -48,8 +48,8 @@ class Questions_Model extends Model {
         return $questions;
     }
     
-    public function unanswered($page, $where, $limit) {
-        $questions = $this->question->getQuestions($where, array('id', 'DESC'), $page, $limit);
+    public function unanswered($page, $topic, $limit) {
+        $questions = $this->question->getUnanswered(null, $topic, $page, $limit);
         for ($c = 0; $c < sizeof($questions); $c++) {
             array_push($questions[$c], 'answer_count');
             array_push($questions[$c], 'avatar');

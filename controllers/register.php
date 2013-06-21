@@ -18,7 +18,7 @@ class Register extends Controller {
      * Main page to display registration form. This is if nor referral link was given to find this page. 
      */
     public function index() {
-        $this->view->render('register/index');
+        $this->view->render('register/index', array('main_nav'));
     }
 
     /**
@@ -28,7 +28,7 @@ class Register extends Controller {
      */
     function r($ref) {
         $this->view->ref = $ref; //Send user ref code from url as referral name. Auto places it if link contains the name
-        $this->view->render('register/index');
+        $this->view->render('register/index', array('main_nav'));
     }
 
     /**
@@ -65,7 +65,7 @@ class Register extends Controller {
                 $GLOBALS['error']->addError('user', 'The user ' . $formData['username'] . ' already exists');
             }
         }
-        $this->view->render('register/index');
+        $this->view->render('register/index', array('main_nav'));
     }
 
 }

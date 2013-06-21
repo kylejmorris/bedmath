@@ -12,6 +12,30 @@ class Reputation {
     }
 
     /**
+     * Returns logged reputation history
+     * @param $userId the id of user to get reputation from
+     * @param $topic the topic to select log from, null if any topic is alright.
+     * @param $page the current page being viewed on userend
+     * @param $limit max amount of records to load per page.
+     */
+    public function getRepLog($userId, $topic, $page, $limit) {
+        $columns = array('id', 'rule', 'topic', 'subject', 'object', 'time', 'amount', 'status');
+        $log = $this->database->getByPage('g0g1_rep_log', $columns, array('subject'=>$userId, 'topic'=>$topic), 'time', $page, $limit);
+        return $log;
+        
+    }
+    
+    /**
+     * Returns count, of how many log entries fit the according description.
+     * @param $userId the id of user/subject in log entry
+     * @param $topic the topic reputation was earned within.
+     */
+    public function getLogCount($userId, $topic) {
+        $count = $this->database->getCount('g0g1_rep_log', array('subject'=>$userId, 'topic'=>$topic));
+        return $count;
+        
+    }
+    /**
      * Get the amount of reputation a user has.
      * @param $id the id of user to get reputation from.
      * @param $topic the topic to get reputation amount from.
