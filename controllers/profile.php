@@ -5,7 +5,8 @@ class Profile extends Controller {
     public $userId;
     public $answerHistLimit = 10; //Max amount of answers to show per page for answer history.
     public $questionHistLimit = 10; //Max amount of answers to show per page for question history.
-    public $repHistLimit = 10;
+    public $repHistLimit = 10;//Max amount of records to show per page for reputation history.
+    public $inviteHistLimit = 10; //Max amount of users to show per page for invite history.
 
     public function __construct() {
         parent::__construct();
@@ -15,6 +16,7 @@ class Profile extends Controller {
         $this->user = new User();
         $this->answer = new Answer();
         $this->reputation = new Reputation();
+        $this->invite = new Invite();
     }
 
     //Nothing here really...
@@ -41,6 +43,8 @@ class Profile extends Controller {
                     case "answers": $this->answers($histPage, $histTopic);
                         break;
                     case "reputation": $this->reputation($histPage);
+                        break;
+                    case "invites": $this->invites($histPage);
                         break;
                     default: $this->user($this->userId); //re-run method just loading general user summary information
                 }
@@ -123,6 +127,27 @@ class Profile extends Controller {
         } else {
             $this->view->render('error/index');
         }
+    }
+    
+    private function invites($page) {
+        if ($page == null) {
+            $page = 1;
+        }
+        $this->view->userId = $this->userId;
+        $count = $this->invite->getInviteCount($userId);
+        $this->view->pagination = $this->pagination->getPageList($page, $this->inviteHistLimit, $count);
+        $this->view->inviteSummary = $this->model->getInviteSummary($this->userId);
+        $this->view->inviteHistory = $this->model->getInviteHistory($this->userId, null, $page, $this->inviteHistLimit);
+        if ($GLOBALS['error']->getErrorCount('user') == 0) {
+            if ($count > 0) {
+                $this->view->render('profile/user_invites');
+            } else {
+                $this->view->render('profile/user_invites_empty');
+            }
+        } else {
+            $this->view->render('error/index');
+        }
+        
     }
 
 }

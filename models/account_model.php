@@ -7,6 +7,7 @@ Class Account_Model extends Model {
 		$this->writing = new Writing();
 		$this->question = new Question();
 		$this->category = new Category();
+                $this->answer = new Answer();
 	}
 	
 	/**
@@ -55,76 +56,6 @@ Class Account_Model extends Model {
 		return $stats;
 	}
 	
-	/**
-	* Returns summary stats about all writing as a whole.
-	* @param $userId The id of user to obtain writing stats for. 
-	*/
-	public function getWritingStats($userId) {
-		$stats = array('total_views', 'total_unlocks', 'writing_count', 'pending_count', 'published_count');
-		$stats['total_views'] = $this->writing->getTotalViews($userId);
-		$stats['total_unlocks'] = $this->writing->getTotalUnlocks($userId); 
-		
-		$query = "SELECT COUNT(*) FROM g0g1_writing WHERE publisher_id = '$userId'"; 
-		$row = $this->database->query($query);
-		$result = $row->fetch(); 
-		$stats['writing_count'] = $result[0];
-		
-		$query = "SELECT COUNT(*) FROM g0g1_writing WHERE publisher_id = '$userId' AND activated = '0'"; 
-		$row = $this->database->query($query);
-		$result = $row->fetch();
-		$stats['pending_count'] = $result[0];
-		
-		$query = "SELECT COUNT(*) FROM g0g1_writing WHERE publisher_id = '$userId' AND published = '1'";
-		$row = $this->database->query($query);
-		$result = $row->fetch();
-		$stats['published_count'] = $result[0];
-		return $stats;
-		
-	}
-	
-	/**
-	* Gets details on each writing submission by user.
-	* @param $userId The id of user to obtain writing details on. 
-	*/
-	public function getWritingDetails($userId) {
-		$detail = $this->writing->getDetailBy('publisher_id', $userId); 
-		for($c=0; $c<sizeof($detail); $c++) {
-			switch($detail[$c]['activated']) { //Run through possible values of activation state
-				case 0: $detail[$c]['activated'] = 'pending'; break;
-				case 1: $detail[$c]['activated'] = 'activated'; break;
-				case 2: $detail[$c]['activated'] = 'deactivated'; break;
-				case 3: $detail[$c]['activated'] = 'rejected'; 
-			}
-			switch($detail[$c]['published']) { //Run through possible values of published stated
-				case 0: $detail[$c]['published'] = 'unpublished'; break;
-				case 1: $detail[$c]['published'] = 'published'; break;
-			}
-			$query = "SELECT name FROM g0g1_category WHERE cat_id = {$detail[$c]['category']}"; //Getting string value of category that writing is in.
-			$row = $this->database->query($query);
-			$category = $row->fetch(); 
-			$detail[$c]['category'] =  $category[0]; //Index 0 holds the actual value
-			$query = "SELECT name FROM g0g1_writing_type WHERE type_id = {$detail[$c]['type']}"; //Getting string value of category that writing is in.
-			$row = $this->database->query($query);
-			$type= $row->fetch(); 
-			$detail[$c]['type'] = $type[0];
-			if($detail[$c]['earn_type']=='pps') {
-				$detail[$c]['total_earned'] = $detail[$c]['reward_amount']; //Setting to amount given upon having content posted
-			} else {
-				$unlocks = $detail[$c]['unlock_count'];
-				$price = $detail[$c]['lock_price'];
-				$detail[$c]['total_earned'] =  $price * $unlocks; 
-			}
-		}
-		return $detail;
-	}
-	
-	public function runWritingEdit($id, $form) {
-		$query = "UPDATE g0g1_writing SET title ='{$form['title']}', description = '{$form['description']}', published=0, activated=0 WHERE content_id= $id"; 
-		echo $query;
-		$this->database->query($query); 
-	}
-	
-	
 	public function runProfile($userId, $formData) {
 		$email = $formData['email'];
 		$avatar = $formData['avatar'];
@@ -146,6 +77,25 @@ Class Account_Model extends Model {
 		}
 		return $questions;
 	}
+        
+        public function runEditQuestion($qid, $details) {
+            $this->question->update($qid, $details);
+        }
+        
+        public function answers($page, $userId, $limit) {
+            $where = array('user'=>$userId);
+            $answers = $this->answer->getAnswers($where, 'time', $page, $limit);
+            for($c=0; $c<sizeof($answers); $c++) {
+                array_push($answers[$c], 'question_title');
+                $question = $this->question->getDetailById($answers[$c]['question_id']);
+                $answers[$c]['question_title'] = $question['title'];
+            }
+            return $answers;
+        }
+        
+        public function runEditAnswer($id, $details) {
+             $this->answer->update($id, $details);
+        }
 	
 }
 ?>

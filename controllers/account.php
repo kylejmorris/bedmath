@@ -15,6 +15,8 @@ Class Account extends Controller {
         $this->image = new Image();
         $this->question = new Question();
         $this->pagination = new Pagination();
+        $this->category = new Category();
+        $this->answer = new Answer();
         if (!$this->user->isLoggedIn()) {
             header('location: ' . ROOT);
         }
@@ -46,36 +48,6 @@ Class Account extends Controller {
         $this->view->render("account/points");
     }
 
-    /**
-     * Displays writing management pages
-     * Shows stats on writing and enables navigation to further editing of current site content
-     * @param $action The action in which to make on content. such as 'edit'
-     * @param $id The content id in which to envoke action on
-     */
-    public function writing($action, $id) {
-        if ($action == 'edit') {
-            $writing = $this->writing->getDetailBy('content_id', $id);
-            $this->view->writing = $writing;
-            $this->view->render("account/writingedit");
-        } else {
-            $userId = $this->user->getUserId();
-            $writingStats = $this->model->getWritingStats($userId);
-            $details = $this->model->getWritingDetails($userId); //Getting summary of writing within array, returning details to display. 
-            $this->view->writingStats = $writingStats;
-            $this->view->detail = $details;
-            $this->view->render("account/writing");
-        }
-    }
-
-    public function runWritingEdit($id) {
-        $form = array(
-            "title" => '',
-            "description" => '',
-        );
-
-        $formData = $this->form->getFormContent($form);
-        $this->model->runWritingEdit($id, $formData);
-    }
 
     public function profile() {
         $userId = $this->user->getUserId();
@@ -135,7 +107,112 @@ Class Account extends Controller {
         $this->view->pagination = $this->pagination->getPageList($page, 10, $qCount);
         $this->view->render('account/questions');
     }
-
+    
+    /**
+     * Allow user to edit question they have posted.
+     * @param $id the question id being edited.
+     */
+    public function editQuestion($qid) {
+        if(!$this->question->exists($qid)) {
+            $GLOBALS['error']->addError('question', 'Question does not exist');
+        }
+        if(!$this->question->isOwner($qid, $this->user->getUserId())) {
+            $GLOBALS['error']->addError('question', 'You did not post this question');
+        }
+        if($GLOBALS['error']->getErrorCount('question')>0) {
+            $this->view->render('error/error');
+        } else {
+            $this->view->qid = $qid;
+            $this->view->topics = $this->category->getCategories();
+            $this->view->question = $this->question->getDetailById($qid);
+            $this->view->render('account/edit_question');
+        }
+    }
+    
+    public function runEditQuestion($qid) {
+        $formData = array(
+			'title' => array(
+						'required'=>true,
+						'min_length'=>3,
+						'max_length'=>64
+			),
+			'topic' => array(
+						'required'=>true
+			),
+			'full' => array(
+						'min_length'=>1,
+						'max_length'=>1024
+			),
+			'bid' => array(
+						'required'=>true,
+						'is_numeric'=>true,
+						'min_value'=>10
+			),
+                        'published' =>array(
+                                                'required'=>true
+                        )
+		);		
+		$form = new Form($formData);
+		if($form->isValid()) {
+			$formData = $form->getFormData();
+			$this->model->runEditQuestion($qid, $formData);
+                        $this->view->render('account/edit_question_success');
+		} else {
+			$this->view->render('error/error');
+		}
+    }
+    
+    public function answers($page) {
+        if($page==null) {
+            $page = 1;
+        }
+        $limit = 10;
+        $userId = $this->user->getUserId();
+        $this->view->answers = $this->model->answers($page, $userId, $limit);
+        $aCount = $this->answer->getAnswerCount(array('user'=>$userId)); //Getting number of answers user has posted.
+        $this->view->pagination = $this->pagination->getPageList($page, $limit, $aCount);
+        $this->view->render('account/answers');
+    }
+    
+    /**
+     * Allow user to edit answer they have posted
+     * @param $id the answer id being edited.
+     */
+    public function editAnswer($id) {
+        if(!$this->answer->exists($id)) {
+            $GLOBALS['error']->addError('answer', 'Answer does not exist');
+        }
+        if(!$this->answer->isOwner($id, $this->user->getUserId())) {
+            $GLOBALS['error']->addError('answer', 'You did not post this answer');
+        }
+        if($GLOBALS['error']->getErrorCount('answer')>0) {
+            $this->view->render('error/error');
+        } else {
+            $this->view->id = $id;
+            $this->view->answer = $this->answer->getAnswerById($id);
+            $this->view->render('account/edit_answer');
+        }
+    }
+    
+    public function runEditAnswer($id) {
+        $formData = array(
+			'full_text' => array(
+						'required'=>true,
+						'min_length'=>100,
+						'max_length'=>5012
+			),
+                        'published' =>array(
+                                                'required'=>true
+                        )
+		);		
+		$form = new Form($formData);
+		if($form->isValid()) {
+			$formData = $form->getFormData();
+			$this->model->runEditAnswer($id, $formData);
+                        $this->view->render('account/edit_answer_success');
+		} else {
+			$this->view->render('error/error');
+		}
+    }
 }
-
 ?>

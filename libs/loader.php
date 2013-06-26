@@ -22,6 +22,7 @@ require 'pagination.php';
 require 'question.php';
 require 'answer.php';
 require 'reputation.php';
+require 'invite.php';
 
 //Model Includes 
 require 'model.php';

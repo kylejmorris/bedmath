@@ -2,7 +2,8 @@ Navigate:
 <a href="<?php echo ROOT . 'profile/user/' . $this->userId . '/'; ?>">General</a>||
 <a href="<?php echo ROOT . 'profile/user/' . $this->userId . '/questions'; ?>">Questions</a>||
 <a href="<?php echo ROOT . 'profile/user/' . $this->userId . '/answers'; ?>">Answers</a>||
-<a href="<?php echo ROOT . 'profile/user/' . $this->userId . '/reputation'; ?>"><b>Reputation</b></a>
+<a href="<?php echo ROOT . 'profile/user/' . $this->userId . '/reputation'; ?>"><b>Reputation</b></a>||
+<a href="<?php echo ROOT . 'profile/user/' . $this->userId . '/invites'; ?>"><b>Invites</b></a>
 <h3>Reputation Summary</h3>
 <?php
 echo 'Total Reputation: '.$this->reputationSummary['total_reputation'].'<br>';

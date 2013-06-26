@@ -45,6 +45,20 @@ class Answer {
     }
 
     /**
+     * Check if user belongs to associated answer.
+     * @param $id the answer id
+     * @param $userId the id of user to check
+     */
+    public function isOwner($id, $userId) {
+        $answer = $this->getAnswerById($id);
+
+        if($answer['user']==$userId) {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
      * Gather answer data based on supplied id. 
      */
     public function getAnswerById($id) {
@@ -68,8 +82,8 @@ class Answer {
     }
 
     public function exists($id) {
-        $id = $this->database->getCount('g0g1_answers', array('id' => $id));
-        if ($id != 0) {
+        $count = $this->database->getCount('g0g1_answers', array('id' => $id));
+        if ($count != 0) {
             return true;
         } else {
             return false;
@@ -160,6 +174,29 @@ class Answer {
      */
     public function getMostSupported() {
         
+    }
+    
+    /**
+     * Update existing answer, along with creating backup version in database.
+     * @param $id the answer id being updated
+     * @param $details the answer details stored in array. Must contain required elements: 
+     * [topic][title][full][bid][asked_by][asked_time]
+     */
+    public function update($id, $details) {
+        $editTime = time(); 
+        $version = $this->getAnswerVersion($id); //The version of current answer being backed up
+        $cAnswer = $this->getAnswerById($id); //The current answer data, not edited.
+        $this->database->insertRow('g0g1_answers_log', array('id'=>$cAnswer['id'], 'question_id'=>$cAnswer['question_id'], 'user'=>$cAnswer['user'], 'full_text'=>$cAnswer['full_text'], 'time'=>$cAnswer['time'], 'published'=>$cAnswer['published'], 'version'=>$version, 'edit_time'=>$editTime));
+        $this->database->update('g0g1_answers', array('full_text'=>$details['full_text'], 'published'=>$details['published']), array('id'=>$qid));
+        
+    }
+    
+    /**
+     * Returns current version count of this answer, default is 1 if no version exist before editing.
+     */
+    public function getAnswerVersion($id) {
+        $version = $this->database->getCount('g0g1_answers_log', array('id'=>$id))+1;
+        return $version;
     }
 
 }

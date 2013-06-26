@@ -13,6 +13,19 @@ class Question {
     }
 
     /**
+     * Checks if question belongs to specified user
+     * @param $qid the questions id
+     * @param $userId the users id
+     */
+    public function isOwner($qid, $userId) {
+        $question = $this->getDetailById($qid);
+        if($userId==$question['asked_by']) {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
      * Returns database rows regarding question based on id supplied
      * @param $id the id of question to grab. 
      */
@@ -165,6 +178,29 @@ class Question {
         $stmt = $this->database->query($query);
         $count = $stmt->fetch();
         return $count[0];
+    }
+    
+    /**
+     * Update existing question, along with creating backup version in database.
+     * @param $qid the question id being updated
+     * @param $details the question details stored in array. Must contain required elements: 
+     * [topic][title][full][bid][asked_by][asked_time]
+     */
+    public function update($qid, $details) {
+        $editTime = time(); 
+        $version = $this->getQuestionVersion($qid); //The version of current question being backed up
+        $cQuestion = $this->getDetailById($qid); //The current question data, not edited.
+        $this->database->insertRow('g0g1_questions_log', array('question_id'=>$cQuestion['id'], 'topic'=>$cQuestion['topic'], 'title'=>$cQuestion['title'], 'full'=>$cQuestion['full'], 'bid'=>$cQuestion['bid'], 'asked_by'=>$cQuestion['asked_by'], 'answer'=>$cQuestion['answer'], 'asked_time'=>$cQuestion['asked_time'], 'published'=>$cQuestion['published'], 'version'=>$version, 'edit_time'=>$editTime));
+        $this->database->update('g0g1_questions', array('topic'=>$details['topic'], 'title'=>$details['title'], 'full'=>$details['full'], 'bid'=>$details['bid'], 'answer'=>$details['answer'], 'published'=>$details['published']), array('id'=>$qid));
+        
+    }
+    
+    /**
+     * Returns current version count of this question, default is 1 if no version exist before editing.
+     */
+    public function getQuestionVersion($qid) {
+        $version = $this->database->getCount('g0g1_questions_log', array('question_id'=>$qid))+1;
+        return $version;
     }
 
 }

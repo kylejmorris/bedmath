@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: bedmath
 -- ------------------------------------------------------
--- Server version	5.5.31-0ubuntu0.12.10.1
+-- Server version	5.5.31-0ubuntu0.13.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -32,7 +32,7 @@ CREATE TABLE `g0g1_answers` (
   `published` tinyint(1) NOT NULL,
   `accepted` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,8 +41,38 @@ CREATE TABLE `g0g1_answers` (
 
 LOCK TABLES `g0g1_answers` WRITE;
 /*!40000 ALTER TABLE `g0g1_answers` DISABLE KEYS */;
-INSERT INTO `g0g1_answers` VALUES (7,26,28,'The vector (1,âˆ’2) is also neither positive nor negative, yet there is value in having the operation âˆ’(1,âˆ’2)=(âˆ’1,2).\r\n\r\nNote: there is no natural meaning for \"positive\" for vectors, this is just an analogy.',1370637198,0,1,0),(8,26,32,'The imaginary number i was discovered/invented/revealed as a solution the equation\r\nx2+1=0(âˆ—)\r\nThat equation, and that equation alone, is the link between i and the reals. However, there is another solution to (âˆ—): âˆ’i=âˆ’1Ã—i also satisfies (âˆ—). Basically, this is because (âˆ’1)2=1.\r\n\r\nSince the link between i and the reals is the same equation that is satisfied by âˆ’i, one can easily wonder, \"which is which?\" When we choose a solution to (âˆ—), do we get i or âˆ’i? In a sense, it doesn\'t matter; both satisfy (âˆ—) and i2=âˆ’1 is the property we use to do math in C.\r\n\r\nOn the other hand, complex conjugation, swapping iâ†”âˆ’i, is an important isomorphism of C. For instance, any polynomial with real coefficients that has x+iy as a root, must also have xâˆ’iy as a root. There are many ways to show this, but one of the most basic is by swapping iâ†”âˆ’i. This isomorphism does not affect the real coefficients of the polynomial, but it swaps x+iyâ†”xâˆ’iy.\r\n\r\nIn the end, we call one root of (âˆ—), i, and the other, âˆ’i; it really doesn\'t matter which. They both satisfy (âˆ—) and that is what is important.\r\n',1370637276,0,1,0);
+INSERT INTO `g0g1_answers` VALUES (26,152,27,'this is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololo',1372215164,0,0,0),(27,153,27,'this is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololo',1372215169,0,0,0),(28,154,27,'this is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololothis is now edited lolololo',1372215175,0,0,0);
 /*!40000 ALTER TABLE `g0g1_answers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `g0g1_answers_log`
+--
+
+DROP TABLE IF EXISTS `g0g1_answers_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `g0g1_answers_log` (
+  `id` int(11) DEFAULT NULL,
+  `question_id` int(11) DEFAULT NULL,
+  `user` int(11) DEFAULT NULL,
+  `full_text` varchar(5012) DEFAULT NULL,
+  `time` int(13) DEFAULT NULL,
+  `published` tinyint(1) DEFAULT NULL,
+  `accepted` tinyint(1) DEFAULT NULL,
+  `version` int(11) DEFAULT NULL,
+  `edit_time` int(13) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `g0g1_answers_log`
+--
+
+LOCK TABLES `g0g1_answers_log` WRITE;
+/*!40000 ALTER TABLE `g0g1_answers_log` DISABLE KEYS */;
+INSERT INTO `g0g1_answers_log` VALUES (26,152,27,'NEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEW',1372215164,1,NULL,1,1372272260),(26,152,27,'aosidjfaosidjfaosidjfaosidjfaosidjfaosidjfaosidjfaosidjfaosidjfaosidjfaosidjfaosidjfaosidjfaosidjfaosidjfaosidjfaosidjfaosidjfaosidjfaosidjfaosidjfaosidjfaosidjfaosidjfaosidjfaosidjfaosidjfaosidjfaosidjfaosidjfaosidjfaosidjfaosidjfaosidjfv',1372215164,0,NULL,2,1372272275),(27,153,27,'ANOTHER EDITANOTHER EDITANOTHER EDITANOTHER EDITANOTHER EDITANOTHER EDITANOTHER EDITANOTHER EDITANOTHER EDITANOTHER EDITANOTHER EDITANOTHER EDITANOTHER EDITANOTHER EDITANOTHER EDITANOTHER EDITANOTHER EDITANOTHER EDITANOTHER EDITANOTHER EDITANOTHER EDITANOTHER EDITANOTHER EDITANOTHER EDITANOTHER EDIT',1372215169,1,NULL,1,1372272564);
+/*!40000 ALTER TABLE `g0g1_answers_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -60,7 +90,7 @@ CREATE TABLE `g0g1_bans` (
   `expires` int(11) NOT NULL,
   `comments` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -275,7 +305,7 @@ CREATE TABLE `g0g1_points_log` (
   `points` int(11) NOT NULL,
   `time` int(11) NOT NULL,
   PRIMARY KEY (`transaction_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -284,7 +314,7 @@ CREATE TABLE `g0g1_points_log` (
 
 LOCK TABLES `g0g1_points_log` WRITE;
 /*!40000 ALTER TABLE `g0g1_points_log` DISABLE KEYS */;
-INSERT INTO `g0g1_points_log` VALUES (72,12,NULL,0,-200,1370637125),(73,12,27,0,-205,1370637153),(74,10,27,0,25,1370637260),(75,9,32,0,10,1370637260),(76,12,27,0,-185,1370637428);
+INSERT INTO `g0g1_points_log` VALUES (72,12,NULL,0,-200,1370637125),(73,12,27,0,-205,1370637153),(74,10,27,0,25,1370637260),(75,9,32,0,10,1370637260),(76,12,27,0,-185,1370637428),(77,12,27,0,-51,1371235404),(78,10,27,0,25,1371239429),(79,9,33,0,10,1371239429),(80,10,27,0,25,1371411449),(81,9,34,0,10,1371411449),(82,11,32,27,205,1371413715),(83,11,33,27,185,1371420416),(84,11,33,27,51,1371420425),(85,12,27,0,-512,1371424069),(86,12,27,0,-166,1371424075),(87,12,27,0,-111,1371424081),(88,12,27,0,-125,1371424092),(89,11,28,27,125,1371424122),(90,11,28,27,111,1371424127),(91,11,28,27,166,1371424132),(92,11,28,27,512,1371424135),(93,11,28,27,828,1371843362),(94,12,27,0,-555,1372193654);
 /*!40000 ALTER TABLE `g0g1_points_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -306,7 +336,7 @@ CREATE TABLE `g0g1_questions` (
   `asked_time` int(11) NOT NULL,
   `published` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=164 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -315,8 +345,40 @@ CREATE TABLE `g0g1_questions` (
 
 LOCK TABLES `g0g1_questions` WRITE;
 /*!40000 ALTER TABLE `g0g1_questions` DISABLE KEYS */;
-INSERT INTO `g0g1_questions` VALUES (26,3,'What is âˆ’i exactly?','\r\n\r\nWe all know that i doesn\'t have any sign: it is neither positive nor negative. Then how can people use âˆ’i for anything?\r\n\r\nAlso, we define i a number such that i2=âˆ’1. But it can also be seen that (âˆ’i)2=âˆ’1. Then in what way is âˆ’i different from i? If it isn\'t, then why do we even have something like a âˆ’i?\r\n',205,27,0,1370637153,1),(27,3,'Is it possible to make integers a field?','\r\n\r\nIs it possible to define addition and/or multiplication on the set of\r\n\r\na) natural numbers (including 0: 0,1,2,3,...)\r\n\r\nb) integers (...,âˆ’2,âˆ’1,0,1,2,...)\r\n\r\nin such way that they will become fields?\r\n\r\nThanks in advance.\r\n',185,27,0,1370637428,1);
+INSERT INTO `g0g1_questions` VALUES (144,3,'DEFAULT TITLE','',840,31,0,1372196938,1),(145,3,'DEFAULT TITLE','',268,29,0,1372196938,1),(146,3,'DEFAULT TITLE','',674,28,0,1372196938,1),(147,3,'DEFAULT TITLE','',411,34,0,1372196938,1),(148,3,'DEFAULT TITLE','',110,30,0,1372196938,1),(149,3,'DEFAULT TITLE','',98,27,0,1372196938,1),(150,3,'DEFAULT TITLE','',1220,33,0,1372196938,1),(151,3,'DEFAULT TITLE','',938,28,0,1372196938,1),(152,3,'DEFAULT TITLE','',671,28,0,1372196939,1),(153,3,'DEFAULT TITLE','',263,31,0,1372196939,1),(154,3,'DEFAULT TITLE','',1191,29,0,1372196939,1),(155,3,'DEFAULT TITLE','',89,31,0,1372196939,1),(156,3,'DEFAULT TITLE','',1110,28,0,1372196939,1),(157,4,'DEFAULT TITLE','fasdfasdf',287,27,0,1372196939,1),(158,2,'DEFAULT TITLE','THIS IS EDITED',1207,27,0,1372196939,1),(159,3,'DEFAULT TITLE','',332,31,0,1372196939,1),(160,3,'DEFAULT TITLE','',596,34,0,1372196939,1),(161,3,'DEFAULT TITLE','',347,28,0,1372196939,1),(162,3,'DEFAULT TITLE','',870,31,0,1372196939,1),(163,3,'DEFAULT TITLE','',556,29,0,1372196939,1);
 /*!40000 ALTER TABLE `g0g1_questions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `g0g1_questions_log`
+--
+
+DROP TABLE IF EXISTS `g0g1_questions_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `g0g1_questions_log` (
+  `question_id` int(11) NOT NULL DEFAULT '0',
+  `topic` int(3) DEFAULT NULL,
+  `title` varchar(64) DEFAULT NULL,
+  `full` varchar(1024) DEFAULT NULL,
+  `bid` int(11) DEFAULT NULL,
+  `asked_by` int(11) DEFAULT NULL,
+  `answer` int(11) DEFAULT NULL,
+  `asked_time` int(11) DEFAULT NULL,
+  `published` tinyint(1) DEFAULT NULL,
+  `version` int(11) DEFAULT NULL,
+  `edit_time` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `g0g1_questions_log`
+--
+
+LOCK TABLES `g0g1_questions_log` WRITE;
+/*!40000 ALTER TABLE `g0g1_questions_log` DISABLE KEYS */;
+INSERT INTO `g0g1_questions_log` VALUES (157,4,'another update','UPDATE 2',287,27,0,1372196939,0,1,1372197980),(157,4,'another update','PUBLISHED NOW',287,27,0,1372196939,1,2,1372198005),(158,3,'New title','new text111',1208,27,0,1372196939,1,1,1372213360),(158,3,'DEFAULT TITLE','new text111',1208,27,0,1372196939,0,2,1372270881);
+/*!40000 ALTER TABLE `g0g1_questions_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -364,7 +426,7 @@ CREATE TABLE `g0g1_rep_log` (
   `amount` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -373,6 +435,7 @@ CREATE TABLE `g0g1_rep_log` (
 
 LOCK TABLES `g0g1_rep_log` WRITE;
 /*!40000 ALTER TABLE `g0g1_rep_log` DISABLE KEYS */;
+INSERT INTO `g0g1_rep_log` VALUES (1,1,3,'32','27',1371413716,1,1),(2,1,3,'33','27',1371420416,1,1),(3,1,2,'33','27',1371420425,1,1),(4,1,1,'28','27',1371424122,1,1),(5,1,5,'28','27',1371424127,1,1),(6,1,4,'28','27',1371424132,1,1),(7,1,2,'28','27',1371424136,1,1),(8,1,3,'28','27',1371843362,1,1);
 /*!40000 ALTER TABLE `g0g1_rep_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -446,7 +509,7 @@ CREATE TABLE `g0g1_report_log` (
   `comments` varchar(512) NOT NULL,
   `time` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -501,7 +564,7 @@ CREATE TABLE `g0g1_sessions` (
   `user_id` int(11) DEFAULT NULL,
   `expires` int(14) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=188 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=247 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -510,7 +573,7 @@ CREATE TABLE `g0g1_sessions` (
 
 LOCK TABLES `g0g1_sessions` WRITE;
 /*!40000 ALTER TABLE `g0g1_sessions` DISABLE KEYS */;
-INSERT INTO `g0g1_sessions` VALUES (180,'rfsof5nd23hh51f36k95iq3se5','loggedin','127.0.0.1','Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:16.0) Gecko/20100101 Firefox/16.0',1,27,1370636341),(181,'r1q7ggr67guj325me9utsr7mu0','loggedin','127.0.0.1','Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:16.0) Gecko/20100101 Firefox/16.0',0,27,1370636508),(182,'ul75dnq2vk1sgibt9vu054lc56','loggedin','127.0.0.1','Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:16.0) Gecko/20100101 Firefox/16.0',0,27,1370637106),(183,'6k49h2tbe9k3sdmqggjtqj8727','loggedin','127.0.0.1','Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:16.0) Gecko/20100101 Firefox/16.0',0,27,1370637293),(184,'nsksivih6l3uqt4v2jmaptc9l7','loggedin','127.0.0.1','Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:16.0) Gecko/20100101 Firefox/16.0',0,28,1370637322),(185,'sb3esf3gli9m9gn5n90r7knjs2','loggedin','127.0.0.1','Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:16.0) Gecko/20100101 Firefox/16.0',0,27,1370637345),(186,'b97sp2imm3ftbi6g1vicifni46','loggedin','127.0.0.1','Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:16.0) Gecko/20100101 Firefox/16.0',0,32,1370637415),(187,'idnjne41ueub523gf4srbsfsa0','loggedin','127.0.0.1','Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:16.0) Gecko/20100101 Firefox/16.0',0,27,1370637551);
+INSERT INTO `g0g1_sessions` VALUES (180,'rfsof5nd23hh51f36k95iq3se5','loggedin','127.0.0.1','Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:16.0) Gecko/20100101 Firefox/16.0',1,27,1370636341),(181,'r1q7ggr67guj325me9utsr7mu0','loggedin','127.0.0.1','Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:16.0) Gecko/20100101 Firefox/16.0',0,27,1370636508),(182,'ul75dnq2vk1sgibt9vu054lc56','loggedin','127.0.0.1','Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:16.0) Gecko/20100101 Firefox/16.0',0,27,1370637106),(183,'6k49h2tbe9k3sdmqggjtqj8727','loggedin','127.0.0.1','Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:16.0) Gecko/20100101 Firefox/16.0',0,27,1370637293),(184,'nsksivih6l3uqt4v2jmaptc9l7','loggedin','127.0.0.1','Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:16.0) Gecko/20100101 Firefox/16.0',0,28,1370637322),(185,'sb3esf3gli9m9gn5n90r7knjs2','loggedin','127.0.0.1','Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:16.0) Gecko/20100101 Firefox/16.0',0,27,1370637345),(186,'b97sp2imm3ftbi6g1vicifni46','loggedin','127.0.0.1','Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:16.0) Gecko/20100101 Firefox/16.0',0,32,1370637415),(187,'idnjne41ueub523gf4srbsfsa0','loggedin','127.0.0.1','Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:16.0) Gecko/20100101 Firefox/16.0',0,27,1370637551),(188,'6c7vvegsbg0jtmpbu6d2oahqi3','loggedin','127.0.0.1','Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:20.0) Gecko/20100101 Firefox/20.0',0,27,1371074667),(189,'bntjqudbo052k0k6tqu1lj4mh0','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1371143431),(190,'8k79pfcc713v5oksarg3ri9ib5','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1371144111),(191,'nvcoolvhtdlmfldammkil9mfl1','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1371228730),(192,'u3lcjfocstlocke31a1jakdal4','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1371235603),(193,'nmbmmeekqub0t2b414l41d6b52','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1371239526),(194,'jp28grssp6l695ga55iue016m7','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,33,1371239597),(195,'mu8f1pk24aiod1dkts8g2smr34','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1371241575),(196,'a1n5i1sg534tpcsbd1nttkm9d7','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1371253087),(197,'94m0gv1qimfvpn7npo1dl7o197','loggedin','127.0.0.1','Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:20.0) Gecko/20100101 Firefox/20.0',1,27,1371339207),(198,'07vls2n985jo6q8jgf6kqrvfd0','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,34,1371411571),(199,'702m6o422hhr4ph0rviovg1h13','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1371413847),(200,'c28aqim7seu1sciieibuskho82','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1371420571),(201,'l8t7nmlbvg95nah3908m9gho54','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1371424043),(202,'80338c1074adm24ieotcpbi7r3','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,28,1371424164),(203,'h91boerr9jcn4ja1oea51hd0b2','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1371424213),(204,'oiohu1hk4ckpfhuaia1a2t0164','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,28,1371424233),(205,'4vden2fqh3u5u22hn1uqv36m04','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1371424403),(206,'0n1kknos6f1lisbtgti1hg6gg6','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1371428623),(207,'6mvib0q39qv8paadl4m03o73q5','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1371429170),(208,'5ip5aemccq5f43gb9s3jn0rif0','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1371429832),(209,'4cuk884l95i9ne6tuu9nnlgul7','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1371432143),(210,'4cuk884l95i9ne6tuu9nnlgul7','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1371439028),(211,'cj8fd74ng932j4279381uejj42','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1371440484),(212,'ij4dln08jb0p5nicveob67p317','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1371442065),(213,'ij4dln08jb0p5nicveob67p317','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1371452440),(214,'v3s61fu5tul1tl27qj4e30uro3','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1371494036),(215,'du848tasnbc3gaovofnochd9h1','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1371494344),(216,'vs0j1iutnn664oi08e4b0bbtq5','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1371503055),(217,'pe3d6pn2gjpuoquevt3p5m1e92','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,28,1371503072),(218,'r8kiku8mbe6dsfs279j79d20s0','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1371506191),(219,'rmiluqftu80b1oflcn3mcreef5','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1371667094),(220,'ksesu3ej793d6hba0a8446cem6','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,28,1371843459),(221,'tlsla8m3ubscn3nqvh0mevl4b0','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1371843512),(222,'ivarvlu3qid4t9cr2igs5qts50','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1372024417),(223,'sofs54en8q07qjo7060p0m0qt4','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1372027497),(224,'0jktpmki32amjs2r2m72os9p55','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1372102050),(225,'0o9nq958b40eklpbhs1sm9ppl1','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',1,27,1372112141),(226,'5qgufijm52495a1hlkua8l4pt3','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1372191153),(227,'oo5uurpgv1nsckikvcu99f4tn2','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1372191914),(228,'a1hi3fqj48cdqq2003ne4uigl6','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1372194491),(229,'b4ft65vk5fp69obii9djpiv7e1','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1372194664),(230,'lta3dbr5eq6qm6vf4kr6offbn2','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1372195762),(231,'u6j1t069t7ri3akn71no367fg4','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1372196366),(232,'sekq09pcploatd1iihhku21o26','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1372197281),(233,'3497kg8mk5ommv29u4i4la5jd1','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1372197796),(234,'ann4k9296vhchpc37fl25fvnt0','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1372198214),(235,'uosmpd74kn381bvoaauplk1g60','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1372198419),(236,'6kl5g98ucnsv0fp5uibe5itai0','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1372198950),(237,'6kl5g98ucnsv0fp5uibe5itai0','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1372202904),(238,'p6qg5e5t258arosh4sp3uhcg54','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1372203030),(239,'ct9k1m6qrrij081o6c9hl43od7','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1372213206),(240,'eg611cln83b3fnd5f0qf1d21d0','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1372213610),(241,'1bnst0jbdiut0271bob51kv295','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1372213911),(242,'t0indk7tt1ks1k4jptjqdc35v2','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1372233609),(243,'t0indk7tt1ks1k4jptjqdc35v2','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1372243680),(244,'lcmghr8t0b2jc45m2nrbm1q6l6','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1372243707),(245,'lcmghr8t0b2jc45m2nrbm1q6l6','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,27,1372278545),(246,'eujfq779gdh7uioc78nth510a0','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',1,27,1372282670);
 /*!40000 ALTER TABLE `g0g1_sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -563,7 +626,7 @@ CREATE TABLE `g0g1_users` (
   `invites` int(11) NOT NULL,
   PRIMARY KEY (`user_id`),
   FULLTEXT KEY `username` (`username`)
-) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -572,7 +635,7 @@ CREATE TABLE `g0g1_users` (
 
 LOCK TABLES `g0g1_users` WRITE;
 /*!40000 ALTER TABLE `g0g1_users` DISABLE KEYS */;
-INSERT INTO `g0g1_users` VALUES (27,'Kyle','8d424733d7d20e5c0fdb12abbaba0797aaea9e2e','EÙ8æaoY;\0²[Ìò8¡vÂPs6TöuS',-158,1370116850,'apsdiofj@gmail.com',NULL,1,5,6,0,4),(28,'Kyle2','0c571551c7c36e63461f5c01d3c6ee9b8b577d7b','~`=k©&èu°ißü›½0Vö»Em_içãTw',207,1370119294,'asdf@gmail.com',NULL,1,2,1,27,0),(29,'Kyle3','98afe445e7e56b8efb3e2f07883682e69530902f','´Û½4¸£=wý8ÁFûÊ0XOÐ®»L—M$‘ ý’',207,1370121425,'aspdiof@gmail.com',NULL,1,2,1,27,0),(30,'Kyle9','af4fdcbf3e3065fc00d4483705cdef078f410d6a','ÔÖm(bO©1ØÀ¾×æ.GU›¿ê™7opAG',207,1370126728,'aposidjf@gmail.com',NULL,1,2,1,0,0),(31,'Kyle12','8021fe55cd8256f2e90396eaf72b09eac5cc98bb','@rË˜¹Ü0°=ÑÏ ®ö•äÞà-mxMG‰î¦îf/,',207,1370145330,'asdpiofj@gmail.com',NULL,1,2,1,27,0),(32,'John','d12f94fcecc1ad046bce6a3b775038d75699fae0','ï¦ùC¿.RÿH¦Ê}ÍÐÞº… Ðà_ª_ »G4ø%',10,1370637260,'aposidjf@gmail.com',NULL,1,2,1,27,0);
+INSERT INTO `g0g1_users` VALUES (27,'Kyle','8d424733d7d20e5c0fdb12abbaba0797aaea9e2e','EÙ8æaoY;\0²[Ìò8¡vÂPs6TöuS',-1628,1370116850,'apsdiofj@gmail.com',NULL,1,5,6,0,6),(28,'Kyle2','0c571551c7c36e63461f5c01d3c6ee9b8b577d7b','~`=k©&èu°ißü›½0Vö»Em_içãTw',1949,1370119294,'asdf@gmail.com',NULL,1,2,1,27,0),(29,'Kyle3','98afe445e7e56b8efb3e2f07883682e69530902f','´Û½4¸£=wý8ÁFûÊ0XOÐ®»L—M$‘ ý’',207,1370121425,'aspdiof@gmail.com',NULL,1,2,1,27,0),(30,'Kyle9','af4fdcbf3e3065fc00d4483705cdef078f410d6a','ÔÖm(bO©1ØÀ¾×æ.GU›¿ê™7opAG',207,1370126728,'aposidjf@gmail.com',NULL,1,2,1,0,0),(31,'Kyle12','8021fe55cd8256f2e90396eaf72b09eac5cc98bb','@rË˜¹Ü0°=ÑÏ ®ö•äÞà-mxMG‰î¦îf/,',207,1370145330,'asdpiofj@gmail.com',NULL,1,2,1,27,0),(32,'John','d12f94fcecc1ad046bce6a3b775038d75699fae0','ï¦ùC¿.RÿH¦Ê}ÍÐÞº… Ðà_ª_ »G4ø%',215,1370637260,'aposidjf@gmail.com',NULL,1,2,1,27,0),(33,'wooohoo','6f71e06d774a80ba9f9b5a162d927fd9a5a133ce','å˜(61AËó>YPsºÉ4¦šúX.2ªPoZ¸',246,1371239428,'aposidf@gmail.com',NULL,1,2,1,27,0),(34,'Bobbeh','e98918dbadf1e76b07058f439ac321ef2d5c9b13','G;ñtxTÀ<¡–Lc‰UÓ`ÕÝîªöÖnZµ•çsÞ',10,1371411448,'apsodifj@gmail.com',NULL,1,2,1,27,0);
 /*!40000 ALTER TABLE `g0g1_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -651,4 +714,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-06-07 15:55:04
+-- Dump completed on 2013-06-26 13:53:10

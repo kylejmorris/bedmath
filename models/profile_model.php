@@ -11,6 +11,7 @@ class Profile_Model extends Model {
         $this->question = new Question();
         $this->answer = new Answer();
         $this->category = new Category();
+        $this->invite = new Invite();
     }
 
     /*
@@ -120,6 +121,30 @@ class Profile_Model extends Model {
     
     public function getReputationHistory($userId, $page, $limit) {
         $history = $this->reputation->getRepLog($userId, null, $page, $limit);
+        return $history;
+    }
+    
+    public function getInviteSummary($userId) {
+        $summary = array('total_invites');
+        $summary['total_invites'] = $this->invite->getInviteCount($userId);
+        return $summary;
+    }
+    
+    /**
+     * Return history of users in which were referred by a specific member.
+     * @param $userId the id of user who is referring/inviting others.
+     * @param $since the minimal time a user was invited from, represented as string ie: 'day', 'week', 'month'.
+     */
+    public function getInviteHistory($userId, $since, $page, $limit) {
+        $time = null;
+        switch($since) {
+            case 'day': $time = time()-86400; break;
+            case 'week': $time = time()-86400*7; break;
+            case 'month': $time = time()-86400*365/12; break;
+            case 'year': $time = time()-86400*365; break;
+            default: $time = 0;
+        }
+        $history = $this->invite->getReferrals($userId, $time, $page, $limit);
         return $history;
     }
 
