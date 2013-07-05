@@ -21,6 +21,7 @@ require 'pagination.php';
 //Unique to bedmath
 require 'question.php';
 require 'answer.php';
+require 'reply.php';
 require 'reputation.php';
 require 'invite.php';
 

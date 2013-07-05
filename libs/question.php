@@ -181,6 +181,48 @@ class Question {
     }
     
     /**
+     * Returns number of solved questions.
+     * @param $userId the id of user who belongs to the question
+     * @param $topic the topic of question
+     */
+    public function getSolvedCount($userId, $topic) {
+        $query = "SELECT count(t1.id)
+                    FROM g0g1_questions AS t1
+                    LEFT JOIN g0g1_answers AS t2 ON t1.id = t2.question_id
+                    WHERE t2.accepted=true ";
+        if ($userId != null && is_numeric($userId)) {
+            $query.=" AND t1.asked_by=" . $userId;
+        }
+        if ($topic != null && is_numeric($topic)) { //Only include where clause if topic is specified.
+            $query.=" AND t1.topic=" . $topic;
+        }
+        $stmt = $this->database->query($query);
+        $count = $stmt->fetch();
+        return $count[0];
+    }
+    
+    /**
+     * Returns data associated with solved questions.
+     * @param $userId the id of user who belongs to the question
+     * @param $topic the topic of question
+     */
+    public function getSolved($userId, $topic) {
+        $query = "SELECT *
+                    FROM g0g1_questions AS t1
+                    LEFT JOIN g0g1_answers AS t2 ON t1.id = t2.question_id
+                    WHERE t2.accepted=true ";
+        if ($userId != null && is_numeric($userId)) {
+            $query.=" AND t1.asked_by=" . $userId;
+        }
+        if ($topic != null && is_numeric($topic)) { //Only include where clause if topic is specified.
+            $query.=" AND t1.topic=" . $topic;
+        }
+        $stmt = $this->database->query($query);
+        $details = $stmt->fetchAll();
+        return $details;
+    }
+    
+    /**
      * Update existing question, along with creating backup version in database.
      * @param $qid the question id being updated
      * @param $details the question details stored in array. Must contain required elements: 

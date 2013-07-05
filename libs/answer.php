@@ -10,6 +10,7 @@ class Answer {
         $this->database = new Database();
         $this->reputation = new Reputation();
         $this->question = new Question();
+        $this->reply = new Reply();
     }
 
     /**
@@ -78,12 +79,28 @@ class Answer {
     public function getAnswers($where, $order, $page, $limit) {
         $columns = array('id', 'question_id', 'user', 'full_text', 'time', 'votes', 'published', 'accepted');
         $answers = $this->database->getByPage('g0g1_answers', $columns, $where, $order, $page, $limit);
+        for($c=0; $c<sizeof($answers); $c++) {
+            array_push($answers[$c], 'replies');
+            $answers[$c]['replies'] = $this->reply->getReplies($answers[$c]['question_id'], $answers[$c]['id']);
+        }
         return $answers;
     }
 
     public function exists($id) {
         $count = $this->database->getCount('g0g1_answers', array('id' => $id));
         if ($count != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * Check if answer exists, but belongs to the specified question.
+     */
+    public function existsWithinQuestion($answerId, $qid) {
+        $count = $this->database->getCount('g0g1_answers', array('id'=>$answerId, 'question_id'=>$qid));
+        if($count !=0) {
             return true;
         } else {
             return false;
@@ -120,6 +137,10 @@ class Answer {
         $columns = array('id', 'question_id', 'user', 'full_text', 'time', 'votes', 'published', 'accepted');
         $where = array('question_id' => $id);
         $answers = $this->database->getRows('g0g1_answers', $columns, $where, 'votes');
+        for($c=0; $c<sizeof($answers); $c++) {
+            array_push($answers[$c], 'replies');
+            $answers[$c]['replies'] = $this->reply->getReplies($answers[$c]['question_id'], $answers[$c]['id']);
+        }
         return $answers;
     }
 

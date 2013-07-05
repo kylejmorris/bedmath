@@ -8,6 +8,7 @@ Class Account_Model extends Model {
 		$this->question = new Question();
 		$this->category = new Category();
                 $this->answer = new Answer();
+                $this->pass = new Pass();
 	}
 	
 	/**
@@ -95,6 +96,14 @@ Class Account_Model extends Model {
         
         public function runEditAnswer($id, $details) {
              $this->answer->update($id, $details);
+        }
+        
+        /**
+         * @param type $userId the id of user getting new pass
+         * @param type $password the new password
+         */
+        public function runNewPass($userId, $password) {
+            $this->pass->setNewPass($userId, $password);
         }
 	
 }

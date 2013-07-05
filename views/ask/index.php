@@ -1,3 +1,6 @@
+<h2>Bid Buddy</h2>
+Helping you get the best support for the best price!
+
 <div id="Container" class="clearfix">
 	<div id="AccountPortal">
 		<div id="Register">

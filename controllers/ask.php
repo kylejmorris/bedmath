@@ -7,6 +7,7 @@ class Ask extends Controller {
 	
 	public function index() {
 		$this->view->topics = $this->category->getCategories();
+                $this->view->bidBuddy = $this->model->bidBuddy(); //Returns array of all site topics and the average bid on questions associated with them. The user can then select which topic to view using javascript through the view.
 		$this->view->render('ask/index');
 	}
 	

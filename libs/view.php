@@ -46,7 +46,6 @@ class View {
         foreach ($keys as $key) {
             if(!in_array($key, $exlude)) {
                 require $this->frame[$key];
-            
             }
         }
     }

@@ -234,7 +234,9 @@ class Database extends PDO {
      * @param $start the beginning row to start on. Default is 0.
      */
     private function parseLimit($limit, $start = 0) {
-        $this->query.="LIMIT $start, $limit ";
+        if($limit!=null) {
+            $this->query.="LIMIT $start, $limit ";
+        }
     }
 
     /**
@@ -375,12 +377,13 @@ class Database extends PDO {
      * @param $columns the columns to render within row
      * @param $where the columns and the values in which they must contain.
      */
-    public function getRows($table, $columns, $where, $order) {
+    public function getRows($table, $columns, $where, $order, $limit=null) {
         $this->query.="SELECT ";
         $this->parseColumns($columns);
         $this->query.="FROM $table ";
         $this->parseWhere($where);
         $this->parseOrder($order, 'DESC');
+        $this->parseLimit($limit, 0);
         $this->stmt = $this->prepare($this->query);
         $this->bind();
         $this->stmt->execute();

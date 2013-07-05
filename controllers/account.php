@@ -17,6 +17,7 @@ Class Account extends Controller {
         $this->pagination = new Pagination();
         $this->category = new Category();
         $this->answer = new Answer();
+        $this->pass = new Pass();
         if (!$this->user->isLoggedIn()) {
             header('location: ' . ROOT);
         }
@@ -47,7 +48,6 @@ Class Account extends Controller {
         $this->view->pointsHistory = $pointsHistory;
         $this->view->render("account/points");
     }
-
 
     public function profile() {
         $userId = $this->user->getUserId();
@@ -81,19 +81,38 @@ Class Account extends Controller {
 
     public function runNewPass() {
         $form = array('old' => '', 'new' => '', 'again' => '');
-        $formData = $this->form->getFormContent($form);
-        $userId = $this->user->getUserId();
-        $userData = $this->user->getDetailFromId($userId);
-        if ($formData['old'] == $userData['password']) {
-            if ($formData['new'] == $formData['again']) {
-                $this->user->setNewPass($userId, $formData['new']);
-                $this->view->render('account/newpasssuccess');
-            } else {
-                echo 'Please enter the new password twice';
+        $formData = array(//The form element names to get data from 
+            'old' => array(
+                'required' => true,
+                'min_length' => 6,
+                'max_length' => 64,
+            ),
+            'new' => array(
+                'required' => true,
+                'min_length' => 6,
+                'max_length' => 64,
+            ),
+            'again' => array(
+                'required' => true,
+                'min_length' => 6,
+                'max_length' => 64,
+            )
+        );
+        $form = new Form($formData);
+        if ($form->isValid()) {
+            $formData = $form->getFormData();
+            if($formData['new']!=$formData['again']) {
+                $GLOBALS['error']->addError('user', 'Make sure new passwords match');
             }
-        } else {
-            echo 'That is not the old password';
         }
+        if(!$this->pass->isValid($this->user->getUserId(), $formData['old'])) {
+            $GLOBALS['error']->addError('user', 'Old password entered is not correct');
+        }
+        if($GLOBALS['error']->getErrorCount()==0) {
+            $this->model->runNewPass($this->user->getUserId(), $formData['new']);
+            $GLOBALS['error']->addError('user', 'Password changed succesfully');
+        }
+        $this->view->render('account/newpass');
     }
 
     public function questions($page) {
@@ -107,19 +126,19 @@ Class Account extends Controller {
         $this->view->pagination = $this->pagination->getPageList($page, 10, $qCount);
         $this->view->render('account/questions');
     }
-    
+
     /**
      * Allow user to edit question they have posted.
      * @param $id the question id being edited.
      */
     public function editQuestion($qid) {
-        if(!$this->question->exists($qid)) {
+        if (!$this->question->exists($qid)) {
             $GLOBALS['error']->addError('question', 'Question does not exist');
         }
-        if(!$this->question->isOwner($qid, $this->user->getUserId())) {
+        if (!$this->question->isOwner($qid, $this->user->getUserId())) {
             $GLOBALS['error']->addError('question', 'You did not post this question');
         }
-        if($GLOBALS['error']->getErrorCount('question')>0) {
+        if ($GLOBALS['error']->getErrorCount('question') > 0) {
             $this->view->render('error/error');
         } else {
             $this->view->qid = $qid;
@@ -128,64 +147,64 @@ Class Account extends Controller {
             $this->view->render('account/edit_question');
         }
     }
-    
+
     public function runEditQuestion($qid) {
         $formData = array(
-			'title' => array(
-						'required'=>true,
-						'min_length'=>3,
-						'max_length'=>64
-			),
-			'topic' => array(
-						'required'=>true
-			),
-			'full' => array(
-						'min_length'=>1,
-						'max_length'=>1024
-			),
-			'bid' => array(
-						'required'=>true,
-						'is_numeric'=>true,
-						'min_value'=>10
-			),
-                        'published' =>array(
-                                                'required'=>true
-                        )
-		);		
-		$form = new Form($formData);
-		if($form->isValid()) {
-			$formData = $form->getFormData();
-			$this->model->runEditQuestion($qid, $formData);
-                        $this->view->render('account/edit_question_success');
-		} else {
-			$this->view->render('error/error');
-		}
+            'title' => array(
+                'required' => true,
+                'min_length' => 3,
+                'max_length' => 64
+            ),
+            'topic' => array(
+                'required' => true
+            ),
+            'full' => array(
+                'min_length' => 1,
+                'max_length' => 1024
+            ),
+            'bid' => array(
+                'required' => true,
+                'is_numeric' => true,
+                'min_value' => 10
+            ),
+            'published' => array(
+                'required' => true
+            )
+        );
+        $form = new Form($formData);
+        if ($form->isValid()) {
+            $formData = $form->getFormData();
+            $this->model->runEditQuestion($qid, $formData);
+            $this->view->render('account/edit_question_success');
+        } else {
+            $this->view->render('error/error');
+        }
     }
-    
+
     public function answers($page) {
-        if($page==null) {
+        if ($page == null) {
             $page = 1;
         }
         $limit = 10;
         $userId = $this->user->getUserId();
         $this->view->answers = $this->model->answers($page, $userId, $limit);
-        $aCount = $this->answer->getAnswerCount(array('user'=>$userId)); //Getting number of answers user has posted.
+        $aCount = $this->answer->getAnswerCount(array('user' => $userId)); //Getting number of answers user has posted.
         $this->view->pagination = $this->pagination->getPageList($page, $limit, $aCount);
         $this->view->render('account/answers');
     }
-    
+
     /**
      * Allow user to edit answer they have posted
      * @param $id the answer id being edited.
      */
     public function editAnswer($id) {
-        if(!$this->answer->exists($id)) {
+        if (!$this->answer->exists($id)) {
             $GLOBALS['error']->addError('answer', 'Answer does not exist');
         }
-        if(!$this->answer->isOwner($id, $this->user->getUserId())) {
+        if (!$this->answer->isOwner($id, $this->user->getUserId())) {
             $GLOBALS['error']->addError('answer', 'You did not post this answer');
         }
-        if($GLOBALS['error']->getErrorCount('answer')>0) {
+        if ($GLOBALS['error']->getErrorCount('answer') > 0) {
             $this->view->render('error/error');
         } else {
             $this->view->id = $id;
@@ -193,26 +212,28 @@ Class Account extends Controller {
             $this->view->render('account/edit_answer');
         }
     }
-    
+
     public function runEditAnswer($id) {
         $formData = array(
-			'full_text' => array(
-						'required'=>true,
-						'min_length'=>100,
-						'max_length'=>5012
-			),
-                        'published' =>array(
-                                                'required'=>true
-                        )
-		);		
-		$form = new Form($formData);
-		if($form->isValid()) {
-			$formData = $form->getFormData();
-			$this->model->runEditAnswer($id, $formData);
-                        $this->view->render('account/edit_answer_success');
-		} else {
-			$this->view->render('error/error');
-		}
+            'full_text' => array(
+                'required' => true,
+                'min_length' => 100,
+                'max_length' => 5012
+            ),
+            'published' => array(
+                'required' => true
+            )
+        );
+        $form = new Form($formData);
+        if ($form->isValid()) {
+            $formData = $form->getFormData();
+            $this->model->runEditAnswer($id, $formData);
+            $this->view->render('account/edit_answer_success');
+        } else {
+            $this->view->render('error/error');
+        }
     }
+
 }
+
 ?>
