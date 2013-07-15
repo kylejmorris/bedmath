@@ -167,7 +167,6 @@ class User {
         if ($result != null) {
             return true;
         } else {
-            $GLOBALS['error']->addError('user', 'The user with id: ' . $userId . ' does not exist');
             return false;
         }
     }

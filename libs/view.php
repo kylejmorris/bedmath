@@ -38,7 +38,7 @@ class View {
     /**
      * Generates display by including main template components and dynamically including $page
      * @param $page The view to display. Made up of string data containing view folder, and file. Example: "writing/index". This will go into the /views/writing folder, and select the index.php file.
-     * @param $exlude an array of integer values representing template components NOT to load.
+     * @param $exlude an array of key values from the $frame variable, representing template components NOT to load.
      */
     public function render($page, $exlude = null) {
         $keys = array_keys($this->frame);

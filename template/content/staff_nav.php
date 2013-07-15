@@ -4,11 +4,10 @@
 	$reportCount = $report->getReportCount();
 ?>
 <div class="staff_nav_bar">
-        <a href="<?php echo ROOT.'validate/writing/'; ?>">Activate</a>
-        <a href="<?php echo ROOT.'content_calculator'; ?>"/>Content Calculator</a>
-        <a href="<?php echo ROOT.'mod/mod_users/'; ?>"/>Manage Users</a>
-		<a href="<?php echo ROOT.'mod/mod_report/reports/'; ?>"/>Threat Reports</a>
-        <a href="<?php echo ROOT.'mod/mod_points/'; ?>"/>Manage Points</a>
+        Staff Panel: <a href="<?php echo ROOT.'mod/mod_users/'; ?>"/>Users</a>|
+		<a href="<?php echo ROOT.'mod/mod_report/reports/'; ?>"/>Threat Reports</a>|
+        <a href="<?php echo ROOT.'mod/mod_points/'; ?>"/>Points</a>|
+        <a href="<?php echo ROOT.'mod/mod_questions/'; ?>"/>Questions</a>
         <?php
 		if($reportCount==0) {
 			echo '<i>0 Reports</i>';

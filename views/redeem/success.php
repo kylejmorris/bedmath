@@ -1,1 +1,1 @@
-You have succesfully redeemed points! Please await review from a staff member.
+You have sent your request. Please await review a staff members approval. 

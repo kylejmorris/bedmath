@@ -63,7 +63,7 @@ class Answer {
      * Gather answer data based on supplied id. 
      */
     public function getAnswerById($id) {
-        $columns = array('id', 'question_id', 'user', 'full_text', 'time', 'votes', 'published', 'accepted');
+        $columns = array('id', 'question_id', 'user', 'full_text', 'time', 'published', 'accepted');
         $where = array('id' => $id);
         $answers = $this->database->getRow('g0g1_answers', $columns, $where);
         return $answers;
@@ -77,7 +77,7 @@ class Answer {
      * @param $limit the maximum amount of data to load per page.
      */
     public function getAnswers($where, $order, $page, $limit) {
-        $columns = array('id', 'question_id', 'user', 'full_text', 'time', 'votes', 'published', 'accepted');
+        $columns = array('id', 'question_id', 'user', 'full_text', 'time', 'published', 'accepted');
         $answers = $this->database->getByPage('g0g1_answers', $columns, $where, $order, $page, $limit);
         for($c=0; $c<sizeof($answers); $c++) {
             array_push($answers[$c], 'replies');
@@ -124,7 +124,7 @@ class Answer {
      * Returns accepted answer accociated with question, there can only be one.
      */
     public function getAcceptedAnswer($qid) {
-        $columns = array('id', 'question_id', 'user', 'full_text', 'time', 'votes', 'published', 'accepted');
+        $columns = array('id', 'question_id', 'user', 'full_text', 'time', 'published', 'accepted');
         $where = array('question_id' => $qid, 'accepted' => 1);
         return $this->database->getRow('g0g1_answers', $columns, $where);
     }
@@ -134,9 +134,9 @@ class Answer {
      * @param $id the question id to get answers from. 
      */
     public function getAnswersByQuestion($id) {
-        $columns = array('id', 'question_id', 'user', 'full_text', 'time', 'votes', 'published', 'accepted');
+        $columns = array('id', 'question_id', 'user', 'full_text', 'time', 'published', 'accepted');
         $where = array('question_id' => $id);
-        $answers = $this->database->getRows('g0g1_answers', $columns, $where, 'votes');
+        $answers = $this->database->getRows('g0g1_answers', $columns, $where, 'time');
         for($c=0; $c<sizeof($answers); $c++) {
             array_push($answers[$c], 'replies');
             $answers[$c]['replies'] = $this->reply->getReplies($answers[$c]['question_id'], $answers[$c]['id']);
@@ -219,7 +219,16 @@ class Answer {
         $version = $this->database->getCount('g0g1_answers_log', array('id'=>$id))+1;
         return $version;
     }
-
+    
+    /**
+     * Return answer according to its version. Assuming the version supplied exists.
+     * @param type $id the answer id
+     * @param type $version the answers version to get data from.
+     */
+    public function getAnswerByVersion($id, $version) {
+        $columns = array('id', 'question_id', 'user', 'full_text', 'time', 'published', 'accepted', 'activated');
+        return $this->database->getRow('g0g1_answers_log', $columns, array('id'=>$id, 'version'=>$version));
+    }
 }
 
 ?>

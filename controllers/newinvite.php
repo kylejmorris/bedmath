@@ -1,5 +1,5 @@
 <?php
-Class Invite extends Controller {
+Class NewInvite extends Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->user = new User();
@@ -8,7 +8,8 @@ Class Invite extends Controller {
 	}
 	
 	public function index() {
-		$this->view->username = $this->user->getNameFromId(Session::get('user_id'));
+                echo 'test';
+		$this->view->username = $this->user->getNameFromId($this->user->getUserId());
 		$this->email->generateDefaultMail(3, Session::get("user_id"));
 		$this->view->emailBody = $this->email->message;
 		$this->view->render('invite/index');

@@ -36,6 +36,15 @@ class Reply {
     }
     
     /**
+     * Return count of how many replies have been made to an answer.
+     * @param type $qid the question id
+     * @param type $answerId the answer id to get reply count from.
+     */
+    public function getReplyCount($qid, $answerId) {
+        return $this->database->getCount('g0g1_replies', array('question_id'=>$qid, 'answer_id'=>$answerId));
+    }
+    
+    /**
      * @param $qid the id of question
      * @param $answerId the id of answer associated with question.
      * @param $columns array of database columns that will hold required values.

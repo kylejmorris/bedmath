@@ -2,11 +2,11 @@
 <select name="redeem_amount" id="redeem_amount" onchange="updateTotal()">
 	<?php
 		for($points=1000;$points<=100000;$points+=1000) {
-			echo '<option value="'.$points.'">'.$points.'</option>';
+			echo '<option value="'.$points.'">'.$points.' points</option>';
 		}
 	?>
 </select>
-<input type="submit" value="Request Cashout">
+<input type="submit" class="button big"value="Request Cashout">
 </form>
 <script>
 	function updateTotal() {

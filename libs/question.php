@@ -244,7 +244,18 @@ class Question {
         $version = $this->database->getCount('g0g1_questions_log', array('question_id'=>$qid))+1;
         return $version;
     }
-
+    
+    /**
+     * Returns question details according to specific version.
+     * @pre Assume the version number is existent. 
+     * @param type $qid the id of question
+     * @param type $version the version to get information from backup tables.
+     */
+    public function getDetailByVersion($qid, $version) {
+        $columns = array('question_id', 'topic', 'title', 'full', 'bid', 'asked_by', 'answer', 'asked_time', 'published', 'version', 'edit_time');
+        $question = $this->database->getRow('g0g1_questions_log', $columns, array('question_id'=>$qid, 'version'=>$version));
+        return $question;
+    }
 }
 
 ?>

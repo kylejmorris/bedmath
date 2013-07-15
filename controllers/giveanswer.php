@@ -44,7 +44,7 @@ class GiveAnswer extends Controller {
             $userId = $this->user->getUserId();
             var_dump($userId);
             if ($userId != null) {
-                $columns = array('question_id' => $id, 'user' => $userId, 'full_text' => $formData['answer'], 'time' => time(), 'votes' => 0, 'published' => 1, 'accepted' => 0);
+                $columns = array('question_id' => $id, 'user' => $userId, 'full_text' => $formData['answer'], 'time' => time(), 'published' => 1, 'accepted' => 0);
                 if (!$this->answer->addAnswer($id, $columns)) {
                     $GLOBALS['error']->addError('answer', 'An unknown error occured');
                 }
