@@ -27,10 +27,10 @@ class View {
     public $appType;
 
     function __construct() {
-        $this->frame = array('header' => 'template/content/header.php',
-            'main_nav' => 'template/content/main_nav.php',
+        $this->frame = array(            
+			'main' => 'template/content/main.php',
+			'header' => 'template/content/header.php',
             'errors' => 'template/content/errors.php',
-            'main' => 'template/content/main.php',
             'view' => $this->appType . 'views/' . $page . '.php',
             'footer' => 'template/content/footer.php');
     }
@@ -38,7 +38,7 @@ class View {
     /**
      * Generates display by including main template components and dynamically including $page
      * @param $page The view to display. Made up of string data containing view folder, and file. Example: "writing/index". This will go into the /views/writing folder, and select the index.php file.
-     * @param $exlude an array of key values from the $frame variable, representing template components NOT to load.
+     * @param $exlude an array of integer values representing template components NOT to load.
      */
     public function render($page, $exlude = null) {
         $keys = array_keys($this->frame);

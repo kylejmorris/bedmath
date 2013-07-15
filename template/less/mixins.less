@@ -1,25 +1,69 @@
-// Inspire for Bedmath.com
-// Name			mixins.less
-// Version		1.0
+// Inspire for Bedmath
+// Version 0.1.1
+// By Juriaan Gregor
 
-// Position
+// Colors functions
+	// Colormaster, sets Background, Typography, Buttons, Header and Accent color
+		.ColorMaster(@Background, @Typography, @Buttons, @Header, @Accent) {
+			@ColorShemeBackground: @Background;
+			@ColorShemeTypography: @Typography;
+			@ColorShemeButtons: @Buttons;
+			@ColorShemeHeader: @Header;
+			@ColorShemeAccent: @Accent;
+		}
 	
-	.position(@Pos) {
-		position: @Pos;
-	}
-	
-	.display(@Arg) {
-		display: @Arg;
-	}
-	
-// Overflows
-	
-	.overflow-x(@Arg) {
-		overflow-x: @Arg;
-	}
-	
-	.overflow-y(@Arg) {
-		overflow-y: @Arg;
-	}
-	
+	// Color mixer
+		.ColorMix(@Color, @Amount: 10%, @Mode) when (@Mode = "Lighten") {color: lighten(@Color, @Amount)}
+		.ColorMix(@Color, @Amount: 10%, @Mode) when (@Mode = "Darken") {color: darken(@Color, @Amount)}
+
+	// Background Color Mixer
+		.BackgroundColorMix(@Color, @Amount: 10%, @Mode) when (@Mode = "Lighten") {background-color: lighten(@Color, @Amount)}
+		.BackgroundColorMix(@Color, @Amount: 10%, @Mode) when (@Mode = "Darken") {background-color: darken(@Color, @Amount)}
+
+// Device
+	// Device
+		.SetDevice(@NewDevice: "Desktop") {
+			@Device: @NewDevice;
+		}
+
+	// Document Height and Document Width
+		.DocumentHeight(@NewHeight: 0) {
+			@Height: @NewHeight;
+		}
 		
+		.DocumentWidth(@NewWidth: 0) {
+			@Width: @NewWidth;
+		}
+	
+// Mode
+		.SetMode(@NewMode) {
+			@Mode: @NewMode;
+		}
+		
+		.ModeSet("Mobile") when (@Mode = "Mobile") {
+			.ResponsiveMobile
+		}
+		
+		.ModeSet("Tablet") when (@Mode = "Tablet") {
+			.ResponsiveTablet;
+		}
+		
+		.ModeSet("Desktop") when (@Mode = "Desktop") {
+			.Desktop
+		}
+		
+// Float
+		.left{
+			float: left;
+		}
+		
+		.right{
+			float:right;
+		}
+		
+		
+
+		
+		
+
+	

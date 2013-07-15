@@ -9,7 +9,7 @@ class Index extends Controller {
         */
 	function __construct() {
 		parent::__construct();  
-		$this->view->render("index/index");
+		$this->view->render("index/index", array(2));
 	}
         
         public function index() {
