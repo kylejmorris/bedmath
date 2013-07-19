@@ -22,7 +22,7 @@ class Session {
      */
     public static function sessionInDb($sessionId) {
         $database = new Database();
-        $count = $database->getCount('g0g1_sessions', array('session_id' => $sessionId, 'active' => 1));
+        $count = $database->getCount('g0g1_sessions', array('session_id' => $sessionId, 'active' => true));
         if ($count != 0) {
             return true;
         }
@@ -41,14 +41,17 @@ class Session {
         return false;
     }
 
+    public static function getSessionData($sessionId) {
+        $database = new Database();
+        return $database->getRow('g0g1_sessions', array('id', 'session_id', 'type', 'ip', 'useragent', 'active', 'user_id', 'expires'), array('session_id'=>$sessionId));
+    }
     /**
      * Deactivates record of session in database, and removes any $_SESSION value associated.
      * @param $sessionId the id of session in database to remove.
      */
     public static function kill($sessionId) {
         $database = new Database();
-        $database->update('g0g1_sessions', array('active' => false), array('session_id' => $sessionId));
-        $_SESSION['loggedin'] = false;
+        $database->update('g0g1_sessions', array('active' => '0'), array('session_id' => $sessionId));
         session_regenerate_id();
     }
 
@@ -64,8 +67,8 @@ class Session {
         $newSessionId = session_id();
         $userAgent = $_SERVER['HTTP_USER_AGENT'];
         $ip = $_SERVER['REMOTE_ADDR'];
-        $columns = array('session_id' => $newSessionId, 'ip' => $ip, 'useragent' => $userAgent, 'active' => true, 'expires' => $expires);
-        $database->update('g0g1_sessions', $columns, array('session_id' => $sessionId));
+        $columns = array('session_id' => $newSessionId, 'ip' => $ip, 'useragent' => $userAgent, 'active' => 1, 'expires' => $expires);
+        $database->update('g0g1_sessions', $columns, array('id' => $sessionId));
     }
 
     /**
@@ -85,7 +88,6 @@ class Session {
         $ip = $_SERVER['REMOTE_ADDR'];
         $columns = array('session_id' => $sessionId, 'type' => $type, 'ip' => $ip, 'useragent' => $userAgent, 'active' => true, 'user_id' => $subject, 'expires' => $expires);
         $database->insertRow('g0g1_sessions', $columns);
-        $_SESSION['loggedin'] = true;
     }
 
     /**

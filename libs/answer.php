@@ -63,7 +63,7 @@ class Answer {
      * Gather answer data based on supplied id. 
      */
     public function getAnswerById($id) {
-        $columns = array('id', 'question_id', 'user', 'full_text', 'time', 'published', 'accepted');
+        $columns = array('id', 'question_id', 'user', 'full_text', 'time', 'published','activated', 'accepted', 'edit_time');
         $where = array('id' => $id);
         $answers = $this->database->getRow('g0g1_answers', $columns, $where);
         return $answers;
@@ -77,7 +77,7 @@ class Answer {
      * @param $limit the maximum amount of data to load per page.
      */
     public function getAnswers($where, $order, $page, $limit) {
-        $columns = array('id', 'question_id', 'user', 'full_text', 'time', 'published', 'accepted');
+        $columns = array('id', 'question_id', 'user', 'full_text', 'time', 'published', 'activated', 'accepted');
         $answers = $this->database->getByPage('g0g1_answers', $columns, $where, $order, $page, $limit);
         for($c=0; $c<sizeof($answers); $c++) {
             array_push($answers[$c], 'replies');
@@ -124,7 +124,7 @@ class Answer {
      * Returns accepted answer accociated with question, there can only be one.
      */
     public function getAcceptedAnswer($qid) {
-        $columns = array('id', 'question_id', 'user', 'full_text', 'time', 'published', 'accepted');
+        $columns = array('id', 'question_id', 'user', 'full_text', 'time', 'published', 'activated', 'accepted');
         $where = array('question_id' => $qid, 'accepted' => 1);
         return $this->database->getRow('g0g1_answers', $columns, $where);
     }
@@ -134,7 +134,7 @@ class Answer {
      * @param $id the question id to get answers from. 
      */
     public function getAnswersByQuestion($id) {
-        $columns = array('id', 'question_id', 'user', 'full_text', 'time', 'published', 'accepted');
+        $columns = array('id', 'question_id', 'user', 'full_text', 'time', 'published', 'activated', 'accepted');
         $where = array('question_id' => $id);
         $answers = $this->database->getRows('g0g1_answers', $columns, $where, 'time');
         for($c=0; $c<sizeof($answers); $c++) {
@@ -207,8 +207,8 @@ class Answer {
         $editTime = time(); 
         $version = $this->getAnswerVersion($id); //The version of current answer being backed up
         $cAnswer = $this->getAnswerById($id); //The current answer data, not edited.
-        $this->database->insertRow('g0g1_answers_log', array('id'=>$cAnswer['id'], 'question_id'=>$cAnswer['question_id'], 'user'=>$cAnswer['user'], 'full_text'=>$cAnswer['full_text'], 'time'=>$cAnswer['time'], 'published'=>$cAnswer['published'], 'version'=>$version, 'edit_time'=>$editTime));
-        $this->database->update('g0g1_answers', array('full_text'=>$details['full_text'], 'published'=>$details['published']), array('id'=>$qid));
+        $this->database->insertRow('g0g1_answers_log', array('id'=>$cAnswer['id'], 'question_id'=>$cAnswer['question_id'], 'user'=>$cAnswer['user'], 'full_text'=>$cAnswer['full_text'], 'time'=>$cAnswer['time'], 'published'=>$cAnswer['published'], 'activated'=>$cAnswer['activated'],'accepted'=>$cAnswer['accepted'], 'version'=>$version, 'edit_time'=>$editTime));
+        $this->database->update('g0g1_answers', array('full_text'=>$details['full_text'], 'published'=>$details['published'], 'activated'=>$details['activated'], 'accepted'=>$details['accepted'], 'edit_time'=>$editTime), array('id'=>$id));
         
     }
     
@@ -226,7 +226,7 @@ class Answer {
      * @param type $version the answers version to get data from.
      */
     public function getAnswerByVersion($id, $version) {
-        $columns = array('id', 'question_id', 'user', 'full_text', 'time', 'published', 'accepted', 'activated');
+        $columns = array('id', 'question_id', 'user', 'full_text', 'time', 'edit_time', 'published', 'accepted', 'activated');
         return $this->database->getRow('g0g1_answers_log', $columns, array('id'=>$id, 'version'=>$version));
     }
 }

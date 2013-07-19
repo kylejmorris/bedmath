@@ -22,6 +22,13 @@
                     echo 'Published: <input type=radio name=published value=1>Yes';
                     echo '<input type=radio name=published value=0 CHECKED>No';
                 }
+                if ($this->question['activated'] == true) {
+                    echo 'Activated: <input type=radio name=activated value=1 CHECKED>Yes';
+                    echo '<input type=radio name=activated value=0 >No';
+                } else {
+                    echo 'Activated: <input type=radio name=activated value=1>Yes';
+                    echo '<input type=radio name=activated value=0 CHECKED>No';
+                }
                 ?>
                 <input type="submit" value="Edit Question"></input>
             </form>

@@ -13,7 +13,7 @@
 										echo '<ul class="right">';
 										echo '<li class="Blog"> <a href="http://blog.bedmath.com">Blog</a> </li>';
 										echo '<li class="Support"> <a href="http://help.bedmath.com">Support</a></li>';
-										echo '<li class="Sign-in"> <a href="'.ROOT.'/Login/Logout">Log out</a></li>';
+										echo '<li class="Sign-in"> <a href="'.ROOT.'login/logout">Log out</a></li>';
 										echo '</ul>';
 										echo '</div>';
 										echo '<div id="Logo" class="left">';
@@ -37,6 +37,8 @@
 										   echo '<div id="Container" class="clearfix">';
 										   echo '<a href="'.ROOT.'mod/mod_users/" class="first left">Users</a>';
 										   echo '<a class="left" href="'.ROOT.'mod/mod_points">Points</a>';
+                                                                                   echo '<a class="left" href="'.ROOT.'mod/mod_questions">Questions</a>';
+                                                                                   echo '<a class="left" href="'.ROOT.'mod/mod_answers">Answers</a>';
 										   echo '<div class="right"id="Reports">';
 										   echo '<a href="'.ROOT.'mod/mod_report/reports/">';
 										   if ($reportCount > 1 ) {
@@ -71,7 +73,7 @@
 										echo '<ul class="right NoList">';
 										echo '<li class="Blog"> <a href="http://blog.bedmath.com">Blog</a> </li>';
 										echo '<li class="Support"> <a href="http://help.bedmath.com">Support</a></li>';
-										echo '<li class="Sign-in"> <a href="'.ROOT.'/Login">Sign-in</a></li>';
+										echo '<li class="Sign-in"> <a href="'.ROOT.'login">Sign-in</a></li>';
 										echo '</ul>';
 										echo '</div>';
 										echo '<div id="Logo" class="left">';

@@ -3,6 +3,7 @@ class Reporting_Model extends Model {
 	public function __construct() {
 		parent::__construct();
 		$this->report = new Report(); 
+                $this->user = new User();
 	}
 	
 	//Called from controller upon writing report being submitted
@@ -25,7 +26,7 @@ class Reporting_Model extends Model {
 	}
         
         public function runReportQuestion($report) {
-                $user_id = Session::get('user_id'); 
+                $user_id = $this->user->getUserId();
 		$report['type'] = 3; //2 represents 'writing' and lets the database know what is being reported
 		$report['reporter'] = $user_id; //ID of user who sent in report
 		$report['time'] = time();

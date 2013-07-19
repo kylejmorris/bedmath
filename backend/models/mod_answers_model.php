@@ -45,22 +45,24 @@ class Mod_Answers_Model extends Model {
     }
 
     public function getAnswerReviewSummary($id, $version) {
-        if ($version == null || $version==$this->answer->getAnswerVersion($id)) { //If null or set as current version.
+        $cVersion = $this->answer->getAnswerVersion($id);
+        if ($version == null || $version==$cVersion) { //If null or set as current version.
             $summary = $this->answer->getAnswerById($id);
             array_push($summary, 'username'); //Full username instead of just user_id.
-            array_push($summary, 'version'); //Get current question version.
             $summary['username'] = $this->user->getNameFromId($summary['user']);
-            $summary['version'] = $this->question->getQuestionVersion($id);
+            $summary['version'] = $this->answer->getAnswerVersion($id);
+            print_r($summary);
         } else {
             $summary = $this->answer->getAnswerByVersion($id, $version);
-            array_push($summary, 'asked_by_name'); //Full username instead of just user_id.
             array_push($summary, 'version'); //Get current question version.
-            $summary['asked_by_name'] = $this->user->getNameFromId($summary['asked_by']);
+            array_push($summary, 'username'); //Full username instead of just user_id.
+            array_push($summary, 'edit_time');
+            $summary['version'] = $version;
+            $summary['username'] = $this->user->getNameFromId($summary['user']);
         }
         if($summary['accepted']==true) {
             $summary['accepted'] = 'yes';
         } else {
-            var_dump($summary['published']);
             $summary['accepted'] = 'no';
         }
         if($summary['published']==true) {
@@ -89,8 +91,8 @@ class Mod_Answers_Model extends Model {
         return $replies;
     }
     
-    public function runEditQuestion($qid, $details) {
-        $this->question->update($qid, $details);
+    public function runEditAnswer($id, $details) {
+        $this->answer->update($id, $details);
     }
 }
 

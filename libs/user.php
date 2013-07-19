@@ -25,14 +25,10 @@ class User {
     }
     
     public function isLoggedIn() {
-        if(Session::get('loggedin')==true) {
-            if(Session::sessionInDb(Session::getId())==true) {
-                return true;
-            } else {
-                return false;
-            }
+        if(Session::sessionInDb(Session::getId())==true) {
+               return true;
         } else {
-            return false;
+                return false;
         }
     }
 

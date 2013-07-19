@@ -15,7 +15,7 @@
 		//Running loop on each user, allowing specific user info to be grabbed from $value
 		foreach($this->userList as $key => $value) { 
 			echo 'Username: '.'<a href='.ROOT.'profile/user/'.$value['user_id'].'>'.$value['username'].'</a>';
-			echo '$value['user_level'].';
+			echo $value['user_level'];
 			echo 'Joined: '.date('m-d-Y',$value['join_date']).'';
 			echo 'User #'.$value['user_id'].'';
 			echo 'Points:'.$value['points'].'';

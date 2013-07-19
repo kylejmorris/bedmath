@@ -30,7 +30,7 @@ class Question {
      * @param $id the id of question to grab. 
      */
     public function getDetailById($id) {
-        $columns = array('id', 'topic', 'title', 'full', 'bid', 'asked_by', 'answer', 'asked_time', 'published');
+        $columns = array('id', 'topic', 'title', 'full', 'bid', 'asked_by', 'answer', 'asked_time', 'published', 'activated');
         $where = array('id' => $id);
         $question = $this->database->getRow('g0g1_questions', $columns, $where);
         return $question;
@@ -232,9 +232,8 @@ class Question {
         $editTime = time(); 
         $version = $this->getQuestionVersion($qid); //The version of current question being backed up
         $cQuestion = $this->getDetailById($qid); //The current question data, not edited.
-        $this->database->insertRow('g0g1_questions_log', array('question_id'=>$cQuestion['id'], 'topic'=>$cQuestion['topic'], 'title'=>$cQuestion['title'], 'full'=>$cQuestion['full'], 'bid'=>$cQuestion['bid'], 'asked_by'=>$cQuestion['asked_by'], 'answer'=>$cQuestion['answer'], 'asked_time'=>$cQuestion['asked_time'], 'published'=>$cQuestion['published'], 'version'=>$version, 'edit_time'=>$editTime));
-        $this->database->update('g0g1_questions', array('topic'=>$details['topic'], 'title'=>$details['title'], 'full'=>$details['full'], 'bid'=>$details['bid'], 'answer'=>$details['answer'], 'published'=>$details['published']), array('id'=>$qid));
-        
+        $this->database->insertRow('g0g1_questions_log', array('question_id'=>$cQuestion['id'], 'topic'=>$cQuestion['topic'], 'title'=>$cQuestion['title'], 'full'=>$cQuestion['full'], 'bid'=>$cQuestion['bid'], 'asked_by'=>$cQuestion['asked_by'], 'answer'=>$cQuestion['answer'], 'asked_time'=>$cQuestion['asked_time'], 'published'=>$cQuestion['published'], 'activated'=>$cQuestion['activated'], 'version'=>$version, 'edit_time'=>$editTime));
+        $this->database->update('g0g1_questions', array('topic'=>$details['topic'], 'title'=>$details['title'], 'full'=>$details['full'], 'bid'=>$details['bid'], 'answer'=>$details['answer'], 'published'=>$details['published'], 'activated'=>$details['activated']), array('id'=>$qid));
     }
     
     /**

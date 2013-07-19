@@ -98,6 +98,9 @@ class Mod_Questions extends Controller {
             ),
             'published' => array(
                 'required' => true
+            ),
+            'activated' => array(
+                'required' => true
             )
         );
         $form = new Form($formData);

@@ -62,51 +62,41 @@ class Mod_Answers extends Controller {
     /**
      * Allow staff member editing rights to a question posted.
      */
-    public function edit($qid) {
-        if (!$this->question->exists($qid)) {
-            $GLOBALS['error']->addError('question', 'Question does not exist');
+    public function edit($id) {
+        if (!$this->answer->exists($id)) {
+            $GLOBALS['error']->addError('answer', 'Answer does not exist');
         }
-        if ($GLOBALS['error']->getErrorCount('question') > 0) {
+        if ($GLOBALS['error']->getErrorCount('answer') > 0) {
             $this->view->render('error/error');
         } else {
-            $this->view->qid = $qid;
-            $this->view->topics = $this->category->getCategories();
-            $this->view->question = $this->question->getDetailById($qid);
-            $this->view->render('mod_questions/edit');
+            $this->view->id = $id;
+            $this->view->answer = $this->answer->getAnswerById($id);
+            $this->view->render('mod_answers/edit');
         }
     }
     
-    public function runEdit($qid) {
+    public function runEdit($id) {
         $formData = array(
-            'title' => array(
-                'require' => true,
-                'min_length' => 3,
-                'max_length' => 64
-            ),
-            'topic' => array(
-                'required' => true
-            ),
-            'full' => array(
+            'full_text' => array(
                 'min_length' => 1,
                 'max_length' => 5012
             ),
-            'bid' => array(
+            'published' => array(
                 'required' => true
             ),
-            'published' => array(
+            'activated' => array(
                 'required' => true
             )
         );
         $form = new Form($formData);
         if ($form->isValid()) {
             $formData = $form->getFormData();
-            $this->model->runEditQuestion($qid, $formData);
-            $this->view->render('mod_questions/edit_success');
+            $this->model->runEditAnswer($id, $formData);
+            header('Location:'.ROOT.'mod/mod_answers/review/'.$id);
         } else {
             $this->view->render('error/error');
         }
     }
-
 }
 
 ?>

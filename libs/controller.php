@@ -20,8 +20,9 @@ class Controller{
         public function checkUser() {
             $user = new User();
             if($user->isLoggedIn()) {
+                $sessionData = Session::getSessionData(Session::getId());
                 if(!Session::isExpired(Session::getId())) {
-                    Session::rebuildSession(Session::getId());
+                    Session::rebuildSession($sessionData['id']);
                 } else {
                     $user->logout();
                 }

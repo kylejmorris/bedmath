@@ -43,7 +43,6 @@ class Database extends PDO {
         foreach ($this->binding as $bind) {
             $this->stmt->bindParam($bind[0], $bind[1]); //Element 0 = part of query to bind, element 1 is actual data.
         }
-        //die();
     }
 
     /**
@@ -108,6 +107,21 @@ class Database extends PDO {
                 if ($where[$whereKey[$c]] != null) {
                     return true;
                 }
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * Similar to whereHasAnotherNonNull, this will check if another element in the array is not null, meaning the query can include a ',' preparing for it.
+     * @param type $update array containing update contents.
+     * @param type $start the first element to start on in array.
+     */
+    private function updateHasAnotherNonNull($update, $start) {
+        $keys = array_keys($update);
+        for($c=$start+1; $c<sizeof($update); $c++) {
+            if($update[$keys[$c]]!=null) {
+                return true;
             }
         }
         return false;
@@ -264,13 +278,18 @@ class Database extends PDO {
 
     private function parseUpdate($data) {
         $updatedKeys = array_keys($data);
-        //print_r($updatedKeys);
         for ($c = 0; $c < sizeof($data); $c++) {
             $key = $updatedKeys[$c];
-            if ($c + 1 < sizeof($data)) {
-                $this->query.="$updatedKeys[$c] = '$data[$key]', ";
+            if ($c + 1 < sizeof($data)&&$this->updateHasAnotherNonNull($data, $c)) {
+                if($data[$key]!=null) {
+                    array_push($this->binding, array(':'.$key, $data[$key]));
+                    $this->query.="$updatedKeys[$c] = :".$key.", ";
+                }
             } else {
-                $this->query.="$updatedKeys[$c] = '$data[$key]' ";
+                if($data[$key]!=null) {
+                    array_push($this->binding, array(':'.$key, $data[$key]));
+                    $this->query.="$updatedKeys[$c] = :".$key." ";
+                }
             }
         }
     }
@@ -441,11 +460,11 @@ class Database extends PDO {
         $this->query.=") VALUES(";
         for ($c = 0; $c < sizeof($columns); $c++) { //Listing column values and attaching to query
             if ($c + 1 < sizeof($columns)) {
-                array_push($this->binding, array($keys[$c], $columns[$keys[$c]]));
-                $this->query.= ':' . $keys[$c] . ', ';
+                array_push($this->binding, array(':'.$keys[$c], $columns[$keys[$c]]));
+                $this->query.= ":" . $keys[$c] . ", ";
             } else {
-                array_push($this->binding, array($keys[$c], $columns[$keys[$c]]));
-                $this->query.= ':' . $keys[$c];
+                array_push($this->binding, array(':'.$keys[$c], $columns[$keys[$c]]));
+                $this->query.= ':' . $keys[$c].'';
             }
         }
         $this->query .= ")";
