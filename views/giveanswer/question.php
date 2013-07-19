@@ -18,7 +18,8 @@ echo 'Asked by: '.$this->question['asked_by'].' on'.date('D m Y', $this->questio
 
 <h2>Answer:</h2>
 <form action="<?php echo ROOT.'giveanswer/questionrun/'.$this->qid;?>" method="POST">
-<textarea style="resize:none" name="answer" cols=50 rows=5></textarea>
+<textarea name="answer"></textarea>
 <br>
 <input type="submit" value="Give Answer">
 </form>
+<script> CKEDITOR.replace( 'answer' ); </script>

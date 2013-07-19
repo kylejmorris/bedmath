@@ -17,4 +17,5 @@
         </title>
 		<link rel="stylesheet/less" type="text/css" href="<?php echo ROOT; ?>template/less/Master.less">
 		<script src="<?php echo ROOT; ?>template/scripts/less.js" type="text/javascript"></script>
+		<script src="<?php echo ROOT; ?>plugins/ckeditor/ckeditor.js"></script>
     </head>

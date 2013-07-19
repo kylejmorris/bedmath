@@ -13,7 +13,7 @@ Helping you get the best support for the best price!
 			}
 			?>
 			</select>
-			<textarea type="text" name="full" value="" placeholder="Put all the scary math here..." rows=8 cols=40></textarea>
+			<textarea type="text" name="full" value="" placeholder="Put all the scary math here..."></textarea>
 			<h2> Bidding details </h2>
 			<input type="text" name="bid" value="" placeholder="Enter bid amount"></input>
 			<input type="submit" value="Post Question"></input>
@@ -22,4 +22,5 @@ Helping you get the best support for the best price!
 		<div id="Other">
 		</div>
 	</div>
+	<script> CKEDITOR.replace( 'full' ); </script>
 </div>
