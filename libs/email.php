@@ -134,7 +134,8 @@ class Email {
     * @param $addresses list of addressess to receive message.
     */
     public function sendMail($addresses) {
-	mail($addresses, $this->subject, $this->message);
+        print_r($addresses);
+	mail($addresses, $this->subject, $this->message, 'From: kyle@localhost');
     }
 }
 ?>

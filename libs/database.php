@@ -511,7 +511,7 @@ class Database extends PDO {
      * @param $where array containing column names and the values they must meet.
      */
     public function getRowSum($table, $column, $where) {
-        $this->query.="SELECT SUM(amount) FROM $table ";
+        $this->query.="SELECT SUM(".$column.") FROM $table ";
         $this->parseWhere($where);
         $this->stmt = $this->prepare($this->query);
         $this->bind();

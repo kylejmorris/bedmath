@@ -220,6 +220,19 @@ class User {
             return false;
         }
     }
+    
+    /**
+     * Activation requires the confirmation of ones email after signing up an account. Certain site features require activation.
+     * @param type $userId the user id to check activation.
+     */
+    public function isActivated($userId) {
+        $activation = $this->database->getRow('g0g1_users', array('activated'), array('user_id'=>$userId));
+        if($activation[0]==true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /**
      * Searches database for users 

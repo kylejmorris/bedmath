@@ -194,8 +194,49 @@ class Points extends Database {
         return $this->database->getRows('g0g1_points', array('id', 'type_id', 'name', 'description'), array('type_id' => $id), 'id');
     }
 
-    public function getRedeemRequests() {
-        
+    /**
+     * Returns rows of redemption requests.
+     * @param type $state The current state, such as pending/paid/etc. . . .
+     * @param type $page Current page being viewed by staff member.
+     * @param type $limit the max amount of results to display per page.
+     */
+    public function getRedeemRequests($state, $page, $limit) {
+        return $this->database->getByPage('g0g1_redeem', array('id', 'request_code', 'user_id', 'amount', 'time', 'status'), array('status'=>$state), 'time', $page, $limit);
+    }
+    
+    /**
+     * Return a single redeem request
+     * @param type $id the id of the request to get.
+     */
+    public function getRedeemRequest($id) {
+        return $this->database->getRow('g0g1_redeem', array('id', 'request_code', 'user_id', 'amount', 'time', 'status'), array('id'=>$id));
+    }
+    
+    /**
+     * Returns count of redeem requests meeting a certain where clause.
+     * $state the state of redeem to get count of. Example: Pending/accepted/denied
+     */
+    public function getRedeemCount($state) {
+        return $this->database->getCount('g0g1_redeem', array('status'=>$state));
+    }
+    
+    /**
+     * Returns sum of redeem requests meeting a certain where clause.
+     * $state the state of redeem to get count of. Example: Pending/accepted/denied
+     */
+    public function redeemCashSum($state) {
+        $totalPoints = $this->database->getRowSum('g0g1_redeem', 'amount', array('status'=>$state));
+        $cashValue = $totalPoints/1000; 
+        return $cashValue;
+    }
+    
+    /**
+     * Update redeem request status, such as setting from pending to 'reviewed'.
+     * @param $id the redemption id to change status on.
+     * @param type $new the new status to set, as string value
+     */
+    public function editRedeemStatus($id, $new) {
+        $this->database->update('g0g1_redeem', array('status'=>$new), array('id'=>$id));
     }
 
 }
