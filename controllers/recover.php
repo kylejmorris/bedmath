@@ -8,7 +8,7 @@ class Recover extends Controller {
 	}
 	
 	public function index() {
-		$this->view->render('recover/index');
+		$this->view->render('recover/index', array('header', 'footer'));
 	}
 	
 	/**

@@ -15,7 +15,7 @@ class Login extends Controller {
      * Loads default login page
      */
     function index() {
-        $this->view->render('login/index');
+        $this->view->render('login/index', array('header', 'footer'));
     }
 
     /**
@@ -53,7 +53,7 @@ class Login extends Controller {
                 $GLOBALS['error']->addError('user', 'Username or password is incorrect');
             }
         }
-        $this->view->render('login/index');
+        $this->view->render('login/index', array('header', 'footer'));
     }
 
     /**

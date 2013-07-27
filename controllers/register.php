@@ -18,7 +18,7 @@ class Register extends Controller {
      * Main page to display registration form. This is if nor referral link was given to find this page. 
      */
     public function index() {
-        $this->view->render('register/index', array('main_nav'));
+        $this->view->render('register/index', array('header', 'footer'));
     }
 
     /**
