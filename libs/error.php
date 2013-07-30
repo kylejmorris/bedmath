@@ -28,13 +28,14 @@ class Error {
 
     public function __construct() {
         $this->errorList = array();
-        $this->errorTypes = array('form', 'user', 'points', 'question', 'answer');
+        $this->errorTypes = array('form', 'user', 'points', 'question', 'answer', 'mail');
         $this->errors = array(
             'form' => array(),
             'user' => array(),
             'points' => array(),
             'question' => array(),
-            'answer' => array()
+            'answer' => array(),
+            'mail' => array()
         );
     }
 

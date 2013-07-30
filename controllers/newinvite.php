@@ -8,9 +8,11 @@ Class NewInvite extends Controller {
 	}
 	
 	public function index() {
-		$this->view->username = $this->user->getNameFromId($this->user->getUserId());
-		$this->email->generateDefaultMail(3, Session::get("user_id"));
+                $userId = $this->user->getUserId();
+		$this->view->username = $this->user->getNameFromId($userId);
+		$this->email->generateDefaultMail(6, $userId);
 		$this->view->emailBody = $this->email->message;
+                $this->view->mailingCount = $this->email->mailSentCount(6, $userId, 86400);
 		$this->view->render('newinvite/index');
 	}
 	
@@ -25,7 +27,7 @@ Class NewInvite extends Controller {
 				$to .= $formData['to'][$c].',';
 			}
 		}
-		$this->email->generateDefaultMail(3, $this->user->getUserId());
+		$this->email->generateDefaultMail(6, $this->user->getUserId());
 		$this->email->sendMail($to);
 		header('Location: '.ROOT.'newinvite/index');
 	}
