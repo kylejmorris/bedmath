@@ -22,5 +22,7 @@ Helping you get the best support for the best price!
 		<div id="Other">
 		</div>
 	</div>
-	<script> CKEDITOR.replace( 'full' ); </script>
 </div>
+<script type="text/javascript">
+	CKEDITOR.replace('full', {toolbar:'Editor1'});
+</script>

@@ -96,7 +96,8 @@ class Email {
     }
     
     public function isValidEmail($email) {
-		if(preg_match('/^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/',$email)) { 
+            $regex = "^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)";
+		if(filter_var($email, FILTER_VALIDATE_EMAIL)) { 
 			return true; 
 		} else {
 			return false;
@@ -134,8 +135,16 @@ class Email {
     * @param $addresses list of addressess to receive message.
     */
     public function sendMail($addresses) {
-        print_r($addresses);
-	mail($addresses, $this->subject, $this->message, 'From: kyle@localhost');
+        $receivers = explode(',',$addresses);
+        $senderId = $this->user->getUserId();
+	mail($addresses, $this->subject, $this->message, 'From: team@bedmath.com');
+        foreach($receivers as $receiverEmail) {
+            $this->logMail($senderId, $receiverId, $receiverEmail); 
+        }
+    }
+    
+    public function logMail($sId, $rId, $rEmail) {
+        
     }
 }
 ?>

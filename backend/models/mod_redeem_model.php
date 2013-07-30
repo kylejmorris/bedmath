@@ -13,11 +13,12 @@ class Mod_Redeem_Model extends Model {
     }
 
     public function getRedeemSummary() {
-        $summary = array('total_requests' => '', 'total_paid', 'total_accepted' => '', 'total_pending' => '', 'cash_accepted', 'cash_paid' => '', 'cash_pending' => '');
+        $summary = array('total_requests' => '', 'total_paid', 'total_accepted' => '', 'total_pending' => '', 'total_denied'=>'', 'cash_accepted', 'cash_paid' => '', 'cash_pending' => '');
         $summary['total_requests'] = $this->points->getRedeemCount(null);
         $summary['total_paid'] = $this->points->getRedeemCount('paid');
         $summary['total_accepted'] = $this->points->getRedeemCount('accepted');
         $summary['total_pending'] = $this->points->getRedeemCount('pending');
+        $summary['total_denied'] = $this->points->getRedeemCount('denied');
         $summary['cash_paid'] = $this->points->redeemCashSum('paid');
         $summary['cash_accepted'] = $this->points->redeemCashSum('accepted');
         $summary['cash_pending'] = $this->points->redeemCashSum('pending');
@@ -26,6 +27,33 @@ class Mod_Redeem_Model extends Model {
 
     public function getPending($page, $limit) {
         $requests = $this->points->getRedeemRequests('pending', $page, $limit);
+        for ($c = 0; $c < sizeof($requests); $c++) {
+            array_push($requests[$c], 'username');
+            $requests[$c]['username'] = $this->user->getNameFromId($requests[$c]['user_id']);
+        }
+        return $requests;
+    }
+    
+    public function getDenied($page, $limit) {
+        $requests = $this->points->getRedeemRequests('denied', $page, $limit);
+        for ($c = 0; $c < sizeof($requests); $c++) {
+            array_push($requests[$c], 'username');
+            $requests[$c]['username'] = $this->user->getNameFromId($requests[$c]['user_id']);
+        }
+        return $requests;
+    }
+    
+    public function getAccepted($page, $limit) {
+        $requests = $this->points->getRedeemRequests('accepted', $page, $limit);
+        for ($c = 0; $c < sizeof($requests); $c++) {
+            array_push($requests[$c], 'username');
+            $requests[$c]['username'] = $this->user->getNameFromId($requests[$c]['user_id']);
+        }
+        return $requests;
+    }
+    
+    public function getPaid($page, $limit) {
+        $requests = $this->points->getRedeemRequests('paid', $page, $limit);
         for ($c = 0; $c < sizeof($requests); $c++) {
             array_push($requests[$c], 'username');
             $requests[$c]['username'] = $this->user->getNameFromId($requests[$c]['user_id']);
@@ -69,6 +97,23 @@ class Mod_Redeem_Model extends Model {
         $this->email->generateDefaultMail(4, $userDetail['user_id']);
         $this->email->sendMail(array($userDetail['email']));
         $this->points->editRedeemStatus($id, 'accepted');
+    }
+    
+    /**
+     * Send email to user notifying them that they have been denied and will need to fix the errors.
+     * @param type $id
+     */
+    public function reviewDenied($id) {
+        $redeemRequest = $this->points->getRedeemRequest($id);
+        $userDetail = $this->user->getDetailFromId($redeemRequest['user_id']);
+        $this->email->generateDefaultMail(5, $userDetail['user_id']);
+        $this->email->sendMail(array($userDetail['email']));
+        $this->points->editRedeemStatus($id, 'denied');
+    }
+    
+    
+    public function runPaid($id) {
+        $this->points->editRedeemStatus($id, 'paid');
     }
 }
 

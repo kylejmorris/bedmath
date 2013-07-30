@@ -150,6 +150,7 @@ class Image {
      * @param $contentId The content ID
      */
     public function getImageByContent($type, $contentId) {
+        echo $type.' '.$contentId;
         $query = "SELECT * FROM g0g1_image_log WHERE type='$type' AND content_id='$contentId'";
         $row = $this->database->query($query);
         $result = $row->fetch();

@@ -15,6 +15,32 @@ class Mod_Redeem extends Controller {
 	}
         
         /**
+         * Viewing redemptions that have been accepted and user has been paid.
+         * @param type $page the page being viewed.
+         */
+        public function paid($page) {
+            if($page==null) {
+                $page = 1;
+            }
+            $this->view->requests = $this->model->getPaid($page, 10);
+            $this->view->pagination = $this->pagination->getPageList($page, 10, sizeof($this->view->requests));
+            $this->view->render('mod_redeem/paid');
+        }
+        
+        /**
+         * Viewing redemptions that have been accepted and await payment.
+         * @param type $page the page being viewed.
+         */
+        public function accepted($page) {
+            if($page==null) {
+                $page = 1;
+            }
+            $this->view->requests = $this->model->getAccepted($page, 10);
+            $this->view->pagination = $this->pagination->getPageList($page, 10, sizeof($this->view->requests));
+            $this->view->render('mod_redeem/accepted');
+        }
+        
+        /**
          * Viewing redemptions that are currently unreviewed and pending.
          * @param type $page the page being viewed.
          */
@@ -25,6 +51,19 @@ class Mod_Redeem extends Controller {
             $this->view->requests = $this->model->getPending($page, 10);
             $this->view->pagination = $this->pagination->getPageList($page, 10, sizeof($this->view->requests));
             $this->view->render('mod_redeem/pending');
+        }
+        
+        /**
+         * Viewing redemptions that have been denied during review process.
+         * @param type $page the page being viewed.
+         */
+        public function denied($page) {
+            if($page==null) {
+                $page = 1;
+            }
+            $this->view->requests = $this->model->getDenied($page, 10);
+            $this->view->pagination = $this->pagination->getPageList($page, 10, sizeof($this->view->requests));
+            $this->view->render('mod_redeem/denied');
         }
         
         /**
@@ -50,7 +89,17 @@ class Mod_Redeem extends Controller {
          * @param type $id the redeem request id
          */
         public function reviewDenied($id) {
-            
+            $this->model->reviewDenied($id);
+            header('Location: '.ROOT.'mod/mod_redeem/pending');
+        }
+        
+        /**
+         * Run payment from accepted page and set request as 'paid'
+         * @param type $id
+         */
+        public function runPaid($id) {
+            $this->model->runPaid($id);
+            header('Location: '.ROOT.'mod/mod_redeem/accepted');
         }
 }
 

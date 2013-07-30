@@ -2,9 +2,10 @@
   <div id="Buy">
 	  <h2>Buy Points</h2>
 		<?php
-			if(Session::exists('user_id')) {
+                $user = new User();
+			if($user->exists($this->userId)) {
 				$points = new Points();
-				echo 'Your current total points is '.$points->getPoints(Session::get('user_id')).'.';
+				echo 'Your current total points is '.$points->getPoints($this->userId).'.';
 			}
 		?>
 		<br>
@@ -30,7 +31,7 @@
 			<input type="hidden" name="return" value="<?php echo ROOT;?>buy/success">
 			<input type="hidden" name="notify_url" value="<?php echo ROOT;?>ipn.php">
 			<input type="hidden" name="cancel_return" value="<?php echo ROOT;?>buy/points">
-			<input type="hidden" name="custom" value="<?php echo Session::get('user_id');?>">
+			<input type="hidden" name="custom" value="<?php echo $this->userId;?>">
 			<input type="hidden" name="logo_custom" value="<?php echo ROOT;?>images/icons/btn_buynowCC_LG.gif">
 			<input type="hidden" name="no_note" value="1">
 			<input type="hidden" name="currency_code" value="<?php echo PAY_CURRENCY;?>">

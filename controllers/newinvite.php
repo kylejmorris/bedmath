@@ -8,16 +8,16 @@ Class NewInvite extends Controller {
 	}
 	
 	public function index() {
-                echo 'test';
 		$this->view->username = $this->user->getNameFromId($this->user->getUserId());
 		$this->email->generateDefaultMail(3, Session::get("user_id"));
 		$this->view->emailBody = $this->email->message;
-		$this->view->render('invite/index');
+		$this->view->render('newinvite/index');
 	}
 	
 	public function runInvite() {
 		$form = array('to'=>'');
 		$formData = $this->form->getFormContent($form);
+                echo 'test';
 		$formData['to'] = explode(',', $formData['to']);
 		$to = "";
 		for($c=0; $c<sizeof($formData['to']); $c++) {
@@ -25,9 +25,9 @@ Class NewInvite extends Controller {
 				$to .= $formData['to'][$c].',';
 			}
 		}
-		$this->email->generateDefaultMail(3, Session::get("user_id"));
+		$this->email->generateDefaultMail(3, $this->user->getUserId());
 		$this->email->sendMail($to);
-		header('Location: '.ROOT.'invite/index');
+		header('Location: '.ROOT.'newinvite/index');
 	}
 }
 ?>

@@ -19,6 +19,7 @@ class Buy extends Controller {
 	* Displays form allowing user to donate points
 	*/
 	public function points() {
+                $this->view->userId = $this->user->getUserId();
 		$this->view->render("buy/points");
 	}
 	
