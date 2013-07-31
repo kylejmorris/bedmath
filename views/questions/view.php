@@ -6,7 +6,7 @@
 			echo '<div id="Question" class="NoAnswers">';
 			echo '<div id="HeaderQuestion">';
 			$question['avatar']->render(); //Creating avatar image
-			echo '<h3>'.$question['title'].'</h3>';
+			echo '<h3><a href='.ROOT.'review/question/'.$question['id'].'>'.$question['title'].'</a></h3>';
 			echo '<span class="Count">';
 			echo $question['answer_count'];
 			echo '</span>';
