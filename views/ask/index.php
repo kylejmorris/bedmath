@@ -26,7 +26,6 @@ Helping you get the best support for the best price!
 <script type="text/javascript">
     CKEDITOR.replace( 'full', {
     toolbar: 'Basic',
-    uiColor: '#9AB8F3'
 });
 </script>
 
