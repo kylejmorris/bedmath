@@ -1,6 +1,8 @@
 CKEditor 4
 ==========
 
+Hello world
+
 Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.  
 http://ckeditor.com - See LICENSE.md for license information.
 
