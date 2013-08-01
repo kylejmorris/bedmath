@@ -3,6 +3,11 @@ class Ask extends Controller {
     public function __construct() {
 		parent::__construct();
 		$this->category = new Category();
+                $this->user = new User();
+                if(!$this->user->isLoggedIn()) {
+                    $_SESSION['returnPage'] = $_GET['url'];
+                    header('Location: '.ROOT.'login', TRUE, 302);
+                }
 	}
 	
 	public function index() {

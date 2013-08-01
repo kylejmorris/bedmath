@@ -20,8 +20,10 @@
 						<input type="password" name="password" placeholder="Password">
 					</div>
 					<div id="Input">
-						<input type="submit" value="Login" class="login-button">
-					</div>
+					<input type="hidden" name="returnPage" value="<?php echo $this->returnPage;?>"></input>	
+                                            <input type="submit" value="Login" class="login-button">
+                                                
+                                        </div>
 					<a class="graylink" href="<?php echo ROOT;?>recover"> Need some help ? </a>
 				</form>
 			</div>

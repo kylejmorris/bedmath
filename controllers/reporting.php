@@ -84,9 +84,9 @@ class Reporting extends Controller {
      * @param $qid the id of question to report
      */
     public function question($qid) {
-      $this->view->question = $this->question->getDetailById($qid);
-      $this->view->reasons = $this->report->getReportReasons(3);
-      $this->view->render('reporting/question');
+        $this->view->question = $this->question->getDetailById($qid);
+        $this->view->reasons = $this->report->getReportReasons(3);
+        $this->view->render('reporting/question');
     }
 
     public function runquestion() {
@@ -105,11 +105,11 @@ class Reporting extends Controller {
             )
         );
         $form = new Form($formData);
-        if($form->isValid()) {
+        if ($form->isValid()) {
             echo 'asdf';
             $formData = $form->getFormData();
             $this->model->runReportQuestion($formData);
-            header('Location: '.ROOT.'questions');
+            header('Location: ' . ROOT . 'questions');
         }
         $this->view->render('index/index');
     }

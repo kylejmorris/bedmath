@@ -6,6 +6,10 @@ class Donate extends Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->user = new User();
+                if(!$this->user->isLoggedIn()) {
+                    $_SESSION['returnPage'] = $_GET['url'];
+                    header('Location: '.ROOT.'login', TRUE, 302);
+                }
 	}
 	
 	/**

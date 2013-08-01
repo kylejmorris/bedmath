@@ -45,12 +45,17 @@ class Bootstrap {
 	
 	public function loadModel() {
 		if($this->appType=='backend/') {
+                    $user = new User();
+                    if($user->getUserLevel($user->getUserId())>=3) { //Make sure user is staff member before even considering the backend.
 			$this->controller->loadModel($this->appType, $this->url[1]); //Calling loadmodel method from controller, giving appType as parameters to let Model know where to search for files. Example: the admin models are not located in the same directory as main models. Also sending controller name as second param to load.  
 			if(!empty($this->method)) {
 				$this->controller->{$this->method}($this->arg, $this->arg2, $this->arg3, $this->arg4, $this->arg5); //Calling specified method within controller, feeding what ever arguments were given within url 
 			} else {
 				$this->controller->index();
 			}
+                    } else {
+                        header('Location: '.ROOT.'index'); //Don't allow user to access backend, of course.
+                    }
 		} else {	
 			$this->controller->loadModel($this->appType, $this->url[0]); //Calling loadmodel method from controller, giving appType as parameters to let Model know where to search for files. Example: the admin models are not located in the same directory as main models. Also sending controller name as second param to load.  
 			if(!empty($this->method)) {

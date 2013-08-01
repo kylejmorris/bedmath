@@ -15,6 +15,7 @@ class Login extends Controller {
      * Loads default login page
      */
     function index() {
+        $this->view->returnPage = $_SERVER['HTTP_REFERER'];
         $this->view->render('login/index', array('header', 'footer'));
     }
 
@@ -34,6 +35,8 @@ class Login extends Controller {
                 'required' => true,
                 'min_length' => 6,
                 'max_length' => 128
+            ),
+            "returnPage" => array(
         ));
         $form = new Form($formData);
         if ($form->isValid()) {
@@ -41,11 +44,18 @@ class Login extends Controller {
             $userId = $this->model->run($formData);
             if ($userId != false) { //If valid login was returned, and succesfull 
                 if (!$this->user->isBanned($userId)) {
-                    //Session::set('user_id', $userId); //Login user session
                     $this->user->login($userId);
-                    header("Location:../index");
+                    if (strpos($formData['returnPage'], 'login') === false && !$formData['returnPage']=="") { //Return user to page they came from.
+                        header('Location: ' . $formData['returnPage']);
+                    } else {
+                        if(isset($_SESSION['returnPage'])) {
+                            header("Location: ".ROOT.$_SESSION['returnPage']); //backup, takes session from page when redirected to login.
+                            unset($_SESSION['returnPage']);
+                        } else {
+                            header("Location:../index"); //Put on index page if all else fails.
+                        }
+                    }
                 } else {
-                    //Session::set('user_id', $userId); //Login user session
                     $this->user->login($userId);
                     header("Location:" . ROOT . 'login/banned');
                 }

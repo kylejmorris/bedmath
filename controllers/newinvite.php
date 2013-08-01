@@ -5,6 +5,10 @@ Class NewInvite extends Controller {
 		$this->user = new User();
 		$this->email = new Email();
 		$this->form = new Form();
+                if(!$this->user->isLoggedIn()) {
+                    $_SESSION['returnPage'] = $_GET['url'];
+                    header('Location: '.ROOT.'login', TRUE, 302);
+                }
 	}
 	
 	public function index() {

@@ -7,6 +7,10 @@ class Redeem extends Controller {
         $this->form = new Form();
         $this->user = new User();
         $this->pagination = new Pagination();
+        if(!$this->user->isLoggedIn()) {
+                    $_SESSION['returnPage'] = $_GET['url'];
+                    header('Location: '.ROOT.'login', TRUE, 302);
+         }
     }
 
     public function index() {
