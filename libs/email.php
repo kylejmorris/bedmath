@@ -134,6 +134,48 @@ class Email {
     }
 
     /**
+     * Runs a series of checks to ensure the user is not spamming emails. 
+     * @param type $userId the id of user to flood check.
+     */
+    private function floodCheck($senderId) {
+        echo $this->receiver;
+        $receiverId = $this->user->emailToId($this->receiver);
+        if ($this->mailId == MAIL_SEND_INVITE) {
+            if ($this->mailSentCount(MAIL_SEND_INVITE, $senderId, 86400) >= FLOOD_MAIL_INVITE) {
+                return false;
+            }
+        }
+        if ($senderId == null) {
+            $senderId == 1;
+            
+            if ($this->mailId == MAIL_SEND_ACTIVATE) {
+                if ($this->mailReceiveCount(MAIL_SEND_ACTIVATE, $this->receiver, 86400) >= FLOOD_MAIL_ACTIVATE) { //Has not sent over max emails per day
+                    return false;
+                }
+            }
+            if ($this->mailId == MAIL_SEND_RECOVERY) {
+                if ($this->mailReceiveCount(MAIL_SEND_RECOVERY, $this->receiver, 86400) >= FLOOD_MAIL_RECOVERY) {
+                    echo 'hi';
+                    return false;
+                }
+                echo $this->mailReceiveCount(MAIL_SEND_RECOVERY, $this->receiver, 86400);
+            }
+        } else {
+            if ($this->mailId == MAIL_SEND_ACTIVATE) {
+                if ($this->mailSentCount(MAIL_SEND_ACTIVATE, $senderId, 86400) >= FLOOD_MAIL_ACTIVATE) { //Has not sent over max emails per day
+                    return false;
+                }
+            }
+            if ($this->mailId == MAIL_SEND_RECOVERY) {
+                if ($this->mailSentCount(MAIL_SEND_RECOVERY, $senderId, 86400) >= FLOOD_MAIL_RECOVERY) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
      * Sends emails upon data being correctly formed. 
      * @param $addresses list of addressess to receive message.
      */
@@ -141,8 +183,11 @@ class Email {
         $receivers = explode(',', $addresses);
         unset($receivers[sizeof($receivers) - 1]); //Last element is empty
         $senderId = $this->user->getUserId();
-        if ($this->mailSentCount(6, $senderId, 86400) < 15) { //Limited to 25 invitations sent per day, to reduce email spam potential
-            if ($this->mailId == 6) { //This id means an invite is being set, and we need to make sure no flooding is being done.
+        if ($this->floodCheck($senderId)) { //Passes all flood checks.
+            if($senderId==null) {
+                $senderId=1;
+            }
+            if ($this->mailId == MAIL_SEND_INVITE) { //If sending invites, we must split the emails up.
                 foreach ($receivers as $key => $value) {
                     if ($this->mailAlreadySent($senderId, trim($value))) {
                         unset($receivers[$key]);
@@ -150,8 +195,13 @@ class Email {
                 }
             }
             mail($addresses, $this->subject, $this->message, 'From: team@bedmath.com');
-            foreach ($receivers as $receiverEmail) {
-                $this->logMail($senderId, trim($receiverEmail));
+            if (sizeof($recievers) > 0) {
+                foreach ($receivers as $receiverEmail) {
+                    $this->logMail($senderId, trim($receiverEmail));
+                }
+            } else {
+
+                $this->logMail($senderId, $addresses);
             }
         }
     }
@@ -191,7 +241,19 @@ class Email {
         $since = time() - $since;
         $count = $this->database->getCount('g0g1_mail_log', array('default_id' => $type, 'sender' => $sender, 'time' => array($since, '>')));
         return $count;
-        
+    }
+    
+    /**
+     * Check how many mails have been received by a user. 
+     * This is if a user is recovering there account for example, and keeps spamming emails to themselves. We need a way of recording who it is since they aren't logged in on their account.
+     * @param type $type
+     * @param type $receiver
+     * @param type $since
+     */
+    public function mailReceiveCount($type, $receiver, $since) {
+        $since = time()-$since;
+        $count =  $this->database->getCount('g0g1_mail_log', array('receiver_email'=>$receiver, 'default_id'=>$type, 'time'=>array($since,'>')));
+        return $count;
     }
 
 }

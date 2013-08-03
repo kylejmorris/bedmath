@@ -16,7 +16,7 @@ class Register_Model extends Model {
        $email = $formData['email']; 
        $avatar = 1; //Default avatar ID. This will load avatar image 1 when user is made
        $salt = $this->pass->genSalt();
-       $columns = array('username'=>$username, 'password'=>$this->pass->genPass($password, $salt), 'salt'=>$salt, 'join_date'=>$joined, 'email'=>$email, 'activated'=>1, 'user_level'=>2, 'avatar_id'=>1);
+       $columns = array('username'=>$username, 'password'=>$this->pass->genPass($password, $salt), 'salt'=>$salt, 'join_date'=>$joined, 'email'=>$email, 'activated'=>0, 'user_level'=>2, 'avatar_id'=>1);
        if($formData['invited_by']!=null) {
 		$invitedBy = $this->user->nameToId($formData['invited_by']); 
 		$this->user->recordInvite($invitedBy); 

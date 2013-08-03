@@ -151,6 +151,11 @@ class User {
         $result = $row->fetch();
         return $result['user_id'];
     }
+    
+    public function emailToId($email) {
+        $column = $this->database->getRow('g0g1_users', array('user_id'), array('email'=>$email));
+        return $column[0];
+    }
 
     /**
      * Conditional statement checking if user information exists based on the user id supplied
@@ -198,6 +203,15 @@ class User {
         } else {
             echo 'Error: User does not need activation';
         }
+    }
+    
+    /**
+     * Set user account as activated, upon email being confirmed.
+     * @param type $userId
+     */
+    public function setActivation($userId) {
+        $this->database->update('g0g1_user', array('activated'=>1), array('user_id'=>$userId));
+        
     }
 
     /**
