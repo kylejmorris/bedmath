@@ -3,7 +3,7 @@
 <?php
 echo 'Username: <input type=text name=username value='.$this->details['username'].'><br>';
 echo 'Email: <input type=text name=email value='.$this->details['email'].'><br>';
-echo 'Password: <input type=password name=password value='.$this->details['password'].'><br>';
+echo 'Password: <input type=password placeholder="New Password" name=password value=""><br>';
 if($this->details['activated']==true) {
 	echo 'Activated: <input type=radio name=activated value=1 CHECKED>Yes';
 echo '<input type=radio name=activated value=0 >No<br>';

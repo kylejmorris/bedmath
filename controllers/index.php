@@ -9,10 +9,15 @@ class Index extends Controller {
         */
 	function __construct() {
 		parent::__construct();  
+                $this->user = new User();
+                $this->question = new Question();
+                $this->view->userCount = $this->user->userCount();
+                $this->view->answerCount = $this->question->getSolvedCount(null, null);   
                 $this->view->render("index/index", array(2));
 	}
         
         public function index() {
+
             
         }
 }

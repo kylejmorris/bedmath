@@ -8,9 +8,8 @@ class Register extends Controller {
     function __construct() {
         parent::__construct();
         $this->user = new User();
-        if (Session::exists('user_id')) {
-            header('Location:' . ROOT);
-            $error->showErrors();
+        if ($this->user->isLoggedIn()) {
+            header('Location: ' . ROOT);
         }
     }
 

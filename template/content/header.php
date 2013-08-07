@@ -23,7 +23,7 @@
 					$userLevel = $user->getUserLevel($user->getUserId()); //Getting userlevel based on the logged in session id
 					if($userLevel >= 3) { //Only include if user is marking staff group, or higher in power.
 						$report = new Report();
-						$reportCount = $report->getReportCount();
+						$reportCount = $report->getReportCount('pending');
 						echo '<div id="Staff">';
 						echo '<a href="'.ROOT.'mod/mod_users/" class="first left">Users</a>';
 						echo '<a class="left" href="'.ROOT.'mod/mod_points">Points</a>';

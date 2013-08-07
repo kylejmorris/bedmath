@@ -19,7 +19,8 @@ Class Account extends Controller {
         $this->answer = new Answer();
         $this->pass = new Pass();
         if (!$this->user->isLoggedIn()) {
-            header('location: ' . ROOT);
+            $_SESSION['returnPage'] = $_GET['url'];
+            header('Location: ' . ROOT . 'login', TRUE, 302);
         }
     }
 
@@ -28,6 +29,10 @@ Class Account extends Controller {
      */
     public function index($test) {
         $this->view->render("account/index");
+    }
+    
+    public function changedPass() {
+        $this->view->render('account/changedpass');
     }
 
     /**
@@ -101,18 +106,17 @@ Class Account extends Controller {
         $form = new Form($formData);
         if ($form->isValid()) {
             $formData = $form->getFormData();
-            if($formData['new']!=$formData['again']) {
+            if ($formData['new'] != $formData['again']) {
                 $GLOBALS['error']->addError('user', 'Make sure new passwords match');
             }
         }
-        if(!$this->pass->isValid($this->user->getUserId(), $formData['old'])) {
+        if (!$this->pass->isValid($this->user->getUserId(), $formData['old'])) {
             $GLOBALS['error']->addError('user', 'Old password entered is not correct');
         }
-        if($GLOBALS['error']->getErrorCount()==0) {
+        if ($GLOBALS['error']->getErrorCount() == 0) {
             $this->model->runNewPass($this->user->getUserId(), $formData['new']);
-            $GLOBALS['error']->addError('user', 'Password changed succesfully');
+            header('Location: '.ROOT.'account/changedpass');
         }
-        $this->view->render('account/newpass');
     }
 
     public function questions($page) {

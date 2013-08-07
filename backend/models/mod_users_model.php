@@ -31,8 +31,7 @@ class Mod_Users_Model extends Model {
 	*/
 	public function runEdit($userId, $formData) {
 		$query = "UPDATE g0g1_users SET username='{$formData['username']}', 
-		email='{$formData['email']}',
-		password='{$formData['password']}',
+		email='{$formData['email']},
 		activated='{$formData['activated']}',
 		user_level='{$formData['user_level']}'
 		WHERE user_id='$userId'";

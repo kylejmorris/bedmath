@@ -5,8 +5,8 @@ class Report extends Database {
 		$this->user = new User();
 	}
 	
-	public function getReportCount() {
-			$count = $this->database->getCount('g0g1_report_log', array('state'=>0));
+	public function getReportCount($state='pending') {
+			$count = $this->database->getCount('g0g1_report_log', array('state'=>"$state"));
 			return $count;
 	}
 	
@@ -31,7 +31,7 @@ class Report extends Database {
 		$evidence = $report['evidence'];
 		$comments = $report['comments'];
 		$time = time(); 
-		$query = "INSERT INTO g0g1_report_log (id, type, content_id, reporter, reason, evidence, comments, time) VALUES ('', '$type', '$content_id', '$reporter', '$reason', '$evidence', '$comments', '$time')";
+		$query = "INSERT INTO g0g1_report_log (id, state, type, content_id, reporter, reason, evidence, comments, time) VALUES ('', 'pending', '$type', '$content_id', '$reporter', '$reason', '$evidence', '$comments', '$time')";
 		$this->database->query($query);
 	}
 	
@@ -59,56 +59,24 @@ class Report extends Database {
 	* @param $reason the reason content was reported. Makes it easier to locate urgent reports.
 	* @return Associative array.
 	*/
-	public function getReports($page=1, $count=10, $state=0, $type='all', $reason='all') {
-		$start = ($page * $count)-$count;
-		$query = $query = "SELECT * FROM g0g1_report_log WHERE 1 "; //default query
-		
-		if($state!='all') { //Adding conditions if values are set. 
-			$query .= "AND state=:state ";
-		}
-		if($type!='all') {
-			$query .= "AND type=:type ";
-		}
-		if($reason!='all') {
-			$query .= "AND reason=:reason ";
-		}
-		$query .= "LIMIT $start, $count"; 	
-		$stmt = $this->database->prepare($query);
-		if(preg_match('/:state/', $query)) {
-			$stmt->bindParam(':state', $state);
-		}
-		if(preg_match('/:type/', $query)) {
-			$stmt->bindParam(':type', $type);
-		}
-		if(preg_match('/:reason/', $query)) {
-			$stmt->bindParam(':reason', $reason);
-		}
-		$stmt->execute();
-		$results = $stmt->fetchAll(); 
-		for($c=0; $c<sizeof($results); $c++) {
+	public function getReports($page=1, $count=10, $state='pending', $type, $reason) {
+                $results = $this->database->getByPage('g0g1_report_log', array('id', 'state', 'type', 'content_id', 'reporter', 'reason', 'evidence', 'comments', 'time'), array('state'=>$state, 'type'=>$type, 'reason'=>$reason), 'time', $page, $count);
+                for($c=0; $c<sizeof($results); $c++) {
 			$results[$c]['type'] = $this->typeIdToName($results[$c]['type']);
 			$results[$c]['reporter'] = $this->user->getNameFromId($results[$c]['reporter']);
 			$results[$c]['reason'] = $this->reasonIdToName($results[$c]['reason']);
-			if($results[$c]['state']==0) {
-				$results[$c]['state']='needs review';
-			} elseif($results[$c]['state']==1){
-				$results[$c]['state']='confirmed';
-			} else {
-				$results[$c]['state']='denied';
-			}
 			$results[$c]['time'] = date('g:m M d Y', $results[$c]['time']);
 		}
 		return $results;
 	}
 	
 	public function getReportDetail($id) {
-		$query = "SELECT * FROM g0g1_report_log WHERE id='$id'";
-		$row = $this->database->query($query);
-		$result = $row->fetchAll();
-		$result[0]['type'] = $this->typeIdToName($result[0]['type']);
-		$result[0]['reason'] = $this->reasonIdToName($result[0]['reason']);
-		$result[0]['time'] = date('g:m M d Y', $result[0]['time']);
-		$result[0]['reporter'] = $this->user->getNameFromId($result[0]['reporter']);
+                $result = $this->database->getRow('g0g1_report_log', array('id', 'state', 'type', 'content_id', 'reporter', 'reason', 'evidence', 'comments', 'time'), array('id'=>$id));
+		print_r($result);
+                $result['type'] = $this->typeIdToName($result['type']);
+		$result['reason'] = $this->reasonIdToName($result['reason']);
+		$result['time'] = date('g:m M d Y', $result['time']);
+		$result['reporter'] = $this->user->getNameFromId($result['reporter']);
 		return $result; 
 	}
 	

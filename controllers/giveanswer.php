@@ -38,7 +38,7 @@ class GiveAnswer extends Controller {
         $formData = array(
             'answer' => array(
                 'required' => true,
-                'min_length' => 100,
+                'min_length' => 10,
                 'max_length' => 10256
             )
         );

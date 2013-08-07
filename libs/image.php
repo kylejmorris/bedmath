@@ -137,7 +137,7 @@ class Image {
      * @param $userId The users ID
      */
     public function getImageByUser($type, $userId) {
-        $query = "SELECT * FROM g0g1_image_log WHERE type='$type' AND user_id='15'";
+        $query = "SELECT * FROM g0g1_image_log WHERE type='$type' AND user_id='$userId'";
         $row = $this->database->query($query);
         $result = $row->fetch();
         return $result;
@@ -150,7 +150,6 @@ class Image {
      * @param $contentId The content ID
      */
     public function getImageByContent($type, $contentId) {
-        echo $type.' '.$contentId;
         $query = "SELECT * FROM g0g1_image_log WHERE type='$type' AND content_id='$contentId'";
         $row = $this->database->query($query);
         $result = $row->fetch();

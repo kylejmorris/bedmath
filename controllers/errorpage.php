@@ -1,13 +1,12 @@
 <?php
-class Error extends Controller {
-public $page = 'error/error';
+class ErrorPage extends Controller {
+public $page = 'errorpage/error';
 	function __construct() {
 		parent::__construct();
 		$this->view->render($this->page);		
 	}
 	
 	public function index() {
-		echo 'yolo';
 	}
 }
 ?>

@@ -33,7 +33,7 @@ CREATE TABLE `g0g1_answers` (
   `activated` tinyint(1) DEFAULT '1',
   `edit_time` int(13) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `g0g1_answers` (
 
 LOCK TABLES `g0g1_answers` WRITE;
 /*!40000 ALTER TABLE `g0g1_answers` DISABLE KEYS */;
-INSERT INTO `g0g1_answers` VALUES (1,1,2,'This is a demo answer to an arithmetic problem. \r\n\r\nLet\'s say the answer is 56 alright? \r\nKyle, let me know if this solves everything for you! ',1374262179,1,1,1,0);
+INSERT INTO `g0g1_answers` VALUES (4,19,2,'<p>I have discovered a truly marvelous proof of this, which this answer&nbsp;is too narrow to contain.</p>',1375902737,1,0,1,0);
 /*!40000 ALTER TABLE `g0g1_answers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -223,7 +223,7 @@ CREATE TABLE `g0g1_mail` (
   `content` varchar(1080) NOT NULL,
   `subject` varchar(320) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -232,7 +232,7 @@ CREATE TABLE `g0g1_mail` (
 
 LOCK TABLES `g0g1_mail` WRITE;
 /*!40000 ALTER TABLE `g0g1_mail` DISABLE KEYS */;
-INSERT INTO `g0g1_mail` VALUES (1,1,'Hello [USERNAME], this is a default testing message using the GlobeOfGeek mailing system. Hopefully you received a message! ',''),(2,2,'Hello there [USERNAME] you currently have [CURRENT_POINTS] points on the site! We suggest you get your butt back on there and earn more!','You have points with GlobeOfGeek!'),(4,4,'This is an account recovery sent from GlobeOfGeek.com, if you are trying to recover lost account settings then follow the link: www.globeofgeek.com/recover/validate/[USER_ID]/[EMAIL_RECOVERY_CODE]','Account Recovery'),(5,3,'Hey [USERNAME], this is a notification clarifying that your redeem request has been accepted! This means that you will receive payment during the next cash out, which will take place within 48 hours. Thanks for your support on Bedmath, pal!','Redeem Request Accepted! Awaiting payout'),(6,5,'Hello [USERNAME], this is a notification stating that your redeem request has been denied during the review process. Please check over your account standing and make sure you meet the checks. Once your account meets the site requirments you may send another redeem request. Thanks for understanding, we hope everything works out smoothly! If you have any questions feel free to contact us or leave a report if you think this was an error.','Redeem Request Denied: Please check your account standing');
+INSERT INTO `g0g1_mail` VALUES (1,1,'Hello [USERNAME], this is a default testing message using the GlobeOfGeek mailing system. Hopefully you received a message! ',''),(2,2,'Hello there [USERNAME] you currently have [CURRENT_POINTS] points on the site! We suggest you get your butt back on there and earn more!','You have points with GlobeOfGeek!'),(4,4,'This is an account recovery sent from GlobeOfGeek.com, if you are trying to recover lost account settings then follow the link: www.globeofgeek.com/recover/validate/[USER_ID]/[EMAIL_RECOVERY_CODE]','Account Recovery'),(5,3,'Hey [USERNAME], this is a notification clarifying that your redeem request has been accepted! This means that you will receive payment during the next cash out, which will take place within 48 hours. Thanks for your support on Bedmath, pal!','Redeem Request Accepted! Awaiting payout'),(6,5,'Hello [USERNAME], this is a notification stating that your redeem request has been denied during the review process. Please check over your account standing and make sure you meet the checks. Once your account meets the site requirments you may send another redeem request. Thanks for understanding, we hope everything works out smoothly! If you have any questions feel free to contact us or leave a report if you think this was an error.','Redeem Request Denied: Please check your account standing'),(7,6,'You have been invited to Bedmath: an online platform that lets students get help in math quickly, and for a price that is actually realistic! But wait up, if you happen to be good with mathematics, you can also be a tutor! Being a tutor lets you answer questions posted by others and get paid. Come take a look, it seems you have got some friends waiting for you pal.','You have been invited to Bedmath'),(8,7,'This is an activation request for your Bedmath account. Please follow the link below to confirm this email. Thankyou. http://bedmath.com/activate/validate/[USER_ID]/[EMAIL_RECOVERY_CODE]/','Activate Your Bedmath Account');
 /*!40000 ALTER TABLE `g0g1_mail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -245,14 +245,12 @@ DROP TABLE IF EXISTS `g0g1_mail_log`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `g0g1_mail_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` varchar(32) NOT NULL,
   `default_id` int(11) NOT NULL,
   `sender` int(11) NOT NULL,
-  `receiver` int(11) NOT NULL,
   `time` int(11) NOT NULL,
   `receiver_email` varchar(1080) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -305,7 +303,7 @@ CREATE TABLE `g0g1_points_log` (
   `points` int(11) NOT NULL,
   `time` int(11) NOT NULL,
   PRIMARY KEY (`transaction_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -314,7 +312,7 @@ CREATE TABLE `g0g1_points_log` (
 
 LOCK TABLES `g0g1_points_log` WRITE;
 /*!40000 ALTER TABLE `g0g1_points_log` DISABLE KEYS */;
-INSERT INTO `g0g1_points_log` VALUES (1,9,1,0,10,1374261996),(2,10,1,0,25,1374262020),(3,9,2,0,10,1374262020),(4,10,1,0,25,1374262031),(5,9,3,0,10,1374262031),(6,10,1,0,25,1374262043),(7,9,4,0,10,1374262043),(8,12,1,0,-75,1374262122),(9,11,2,1,75,1374262212),(10,12,NULL,0,-52,1374266932),(11,12,1,0,-11,1374266975),(12,12,1,0,-11,1374437816);
+INSERT INTO `g0g1_points_log` VALUES (2,12,1,0,-10,1375902657);
 /*!40000 ALTER TABLE `g0g1_points_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -337,7 +335,7 @@ CREATE TABLE `g0g1_questions` (
   `published` tinyint(1) NOT NULL,
   `activated` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -346,7 +344,7 @@ CREATE TABLE `g0g1_questions` (
 
 LOCK TABLES `g0g1_questions` WRITE;
 /*!40000 ALTER TABLE `g0g1_questions` DISABLE KEYS */;
-INSERT INTO `g0g1_questions` VALUES (1,1,'Arithmetic Problem','This is a demo arithmetic question. ',75,1,0,1374262122,1,1),(2,3,'Testing question ','<p><strong>Testing question yolo</strong></p>\r\n\r\n<ul>\r\n	<li style=\"margin-left: 40px;\">Testing list</li>\r\n	<li style=\"margin-left: 40px;\">more list</li>\r\n</ul>\r\n',11,1,0,1374266975,1,1),(3,4,'testing editor','<ul>\r\n	<li>YO\r\n	<hr />\r\n	<h1>â–ºtest&nbsp;</h1>\r\n	</li>\r\n</ul>\r\n\r\n<p>&lt;b&gt;test&lt;/b&gt;</p>\r\n',11,1,0,1374437816,1,1);
+INSERT INTO `g0g1_questions` VALUES (19,1,'Interesting Question','<p>I heard that [math]a^n+b^n=c^n[/math] cannot be satisfied when n is a real value greater than 2. How could I prove this though?&nbsp;</p>',10,1,0,1375902657,1,1);
 /*!40000 ALTER TABLE `g0g1_questions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -397,7 +395,7 @@ CREATE TABLE `g0g1_redeem` (
   `time` int(13) NOT NULL,
   `status` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -406,7 +404,6 @@ CREATE TABLE `g0g1_redeem` (
 
 LOCK TABLES `g0g1_redeem` WRITE;
 /*!40000 ALTER TABLE `g0g1_redeem` DISABLE KEYS */;
-INSERT INTO `g0g1_redeem` VALUES (1,5127510,1,8000,1374528523,'accepted'),(2,512721510,2,15000,1374528553,'pending'),(3,112721510,3,3000,1374528573,'pending'),(4,61272726,4,17000,1374528582,'accepted');
 /*!40000 ALTER TABLE `g0g1_redeem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -436,7 +433,6 @@ CREATE TABLE `g0g1_rep_log` (
 
 LOCK TABLES `g0g1_rep_log` WRITE;
 /*!40000 ALTER TABLE `g0g1_rep_log` DISABLE KEYS */;
-INSERT INTO `g0g1_rep_log` VALUES (3,1,1,'2','1',1374262212,1,1);
 /*!40000 ALTER TABLE `g0g1_rep_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -481,7 +477,7 @@ CREATE TABLE `g0g1_replies` (
   `time` int(13) DEFAULT NULL,
   `question_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -490,7 +486,7 @@ CREATE TABLE `g0g1_replies` (
 
 LOCK TABLES `g0g1_replies` WRITE;
 /*!40000 ALTER TABLE `g0g1_replies` DISABLE KEYS */;
-INSERT INTO `g0g1_replies` VALUES (1,2,1,'Hope this helps out pal!',1374261189,2),(2,2,2,'Yeah it sure did, thanks! ',1374261206,2),(3,1,2,'*Reply here Kyle, if you have any other questions. ',1374262190,1),(4,1,1,'Thanks! This fixes everything for me pal. I\'ll mark you as solved. ',1374262209,1);
+INSERT INTO `g0g1_replies` VALUES (10,4,1,'Yeah, well I don\'t have 300 years to wait. My test is tomorrow!',1375902757,19);
 /*!40000 ALTER TABLE `g0g1_replies` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -529,7 +525,7 @@ DROP TABLE IF EXISTS `g0g1_report_log`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `g0g1_report_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `state` tinyint(1) NOT NULL,
+  `state` varchar(32) DEFAULT NULL,
   `type` int(11) NOT NULL,
   `content_id` int(11) NOT NULL,
   `reporter` int(11) NOT NULL,
@@ -538,7 +534,7 @@ CREATE TABLE `g0g1_report_log` (
   `comments` varchar(512) NOT NULL,
   `time` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -547,7 +543,6 @@ CREATE TABLE `g0g1_report_log` (
 
 LOCK TABLES `g0g1_report_log` WRITE;
 /*!40000 ALTER TABLE `g0g1_report_log` DISABLE KEYS */;
-INSERT INTO `g0g1_report_log` VALUES (1,0,3,1,4,7,'Useless answer.','No comments really. . . .',1374262576),(2,2,3,3,1,7,'Supply evidence/description on the report','Any comments on this?',1374437886);
 /*!40000 ALTER TABLE `g0g1_report_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -594,7 +589,7 @@ CREATE TABLE `g0g1_sessions` (
   `user_id` int(11) DEFAULT NULL,
   `expires` int(14) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=210 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -603,7 +598,7 @@ CREATE TABLE `g0g1_sessions` (
 
 LOCK TABLES `g0g1_sessions` WRITE;
 /*!40000 ALTER TABLE `g0g1_sessions` DISABLE KEYS */;
-INSERT INTO `g0g1_sessions` VALUES (1,'lkf1ovoknbatducha368d61ki6','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,1,1374262127),(2,'gqahpu50urapcn024n5rckqih1','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,2,1374262141),(3,'lnch48a86jh4o0b2oarcij90k7','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,3,1374262153),(4,'l2go2va3gj37q3mekvac19f8m6','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,4,1374262184),(5,'ra1s13dd5gd189h3do01f552k6','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,1,1374262245),(6,'15gjnmdpo2b9etcdb0ebnla880','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,2,1374262312),(7,'29ap1bbcsalmo08g2aru30vv32','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,1,1374262360),(8,'pd9kq5n15p07qcv0hkrdupqo00','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,4,1374262518),(9,'fqpdhmit35n91qudhkih5rv2p4','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,1,1374262523),(10,'rtekfkmhh7ave8it0hcgi8c8i5','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,4,1374262697),(11,'sunf5a7gubed3a7upeh93gjp44','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,1,1374262736),(12,'rvm4fvpoabhg028ukm260np655','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,1,1374265402),(13,'4hhatoddvr2bcibeiq58fe1ue0','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,1,1374266878),(14,'jplqlolv9qf4tdb4hti2kmjdt6','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,1,1374267097),(15,'tdctoe6735rganpn8he48pskb7','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,2,1374291746),(16,'qka2o6tmuiti26c0gmuc8mpbi6','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,1,1374436921),(17,'7hubigv5291ifaic74kgis2485','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,1,1374438038),(18,'ueofe1fe9jvlvhmgchfnhlik76','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,1,1374528467),(19,'1faofijlqog6s862ckm457v562','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,1,1374528658),(20,'dvtv2v7tonukjtp4frsfrjc276','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,2,1374528685),(21,'s4ooi7ugj1d4do1qb55reebdn6','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,3,1374528694),(22,'46ib2k0t3e3s81qknqcj6pds36','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,4,1374528703),(23,'rontos0ktbqstpp8j3jtt9grh2','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,1,1374528905),(24,'73ltqlqml7d7ri2c83g2l82ni5','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,1,1374529754),(25,'4kaccr7kch0qnm1co771teggq3','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,1,1374532364),(26,'e1u1munj9dp49pe8fcrr42ad36','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,1,1374534867),(27,'hnjoqpk2ivbcba093q6so3hvn6','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,1,1374535107),(28,'jhaci02qtpuccldhqqundl3sq3','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,1,1374535436),(29,'i6d2ob2m2j1c9f4e762ggghrm0','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,1,1374535645),(30,'7u7d4tkt9i5hdlpk1he3ru5ft7','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,1,1374603183),(31,'igjjg997cr3l00dibm6kjjmfm4','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,1,1374697896),(32,'58oj9v2pq50upgqjqvroe8ffs0','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,1,1374779228),(33,'85gu54i9shsn149m7d702ip543','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,1,1374785517),(34,'pne6c1efjmlvituuhqdunk0dq1','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,1,1374787212),(35,'9u7ennvbf3ia3pijoppjauu8e3','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,1,1374787373);
+INSERT INTO `g0g1_sessions` VALUES (207,'hfjfj0gp4g33p453lgp7jovq12','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,1,1375902784),(208,'kcoea101autdcgado5ps4u17l2','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',0,2,1375902860),(209,'c95679ts6s773fdgr85fla06o7','loggedin','127.0.0.1','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.110 Safari/5',1,1,1375902886);
 /*!40000 ALTER TABLE `g0g1_sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -656,7 +651,7 @@ CREATE TABLE `g0g1_users` (
   `invites` int(11) NOT NULL,
   PRIMARY KEY (`user_id`),
   FULLTEXT KEY `username` (`username`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -665,7 +660,7 @@ CREATE TABLE `g0g1_users` (
 
 LOCK TABLES `g0g1_users` WRITE;
 /*!40000 ALTER TABLE `g0g1_users` DISABLE KEYS */;
-INSERT INTO `g0g1_users` VALUES (1,'Kyle','c533a50579588339035a5701e456a85a62ec941d','ãW™RQ5ðáí\0õ	^íM7÷uV­¨Q\0?žøM',-64,1374261996,'greyeverest@gmail.com',NULL,0,5,1,0,3),(2,'Keith','72f89e3e2244f4f7b23399675a955e013c563fcd','¤=. q¤Ñ!½nBæ®cbÎ¡Ù†µ’ažÿH¬œ',-42,1374262020,'paosidjf@gmail.com',NULL,0,4,1,1,0),(3,'Ethan','310b47e0b5af4643837a55dc6ade44fe0bf32400','Æñœ‡‘Çºƒ\n\r¿@\'~]> Õ}«òÍ¦ekáÈK™Ú',-42,1374262031,'paosidjf@gmail.com',NULL,0,3,1,1,0),(4,'Juriaan','de145c12778bfac317285b380ac8b51f918c9ef4','kŸÍ2k6YÛ\0¾ê³!ý—eÌVZË)xíô¨„M[¯Ú?',-42,1374262043,'apsiodjfa@gmail.com',NULL,0,2,1,1,0);
+INSERT INTO `g0g1_users` VALUES (1,'Kyle','c533a50579588339035a5701e456a85a62ec941d','ãW™RQ5ðáí\0õ	^íM7÷uV­¨Q\0?žøM',20,1374261996,'greyeverest@gmail.com','1d3dc6c5a164e38f5b6b2115a30cc1ef',0,5,1,0,5),(2,'Keith','72f89e3e2244f4f7b23399675a955e013c563fcd','¤=. q¤Ñ!½nBæ®cbÎ¡Ù†µ’ažÿH¬œ',-171,1374262020,'paosidjf@gmail.com','c6d6b70f06fdcee31d685b2be01b1a79',0,4,1,1,0),(3,'Ethan','310b47e0b5af4643837a55dc6ade44fe0bf32400','Æñœ‡‘Çºƒ\n\r¿@\'~]> Õ}«òÍ¦ekáÈK™Ú',-171,1374262031,'paosidjf@gmail.com','f0bffc75466a5c6991fe7bda1d5b85d5',0,3,1,1,0),(4,'Juriaan','de145c12778bfac317285b380ac8b51f918c9ef4','kŸÍ2k6YÛ\0¾ê³!ý—eÌVZË)xíô¨„M[¯Ú?',-171,1374262043,'apsiodjfa@gmail.com',NULL,0,2,1,1,0),(5,'Kyle2','2d69971cafa812010bfb8b2b67931b54d3ccf7d4','‡¸j‚œ`\0¡4Õk.³{¹G8rI\0Û0: <ßE\rü7',-171,1375140899,'est@gmail.com',NULL,1,2,1,0,0),(6,'Jur','4797e11d798a152e748124f2eaf2e86c08ddeb3a','CC×`^ç¬\0SRÇN.#£@Y_/ò)£˜y4Ë2†',-171,1375140931,'veli-juri@hotmail.nl',NULL,1,2,1,1,0),(7,'tasdpfoij','21150bda497d58b7dc5f8357570285755c05c2e4','ñÌyY9fûÃ±Ö>iŽ:\Z¥v¹Œ‡ –êaóFÏ¬',-171,1375141398,'test@edu.hooghelandt.nl',NULL,1,2,1,0,0),(8,'Johnny','0d5ac106ec2507ce2560011805e5a6a9f8920a08','®Ý£WBB€›×\nA{MÝ¨(ŠLîiàëXª~!;Þ',-45,1375423494,'aposidjf@gmail.com',NULL,1,2,1,1,0);
 /*!40000 ALTER TABLE `g0g1_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -678,4 +673,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-07-26 10:11:50
+-- Dump completed on 2013-08-07 14:13:40

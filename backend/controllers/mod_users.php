@@ -7,6 +7,7 @@ class Mod_Users extends Controller {
 		$this->form = new Form();
 		$this->ban = new Ban();
 		$this->report = new Report();
+                $this->pass = new Pass();
 	}
 	
 	public function index() {
@@ -68,6 +69,9 @@ class Mod_Users extends Controller {
 		'user_level' => '');
 		$formData = $this->form->getFormContent($form);
 		$this->model->runEdit($userId, $formData);
+                if($formData['password']!="") {
+                    $this->pass->setNewPass($userId, $formData['password']);
+                }
 		header('Location:'.ROOT.'mod/mod_users/edit/'.$userId);
 	}
 	

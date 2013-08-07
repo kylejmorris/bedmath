@@ -53,9 +53,6 @@ class Mod_Points_Model extends Model {
 	public function runEdit($formData) {
 		$userDetail = $this->user->getDetailFromId($formData['user_id']);
 		$currentPoints = $userDetail['points'];
-		$updates = array('points'=>$formData['points']);
-		$where = array('user_id'=>$formData['user_id']);
-		$this->database->update('g0g1_users', $updates, $where);
 		$changeInPoints = 0;
 		$transferType = 2;
 		if($currentPoints<$formData['points']) { //Points have increased
@@ -64,7 +61,7 @@ class Mod_Points_Model extends Model {
 			$this->points->addPoints($formData['user_id'], $changeInPoints, 1);
 		} else { //Points have decreased
 			$transferType = 2;
-			$changeInPoints = $currentPoints-$formData['points'];
+			$changeInPoints = abs($currentPoints-$formData['points']);
 			$this->points->removePoints($formData['user_id'], $changeInPoints, 2);
 		}
 		

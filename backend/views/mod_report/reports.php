@@ -7,6 +7,9 @@
 <th>time</th>
 <th>reason</th>
 <?php
+foreach($this->pagination as $page) {
+	echo '<a href='.ROOT.'mod/mod_report/reports/'.str_replace(',', '', $page).'>'.$page.'</a>, '; //Topic 0 = all topics, at least we'll just go with that?
+}
 foreach($this->reports as $value) {
 	echo '<tr>';
 	echo '<td>'.$value['id'].'</td>';
