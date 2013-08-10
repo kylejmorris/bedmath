@@ -52,7 +52,7 @@ class Login extends Controller {
                             header("Location: ".ROOT.$_SESSION['returnPage']); //backup, takes session from page when redirected to login.
                             unset($_SESSION['returnPage']);
                         } else {
-                            header("Location:../index"); //Put on index page if all else fails.
+                            header("Location:../account"); //Put on account page if all else fails.
                         }
                     }
                 } else {
