@@ -22,7 +22,6 @@ foreach($this->reports as $value) {
 	echo '<td>'.$value['reporter'].'</td>';
 	echo '<td>'.$value['reason'].'</td>';
 	echo '<td>'.$value['time'].'</td>';
-	echo '<td><a href='.ROOT.'mod/mod_report/review/'.$value['id'].'>Review</a></td>';
 	echo '</tr>';
 }
 ?>

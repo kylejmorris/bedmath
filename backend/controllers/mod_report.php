@@ -17,10 +17,14 @@ Class Mod_Report extends Controller {
                 if($page==null || $page==0) {
                     $page=1;
                 }
-                $reportCount = $this->report->getReportCount('state');
+                $reportCount = $this->report->getReportCount($state);
                 $this->view->pagination = $this->pagination->getPageList($page, 10, $reportCount);
 		$this->view->reports = $this->report->getReports($page, 10, $state);
-		$this->view->render('mod_report/reports');
+                if($state=='pending') {
+                    $this->view->render('mod_report/reports');
+                } else {
+                    $this->view->rendeR('mod_report/reviewedreports');
+                }
 	}
 	
 	public function review($id) {

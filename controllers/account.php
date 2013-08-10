@@ -18,6 +18,7 @@ Class Account extends Controller {
         $this->category = new Category();
         $this->answer = new Answer();
         $this->pass = new Pass();
+        $this->notification = new Notification();
         if (!$this->user->isLoggedIn()) {
             $_SESSION['returnPage'] = $_GET['url'];
             header('Location: ' . ROOT . 'login', TRUE, 302);
@@ -236,6 +237,13 @@ Class Account extends Controller {
         } else {
             $this->view->render('error/error');
         }
+    }
+    
+    public function notifications($viewed, $type) {
+        $userId = $this->user->getUserId();
+        $this->view->history = $this->notification->getNotifications($type, null, $userId, $viewed, $page, 25);
+        $this->notification->addNotification('question_posted', $userId, null, 14);
+        $this->view->render('account/notifications');
     }
 
 }

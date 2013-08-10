@@ -24,6 +24,7 @@ require 'answer.php';
 require 'reply.php';
 require 'reputation.php';
 require 'invite.php';
+require 'notification.php';
 
 //Model Includes 
 require 'model.php';
