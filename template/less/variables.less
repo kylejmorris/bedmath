@@ -1,89 +1,91 @@
-// Inspire for Bedmath
-// Version 0.1.1
-// By Juriaan Gregor
+/* 
+Variables
+This file contains the basic Variables for Inspire.
+*/
 
-// Global Variables
-@ColorShemeBackground: #000;
-@ColorShemeHeader: #000;
-@ColorShemeAccent: #000;
-@ColorShemeTypography: #000;
-@ColorShemeButtons: #000;
-@Mode: "Show";
+// Settings (This doesn't work yet, this are more placeholders
+	@ResponsiveOn				: true;
 
-@Height: 0;
-@Width: 0;
-@Device: "Desktop";
-
-
-
-// Colors
-@Accent: #1a9abc;
-
-	// White, Gray, Black
-		@White: #fff;
-		@Light-gray: #f8f8f8;
-		@Dark-gray: #878787;
-		@Light-Black: #2f2f2f;
-		@Black: #000;
-		
-	// Red
-		@Dark-red: #ff0000;
-		@Red: #ff2323;
-		@Light-red: #ff6969;
+// Base
+	// Colors
+	@brand-primary				: #000;
+	@brand-accent				: #9BD8DB;
 	
-	// Blue
-		@Dark-blue: #018dc7;
-		@Blue: #23beff;
-		@Light-blue: #aedeff;
+	// Logo
+	@logo-basic					: url('../media/images/Logo/Logo.png') no-repeat;
+	@logo-gray					: url('../media/images/Logo/logogray.png') no-repeat;
 	
-	// Green
-		@Dark-green: #01c750;
-		@Green: #23ff6b;
-		@Light-green: #5dff92;
+	// Typography
+		// Font Familys
+		@font-family-raleway	: "Raleway";
+		@font-family-open-sans	: "Open Sans", Arial, Helvetica, Geneva, sans-serif;
+		@font-family-verdana	: Verdana, "Lucida Grande";
+		
+		@base-font-size			: 1.1em;
+		@base-font-weight		: 400;
+		@base-font-family		: @font-family-open-sans;
+		@base-font-color		: #fff;
+		@base-line-height		: 1.5em;
+		
+		// Headers
+		@h1-font-size			: 3em;
+		@h1-font-family			: @font-family-raleway;
+		@h1-line-height			: 1.5;
+		
+		@h2-font-size			: 2.5em;
+		@h2-font-family			: @font-family-raleway;
+		@h2-line-height			: 1.4;
+		
+		@h3-font-size			: 2em;
+		@h3-font-family			: @font-family-open-sans;
+		@h3-line-height			: 1.3;
+		
+		@h4-font-size			: 1.5em;
+		@h4-font-family			: @font-family-verdana;
+		@h4-line-height			: 1.2;
+		
+		@h5-font-size			: 1.3em;
+		@h5-font-family			: @font-family-verdana;
+		@h5-line-height			: 1.1;
+		
+		@h6-font-size			: 1.1em;
+		@h6-font-family			: @font-family-verdana;
+		@h6-line-height			: 1;
+		
+		// Links
+		@links-color			: #999;
+		@links-color-hover		: #91D1D6;
 
-// Typography
-	// Line Height
-		@Small-Line-Height: 75%;
-		@Basic-Line-Height: 100%;
-		@Big-Line-Height: 170%;
+		// Sections
+		@base-section-border	: 1px solid #ddd;
 		
-	// FontSize
-		@Small-Font-Size: 0.75em;
-		@Basic-Font-Size: 1em;
-		@Big-Font-Size: 2em;
-		
-	// Font-family
-		@Raleway: "Raleway", "Sans-serif";
-		@Arial: "Arial", "Sans-serif";
-		@Tahoma: "Tahoma", "Sans-serif";
-
-// Grid
-		@Span100: 100%;
-		@Span90: 90%;
-		@Span85: 85%;
-		@Span80: 80%;
-		@Span75: 75%;
-		@Span70: 70%;
-		@Span65: 65%;
-		@Span60: 60%;
-		@Span55: 55%;
-		@Span50: 50%;
-		@Span45: 45%;
-		@Span40: 40%;
-		@Span35: 35%;
-		@Span30: 30%;
-		@Span25: 25%;
-		@Span20: 20%;
-		@Span15: 15%;
-		@Span10: 10%;
-		@Span125: 12.5%;
-		@Span5: 5%;
-		@Span0: 0%;
-		
-		
-		
+// Objects
+	// Header
+	@header-height				: 70px;
+	@header-background			: #000;
+	@header-color				: #fff;
+	@header-font-family			: @font-family-raleway;
+	@header-font-size			: 1.5em;
 	
-		
-
-
-
+	
+	// Body
+	@body-background			: #F8F8F8;
+	@body-color					: #222b2e;
+	@body-font-family			: @base-font-family;
+	@body-font-size				: @base-font-size;
+	
+	// Footer
+	@footer-height				: 100px;
+	@footer-background			: #000;
+	@footer-color				: #fff;
+	@footer-font-family			: @base-font-family;
+	@footer-font-size			: @base-font-size;
+	
+// Elements
+	// Tables
+	@Table-background			: #fff;
+	@Table-background-odd		: #eee;
+	@Table-border-size			: 1px;
+	@Table-border-color			: #000;
+	@Table-font-family			: @base-font-family;
+	@Table-font-size			: @base-font-size;

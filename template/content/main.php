@@ -18,8 +18,9 @@
             <?php $this->title; ?>
         </title>
         <!-- Content -->
-        <link rel="stylesheet/less" type="text/css" href="<?php echo ROOT; ?>template/less/Master.less">
-        <script src="<?php echo ROOT; ?>template/scripts/less.js" type="text/javascript"></script>
+        <!-- <link rel="stylesheet/less" type="text/css" href="<?php echo ROOT; ?>template/less/Master.less"> -->
+        <!-- <script src="<?php echo ROOT; ?>template/media/scripts/less.js" type="text/javascript"></script> -->
+		<link rel="stylesheet" type="text/css" href="<?php echo ROOT; ?>template/less/Master.css">
         <!--MATHJAX-->
         <script src="<?php echo ROOT;?>plugins/ckeditor/ckeditor.js" type="text/javascript"></script>
         <script type="text/x-mathjax-config">

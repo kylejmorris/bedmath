@@ -13,7 +13,7 @@ class Index extends Controller {
                 $this->question = new Question();
                 $this->view->userCount = $this->user->userCount();
                 $this->view->answerCount = $this->question->getSolvedCount(null, null);   
-                $this->view->render("index/index", array(2));
+                $this->view->render("index/index", array('header', 'footer'));
 	}
         
         public function index() {

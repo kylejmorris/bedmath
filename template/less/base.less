@@ -1,17 +1,33 @@
-// Inspire for Bedmath
-// Version 0.1.1
-// By Juriaan Gregor
+/* 
+Base
+This file contains the basic style of Inspire elements.
+*/
+
+// Basic HTML Objects
+html, body{
+	min-height	: 100%;
+	height		: auto !important;
+	height		: 100%;
+	overflow-x	: hidden;
+}
 
 body{
-	font-family: @Raleway;
-	background-color: #fff;
+	background-color		: @body-background;
+	font-weight				: @base-font-weight;
+	font-family				: @base-font-family;
+	font-size				: @base-font-size;
+	color					: @body-color;
+	-webkit-font-smoothing	: antialiased;
+	line-height				: @base-line-height;
 }
 
-.dark{
-	background-color: #ebebeb;
+
+section{
+	position: relative;
+	border-bottom: @base-section-border;
 }
 
-.bluelink{
-	color: #4fb7bd;
+// Body Styles
+body.login{
+	background-color: @brand-accent;
 }
-

@@ -1,27 +1,26 @@
-<h2>Bid Buddy</h2>
-Helping you get the best support for the best price!
-<div id="Container" class="clearfix">
-    <div id="AccountPortal">
-        <div id="Register">
-            <form action="<?php echo ROOT . 'ask/runAsk'; ?>" method="POST">
-                <input type="text" name="title" value="" placeholder="Enter Title..."></input>
-                <select name="topic">
-                    <option value="">Select Topic</option>
-                    <?php
-                    foreach ($this->topics as $topic) {
-                        echo '<option value=' . $topic['cat_id'] . '>' . $topic['name'] . '</option>';
-                    }
-                    ?>
-                </select>
-                <textarea id="editor" type="text" name="full" value="" onchange="UpdateMath(this.value)" placeholder="Put all the scary math here..."></textarea>
-                <h2> Bidding details </h2>
-                <input type="text" name="bid" value="" placeholder="Enter bid amount"></input>
-                <input type="submit" value="Post Question"></input>
-            </form>
-        </div>
-        <div id="Other">
-        </div>
-    </div>
+<div class="row ask">
+		   <form action="<?php echo ROOT . 'ask/runAsk'; ?>" method="POST">
+				<div class="column-8 left">
+					<input type="text" name="title" value="" placeholder="Title"></input>
+					<textarea id="editor" type="text" name="full" value="" onchange="UpdateMath(this.value)" placeholder="Put all the scary math here..."></textarea>
+				</div>
+				<div class="column-4">
+					 <input type="text" name="bid" value="" placeholder="Enter bid amount"></input>
+					 <select name="topic">
+						<option value="">Select Topic</option>
+						<?php
+						foreach ($this->topics as $topic) {
+							echo '<option value=' . $topic['cat_id'] . '>' . $topic['name'] . '</option>';
+						}
+						?>
+					</select>
+				</div>
+				<div class="column-11">
+				     <input type="submit" class="button small" value="Post Question"></input>
+					 <span class="or"> or </span>
+					 <a href="<?php echo ROOT;?>questions"> Cancel </a>
+				</div>
+			</form>
 </div>
 <script type="text/javascript">
     CKEDITOR.replace( 'full', {

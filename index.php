@@ -1,7 +1,7 @@
 <?php
 ob_start(); 
 require 'libs/loader.php'; 
-error_reporting(E_ALL);
+error_reporting(0);
 $app = new Bootstrap(); 
 $app->init();
 $app->loadController();

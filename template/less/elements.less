@@ -1,0 +1,498 @@
+/* 
+Elements
+This file contains the basic style of Inspire elements.
+*/
+
+
+// Home page
+#Userbar{
+				margin-top: 1%;
+				width: 20%;
+				float: left;
+				margin-left: 70%;
+}
+
+section#Welcome{
+				-webkit-background-size		:	 cover;
+				-moz-background-size  		:	 cover;
+				-o-background-size			:	 cover;
+				background-size				: 	 cover;
+				text-align					: 	 center;
+				#Overlay{
+					background-color		:	 @brand-accent;
+				}
+				h2{
+					color					:	 #fff;
+				}
+}
+
+section#Why{
+				background-color: #fff;
+				p{
+					margin-bottom: 1em;
+					font-size: 0.9em;
+					color: #222b2e;
+					line-height: 1.7;
+				}
+				h3{
+					font-size: 1.5em;
+				}
+}
+
+section#Features{
+				background-color: #fff;
+				p{
+					margin-bottom: 1em;
+					font-size: 0.9em;
+					color: #222b2e;
+					line-height: 1.7;
+				}
+				h3{
+					font-size				:	1.5em;
+				}
+				.column-6{
+					margin-left: 0%;
+					width: 45%;
+					margin-right: 5%;
+				}
+}
+
+section#Join{
+			  background-color: @brand-accent;
+			  text-align: center;
+			  p{
+				color: #fff;
+				font-family: @font-family-raleway;
+				font-weight: 200;
+				font-size: 1.3em;
+				margin-bottom: 0.5em;
+			  }
+			  .button{
+				padding-left: 2em;
+				padding-right: 2em;
+				padding-top: 1.5em;
+				padding-bottom: 1.5em;
+			  }
+			  .Margin{
+				margin-top: 0%;
+			  }
+				
+}
+
+section#Stats{
+			  background-color: #fff;
+			  p{
+					margin-bottom: 1em;
+					font-size: 0.9em;
+					color: #222b2e;
+					line-height: 1.7;
+					margin-bottom: 0.5em;
+				}
+				h3{
+					font-size				:	1.5em;
+				}
+}
+
+
+					
+#Logo{
+	  display				: block;
+	  height				: 50px;
+	  width					: 50%;
+	  margin-left			: 25%;
+	  background			: @logo-gray;
+	  background-position-x	: 50%;
+	  text-indent			: -2000px;
+	  margin-bottom 		: 2%;
+}
+
+
+// Login page
+body.login{
+	 font-weight: 400;
+	 font-family: @font-family-open-sans;
+	 -webkit-font-smoothing: antialiased;
+	 font-smooth: always;
+	 color: #444;
+	 position: absolute;
+	 min-width: 1100px;
+	 height: 100% !important;
+	 min-height: 100%;
+	 left: 0;
+	 right: 0;
+	 .outer{
+		display: table;
+		height: 100%;
+		width: 100%;
+		background-color: @brand-accent;
+	 }
+	 .inner{
+		display: table-cell;
+		vertical-align: middle;
+	 }
+	 h1#logo{
+		width: 200px;
+		height: 60px;
+		display: block;
+		margin-top: 30px;
+		margin-right: auto;
+		margin-bottom: 20px;
+		margin-left: auto;
+		a{
+			width: 200px;
+			height: 60px;
+			display: block;
+			text-indent: -9999px;
+		}
+	 }
+	 #login-form{
+		form{
+			padding: 30px;
+			input[type='text'], input[type='password'] {
+				font-size: 15px;
+				color: #444;
+				font-weight: 400;
+				font-family: @font-family-open-sans;
+				border: 1px solid #ddd;
+				-webkit-border-radius: 2px;
+				-moz-border-radius: 2px;
+				border-radius: 2px;
+				padding: 13px;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+				width: 100%;
+				margin-bottom: 5%;
+			}
+			input[type='text'], input[type='password']{
+				&:hover, &:active, &:focus{
+					outline: 2px #A1E1E5 !important;
+				}
+			}
+			.actions{
+				text-align: right;
+				border-top: 1px solid #eee;
+				padding-top: 20px;
+				padding-right: 30px;
+				padding-bottom: 20px;
+				padding-left: 30px;
+				margin-top: 30px;
+				margin-right: -30px;
+				margin-bottom: -30px;
+				margin-left: -30px;
+				background-color: #fbfbfb;
+				-webkit-border-radius: 0 0 2px 2px;
+				-moz-border-radius: 0 0 2px 2px;
+				border-radius: 0 0 2px 2px;
+				p.pull-left{
+					margin-top: 8px;
+					color: #999;
+					font-size: .8em;
+					font-family: @font-family-open-sans;
+				}
+			}
+		}
+		h2{
+			padding: 20px;
+			margin: 0;
+			background-color: #fafbfa;
+			border-bottom: 1px solid #eee;
+			font-family: @font-family-open-sans;
+			text-align: center;
+			font-weight: 200;
+			font-size: 1.8em;
+			color: #A1A0A0;
+		}
+		width: 40%;
+		margin-top: 0px;
+		margin-right: 30%;
+		margin-bottom: 10%;
+		margin-left: 30%;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+		background-color: #fff;
+		-moz-border-radius: 2px;
+		border-radius: 2px;
+		-moz-box-shadow: 0px 1px 1px rgba(0,0,0,0.1);
+		-webkit-box-shadow: 0px 1px 1px rgba(0,0,0,0, 0.1);
+		box-shadow: 0px 1px 1px rgba(0,0,0,0.1);
+	}		
+}
+
+.team{
+	  #Picture{
+			   display: block;
+			   height: 75px;
+			   float: left;
+			   width: 75px;
+			   border-radius: 2px;
+			   text-indent: -9999em;
+	  }
+	  .Kyle{
+			   background: url("../media/team/kyle.jpg") no-repeat;
+	  }
+	  #Information{
+				width: 50%;
+				float: left;
+	  }
+	  #Desc{
+				float: left;
+				margin-left: 1.5%;
+				margin-top: 1.5%;
+	  }
+	  #Item{
+			margin-bottom: 2%;
+			h3{
+				margin-bottom: 0em;
+				margin-left: 3%;
+			}
+			i{
+				margin-left: 3%;
+				margin-bottom: 2%;
+			}
+	  }
+}
+
+#Members{
+		.column-11{
+				margin-bottom: 0px !important;
+				margin-top: 0px !important;
+				width: 92%;
+		}
+		#Title{
+				width: 100%;
+				padding-top: 35px;
+				padding-bottom: 30px;
+				background-color: #818181;
+				border-bottom: 1px solid #eee;
+				p{
+					margin-bottom: 1em;
+					font-size: 0.9em;
+					color: #222b2e;
+					line-height: 1.7;
+				}
+				h3{
+					width: 70%;
+					height: 50px;
+					float: left;
+					font-size: 1.5em;
+					color: #F7F7F7
+				}
+		}
+		#Search{
+				width: 30%;
+				float: left;
+				height: 50px;
+				form{
+					height: 100%;
+					width: 100%;
+					input{
+						float: left;
+						border: 0px;
+						outline: 0px;
+						font-family: @font-family-open-sans;
+						font-size: 1.1em;
+					}
+					input[type='text']{
+						width: 70%;
+						height: 30px;
+						float: left;
+						padding-left: 2%;
+					}
+					input[type='submit']{
+						width: 25%;
+						height: 32px;
+						background-color: #AED68F;
+						color: #fff;
+					}
+				}	
+		}
+		#Member{
+				width: 100%;
+				border-bottom: 0px;
+		}
+		#Pagination{
+				float: left;
+		}
+}
+
+#Menu{
+		padding-left: 20px;
+		padding-right: 20px;
+		a{
+			border-bottom: 1px solid #eee;
+			height: 20px;
+			margin-bottom: 10px;
+			width: 100%;
+		}
+}
+
+
+.about{
+		width: 92%;
+		float: left;
+		p{
+			float: left;
+			width: 100%;
+			margin-bottom: 2%;
+		}
+		iframe{
+			float: left;
+		}
+		.next{
+			width: 50%;
+			margin-left: 2%;
+		}
+}
+
+.Questions{
+		.column-4{
+			width: 22%;
+			text-align: center;
+		}
+		#Filter{
+			margin-top: 5%;
+			select{
+				width: 100%;
+			}
+			.button{
+				width: 100%;
+			}
+		}
+		#Question{
+			padding: 10px;
+			background-color: #fff;
+			img{
+				float: left;
+				margin-right: 2%;
+			}
+			p{
+				margin-bottom: 2%;
+			}
+			h3{
+				float: left;
+				width: 85%;
+			}
+			#Bid{
+				float: left;
+				width: auto;
+				padding: 10px;
+				background-color: #AED68F;
+				color: #fff;
+			}
+			.button{
+				border-radius: 0px;
+				margin-right: 2%;
+			}
+			.report{
+				float: right;
+				margin-right: 3%;
+			}
+		}
+}
+
+.ask{
+	input{
+		outline: 0;
+	}
+	input[type='text']{
+		width: 100%;
+		height: 30px;
+		padding-left: 2%;
+		margin-bottom: 2%;
+	}
+	select{
+		width: 102%;
+		outline: 0;
+	}
+	textarea{
+		padding-left: 1%;
+		padding-top: 1%;
+		width: 100%;
+		min-height: 150px;
+		outline: none;
+	}
+	span.or{
+		margin-left: 1%;
+		margin-right: 0%;
+		color: #999999;
+	}
+}
+
+.sendinvite{
+	input{
+		outline: 0;
+	}
+	input[type='text']{
+		width: 100%;
+		height: 30px;
+		padding-left: 2%;
+		margin-bottom: 2%;
+	}
+	select{
+		width: 102%;
+		outline: 0;
+	}
+	textarea{
+		padding-left: 1%;
+		padding-top: 1%;
+		width: 100%;
+		min-height: 150px;
+		outline: none;
+	}
+	span.or{
+		margin-left: 1%;
+		margin-right: 0%;
+		color: #999999;
+	}
+}
+
+.cover{
+	background-color: #fff;
+	padding: 30px;
+}
+
+.reply{
+	.button{
+		margin-top: 2%;
+	}
+}
+
+.profile{
+	img{
+		float: left;
+	}
+	h3{
+		float: left;
+		width: 80%;
+		margin-left: 2%;
+	}
+	.Margin{
+		margin-bottom: 1% !important;
+		margin-top: 1% !important;
+	}
+	#Menu{
+		background-color: #818181;
+		padding-left: 0;
+		padding-right: 0;
+		a{
+			margin-right: 2%;
+		}
+	}
+	.column-4{
+		h3{
+			width: 100%;
+		}
+	}
+	section{
+		border-bottom: 0px;
+	}
+	p{
+		float: left;
+	}
+}
+
+
+
+			

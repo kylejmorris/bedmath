@@ -1,44 +1,29 @@
-<body class="dark">
-	<div id="Account">
-		<header>
-			<div id="Container" class="clearfix">
-				<ul class="right NoList">
-					<a class="button grey header" href="<?php echo ROOT;?>">Cancel</a>
-					<a class="button blue header" href="<?php echo ROOT;?>login">Sign-in</a>
-				</ul>
-			</div>
-		</header>
-		<div id="Content">
-			<div id="Box" class="account center login">
-				<form action="<?php echo ROOT;?>register/run" method="post">
-					<div id="Input">
-						<span class="icon">&#128100;</span>
-						<input type="text" name="username" placeholder="Username">
-					</div>
-					<div id="Input">
-						<span class="icon">&#128273;</span>
-						<input type="password" name="password" placeholder="Password">
-					</div>
-					<div id="Input">
-						<span class="icon">&#9993;</span>
-						<input type="text" name="email" placeholder="Email">  
-					</div>
-					<?php 
-						if(isset($this->ref)) {
-							echo "<input type='hidden' name='invited_by' value='$this->ref'>";
-						} else {
-							echo "<div id='Input'>";
-							echo "<span class='icon '>&#128101;</span>";
-							echo "<input type='text' name='invited_by' placeholder='Did someone invite you ?'>";
-							echo "</div>";
-						}
-					?>
-					<div id="Input">
-						<input type="submit" value="Register" class="login-button">
-					</div>
-				</form>
+<body class="login">
+		<div class="outer">
+			<div class="inner">
+				<h1 id="Logo" class="center">
+					<a href="<?php echo ROOT;?>"> Bedmath </a>
+				</h1>
+				<div id="login-form">
+					 <h2 class="center"> Sign-up </h2>
+					<form action="<?php echo ROOT;?>register/run" method="post">
+							<input type="text" name="username" placeholder="Username">
+							<input type="password" name="password" placeholder="Password">
+							<input type="text" name="email" placeholder="Email">  
+						<?php 
+							if(isset($this->ref)) {
+								echo "<input type='hidden' name='invited_by' value='$this->ref'>";
+							}
+						?>
+						<div class="actions">
+								<p class="smallsize gray pull-left">
+								   <a href="<?php echo ROOT;?>recover"> Need some help ? </a>
+								</p>
+							<input type="submit" value="Register" class="button small">
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
 </body>
 			   
