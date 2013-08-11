@@ -7,7 +7,16 @@
  * Example: 1...2,3,4,5,6...100. This would be the navigation from page 1-100, assuming you're on page 4 currently. 
  */
 Class Pagination {
-
+    
+    protected $database;
+    
+    public function __construct($db) {
+        if($db==null) {
+            $this->database = new Database();
+        } else {
+            $this->database = $db;
+        }
+    }
     /**
      * Generates page values in which can be looped and loaded on a specified view.
      * This will only work of course, if the view supports pagination by having something such as

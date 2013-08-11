@@ -5,8 +5,6 @@
 class Members extends Controller {
 	public function __construct() {
 		parent::__construct();
-		$this->pagination = new Pagination(); 
-		$this->user = new User; 
 	}
 
 	/**

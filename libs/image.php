@@ -76,12 +76,17 @@ class Image {
      */
     public $contentId;
 
+    protected $database;
     /**
      * Creates user and database object
      */
-    public function __construct() {
-        $this->database = new Database();
-        $this->user = new User();
+    public function __construct($db) {
+        if($db==null) {
+            $this->database = new Database();
+        } else {
+            $this->database = $db;
+        }
+        $this->user = new User($this->database);
         $this->width = 50;
         $this->height = 50;
     }

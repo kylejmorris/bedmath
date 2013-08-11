@@ -6,11 +6,17 @@
  */
 class Answer {
 
-    public function __construct() {
-        $this->database = new Database();
-        $this->reputation = new Reputation();
-        $this->question = new Question();
-        $this->reply = new Reply();
+    protected $database;
+    public function __construct($db) {
+        if($db==null) {
+            $this->database = new Database();
+        } else {
+            $this->database = $db;
+        }
+        $this->reputation = new Reputation($this->database);
+        $this->question = new Question($this->database);
+        $this->reply = new Reply($this->database);
+        
     }
 
     /**

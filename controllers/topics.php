@@ -2,10 +2,10 @@
 /**
 * Lists information regarding content categories and navigation to the content in which they hold.
 */
-class Category extends Controller {
+class Topics extends Controller {
+    
     function __construct() {
         parent::__construct();
-        $this->pagination = new Pagination();
     }
     
     //The default page in which will direct user to select the article or video categories. 

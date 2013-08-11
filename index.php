@@ -1,6 +1,6 @@
 <?php
-ob_start(); 
 require 'libs/loader.php'; 
+ob_start(); 
 error_reporting(0);
 $app = new Bootstrap(); 
 $app->init();

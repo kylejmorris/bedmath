@@ -425,7 +425,6 @@ class Database extends PDO {
         $this->stmt = $this->prepare($this->query);
         $this->bind();
         $this->stmt->execute();
-        $rows = $this->stmt->fetchAll();
         $this->cleanQuery();
     }
 

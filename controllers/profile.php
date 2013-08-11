@@ -10,13 +10,6 @@ class Profile extends Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->writing = new Writing();
-        $this->pagination = new Pagination();
-        $this->question = new Question();
-        $this->user = new User();
-        $this->answer = new Answer();
-        $this->reputation = new Reputation();
-        $this->invite = new Invite();
     }
 
     //Nothing here really...

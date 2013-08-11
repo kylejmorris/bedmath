@@ -5,8 +5,8 @@
 					<textarea type="text" name="full" value="<?php echo $this->question['full']; ?>" rows=8 cols=40><?php echo $this->question['full']; ?></textarea>
                </div>
 			   <div class="column-4 right">
+                               <input type="text" name="bid" value="<?php echo $this->question['bid']; ?>"></input>
 				   <select name="topic">
-						<input type="text" name="bid" value="<?php echo $this->question['bid']; ?>"></input>
 						<option value="<?php echo $this->question['topic']; ?>">Change topic</option>
 						<?php
 						foreach ($this->topics as $topic) {

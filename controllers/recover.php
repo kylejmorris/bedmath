@@ -2,9 +2,6 @@
 class Recover extends Controller {
 	public function __construct() {
 		parent::__construct();
-		$this->form = new Form();
-		$this->user = new User();
-		$this->email = new Email();
 	}
 	
 	public function index() {

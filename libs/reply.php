@@ -7,9 +7,14 @@
  */
 class Reply {
     
-    public function __construct() {
-        $this->database = new Database();
-        $this->user = new User();
+    protected $database;
+    public function __construct($db) {
+        if($db==null) {
+            $this->database = new Database();
+        } else {
+            $this->database = $db;
+        }
+        $this->user = new User($this->database);
     }
     /**
      * @param $columns array of database columns that will hold required values.

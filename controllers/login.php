@@ -7,14 +7,12 @@ class Login extends Controller {
 
     function __construct() {
         parent::__construct();
-        $this->user = new User();
-        $this->ban = new Ban();
     }
 
     /**
      * Loads default login page
      */
-    function index() {
+    public function index() {
         $this->view->returnPage = $_SERVER['HTTP_REFERER'];
         $this->view->render('login/index', array('header', 'footer'));
     }

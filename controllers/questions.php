@@ -7,13 +7,10 @@ class Questions extends Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->question = new Question();
-        $this->pagination = new Pagination();
-        $this->category = new Category();
     }
 
     public function index() {
-        $this->view(1);
+        $this->view(1, 0, 10);
     }
 
     /**
@@ -28,8 +25,11 @@ class Questions extends Controller {
             $page = 1;
         }
         if (empty($topic) || $topic == 0) {
-            $topic = null;
-        } //Giving topic the optional value of 0 to represent 'all topics', since passing a null value through url is messy
+            $this->view->topic = 0;//Current topic id//Giving topic the optional value of 0 to represent 'all topics', since passing a null value through url is messy
+            $topic = null; //The topic variable used in this scope.
+        } else {
+            $this->view->topic = $topic; 
+        }
         if (empty($bid) || $bid < 10) {
             $bid = 10;
         } //Minimal bids to display are 10, since you can't bid less.
@@ -37,7 +37,6 @@ class Questions extends Controller {
         $qCount = $this->question->getQuestionCount($where); // Returns number of questions in which can be displayed on page.
         $questions = $this->model->view($page, $where, $limit);
         $this->view->pagination = $this->pagination->getPageList($page, $limit, $qCount);
-        $this->view->topic = $topic; //Current topic id
         $this->view->page = $page; //Current page, used for sorting.
         $this->view->bid = $bid; //Minimal bid to accept, used for sorting
         $this->view->topics = $this->category->getCategories();

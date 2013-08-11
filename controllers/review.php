@@ -4,10 +4,6 @@ class Review extends Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->question = new Question();
-        $this->user = new User();
-        $this->reply = new Reply();
-        $this->answer = new Answer();
     }
 
     /**

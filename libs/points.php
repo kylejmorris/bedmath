@@ -7,12 +7,18 @@
  */
 class Points extends Database {
 
+    
     /**
-     * Creates database object
+     * Holds database object
      */
-    function __construct() {
-        $this->database = new Database();
-        $this->user = new User();
+    protected $database;
+    function __construct($db) {
+        if($db==null) {
+            $this->database = new Database();
+        } else {
+            $this->database = $db;
+        }
+        $this->user = new User($this->database);
     }
 
     /**
@@ -104,7 +110,7 @@ class Points extends Database {
     public function removePoints($subject = 1, $amount = 1, $type = 2, $object = 0) { //Default values, type is system deduction unless otherwise specified
         $currentPoints = $this->getPoints($subject);
         $result = $currentPoints - $amount;
-        $this->database->update('g0g1_users', array('points' => $result), array('user_id' => $subject));
+        $this->database->update('g0g1_users', array('points' => "$result"), array('user_id' => $subject));
         $this->logPoints($subject, -$amount, $type, $object);
     }
 

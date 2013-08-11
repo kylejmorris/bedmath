@@ -8,7 +8,7 @@ class About extends Controller {
         * Renders main front page of site.
         */
 	function __construct() {
-		parent::__construct();  
+            parent::__construct();            
 	}
         
         public function index() {

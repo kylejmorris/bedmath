@@ -8,17 +8,6 @@ Class Account extends Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->points = new Points();
-        $this->writing = new Writing();
-        $this->form = new Form();
-        $this->user = new User();
-        $this->image = new Image();
-        $this->question = new Question();
-        $this->pagination = new Pagination();
-        $this->category = new Category();
-        $this->answer = new Answer();
-        $this->pass = new Pass();
-        $this->notification = new Notification();
         if (!$this->user->isLoggedIn()) {
             $_SESSION['returnPage'] = $_GET['url'];
             header('Location: ' . ROOT . 'login', TRUE, 302);
@@ -148,6 +137,7 @@ Class Account extends Controller {
         } else {
             $this->view->qid = $qid;
             $this->view->topics = $this->category->getCategories();
+            var_dump($this->view->topics);
             $this->view->question = $this->question->getDetailById($qid);
             $this->view->render('account/edit_question');
         }

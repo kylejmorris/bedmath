@@ -76,9 +76,13 @@ class Email {
     /**
      * Initializes database and user object
      */
-    function __construct() {
-        $this->database = new Database();
-        $this->user = new User();
+    function __construct($db) {
+        if($db==null) {
+            $this->database = new Database();
+        } else {
+            $this->database = $db;
+        }
+        $this->user = new User($this->database);
     }
 
     public function generateCustomMail() {

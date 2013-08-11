@@ -7,11 +7,16 @@ class User {
 
     public $orderTypes = array('user_id', 'username', 'points', 'join_date', 'invites', 'blocked');
 
+    protected $database;
     /**
      * Creates database object as a link from this class
      */
-    function __construct() {
-        $this->database = new Database(); //Create database object for this class. Should have been able to instantiate it only once from the loader.php file. I will try to make this stuff more dynamic in the future. 
+    function __construct($db) {
+        if ($db == null) {
+            $this->database = new Database();
+        } else {
+            $this->database = $db;
+        }
     }
 
     /**
@@ -23,12 +28,21 @@ class User {
         $result = $row->fetch();
         return $result[0];
     }
-    
+
+    /**
+     * Update user level based on id of user
+     * @param type $userId id of user to update level on
+     * @param type $newLevel the new user level 
+     */
+    public function setUserLevel($userId, $newLevel) {
+        $this->database->update('g0g1_users', array('user_level' => "$newLevel"), array('user_id' => "$userId"));
+    }
+
     public function isLoggedIn() {
-        if(Session::sessionInDb(Session::getId())==true) {
-               return true;
+        if (Session::sessionInDb(Session::getId()) == true) {
+            return true;
         } else {
-                return false;
+            return false;
         }
     }
 
@@ -73,7 +87,7 @@ class User {
     public function login($userId) {
         Session::create('loggedin', true, $userId);
     }
-    
+
     public function logout($userId) {
         Session::kill(Session::getId());
     }
@@ -84,7 +98,7 @@ class User {
      */
     public function getUserId() {
         if ($this->isLoggedIn()) {
-            $userSession = $this->database->getRow('g0g1_sessions', array('user_id'), array('session_id'=>Session::getId()));
+            $userSession = $this->database->getRow('g0g1_sessions', array('user_id'), array('session_id' => Session::getId()));
             return $userSession['user_id'];
         } else {
             $userId = NULL;
@@ -151,9 +165,9 @@ class User {
         $result = $row->fetch();
         return $result['user_id'];
     }
-    
+
     public function emailToId($email) {
-        $column = $this->database->getRow('g0g1_users', array('user_id'), array('email'=>$email));
+        $column = $this->database->getRow('g0g1_users', array('user_id'), array('email' => $email));
         return $column[0];
     }
 
@@ -204,14 +218,13 @@ class User {
             echo 'Error: User does not need activation';
         }
     }
-    
+
     /**
      * Set user account as activated, upon email being confirmed.
      * @param type $userId
      */
     public function setActivation($userId) {
-        $this->database->update('g0g1_user', array('activated'=>1), array('user_id'=>$userId));
-        
+        $this->database->update('g0g1_user', array('activated' => 1), array('user_id' => $userId));
     }
 
     /**
@@ -234,14 +247,14 @@ class User {
             return false;
         }
     }
-    
+
     /**
      * Activation requires the confirmation of ones email after signing up an account. Certain site features require activation.
      * @param type $userId the user id to check activation.
      */
     public function isActivated($userId) {
-        $activation = $this->database->getRow('g0g1_users', array('activated'), array('user_id'=>$userId));
-        if($activation[0]==true) {
+        $activation = $this->database->getRow('g0g1_users', array('activated'), array('user_id' => $userId));
+        if ($activation[0] == true) {
             return true;
         } else {
             return false;

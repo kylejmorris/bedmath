@@ -4,9 +4,6 @@ class GiveReply extends Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->user = new User();
-        $this->answer = new Answer();
-        $this->question = new Question();
         if (!$this->user->isLoggedIn()) {
             $_SESSION['returnPage'] = $_GET['url'];
             header('Location: ' . ROOT . 'login', TRUE, 302);

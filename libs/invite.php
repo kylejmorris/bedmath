@@ -4,9 +4,13 @@
  * Manages invitations/referral data associated with the site. 
  */
 Class Invite {
-    
-    public function __construct() {
-        $this->database = new Database();
+    protected $database;
+    public function __construct($db) {
+        if($db==null) {
+            $this->database = new Database();
+        } else {
+            $this->database = $db;
+        }
     }
     
     /**

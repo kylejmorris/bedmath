@@ -4,8 +4,9 @@
  * Important object in the bedmath framework, used to notify users when relevant activity takes place
  */
 Class Notification {
-    public function __construct() {
-        $this->database = new Database();
+    private $database;
+    public function __construct($db) {
+        $this->database = $db;
     }
     
     /**

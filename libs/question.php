@@ -8,8 +8,12 @@ class Question {
 
     private $database;
 
-    public function __construct() {
-        $this->database = new Database();
+    public function __construct($db) {
+        if($db==null) {
+            $this->database = new Database();
+        } else {
+            $this->database = $db;
+        }
     }
 
     /**

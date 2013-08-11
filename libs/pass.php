@@ -5,8 +5,13 @@ Class Pass {
     private $raw;
     public $replace = array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z');
 
-    public function __construct($userId) {
-        $this->database = new Database();
+    protected $database;
+    public function __construct($db) {
+        if($db==null) {
+            $this->database = new Database();
+        } else {
+            $this->database = $db;
+        }
     }
 
     /**

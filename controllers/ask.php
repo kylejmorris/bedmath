@@ -2,8 +2,6 @@
 class Ask extends Controller {
     public function __construct() {
 		parent::__construct();
-		$this->category = new Category();
-                $this->user = new User();
                 if(!$this->user->isLoggedIn()) {
                     $_SESSION['returnPage'] = $_GET['url'];
                     header('Location: '.ROOT.'login', TRUE, 302);
@@ -36,11 +34,19 @@ class Ask extends Controller {
 						'min_value'=>10
 			)	
 		);		
-		$form = new Form($formData);
-		if($form->isValid()) {
-			$formData = $form->getFormData();
-			$this->model->runAsk($formData);
-                        header('Location: '.ROOT.'/questions/');
+                $this->form->addData($formData);
+		if($this->form->isValid()) {
+			$formData = $this->form->getFormData();
+                        print_r($formData);
+                        $userPoints = $this->points->getPoints($this->user->getUserId());
+                        if($userPoints>=$formData['bid']) {
+                            $this->model->runAsk($formData);
+                            header('Location: '.ROOT.'/questions/');
+                        } else {
+                            $GLOBALS['error']->addError('points', 'You do not have enough points to bid that much.');
+                            $this->index();
+                        }
+			
 		} else {
 			$this->index();
 		}

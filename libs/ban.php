@@ -6,9 +6,15 @@
  */
 Class Ban extends Database {
 
-    public function __construct() {
-        $this->database = new Database();
-        $this->user = new User();
+    protected $database;
+    
+    public function __construct($db) {
+        if($db==null) {
+            $this->database = new Database();
+        } else {
+            $this->database = $db;
+        }
+        $this->user = new User($this->database);
     }
 
     /**
@@ -48,7 +54,7 @@ Class Ban extends Database {
         $expires = time() + $length;
         $columns = array('user_id' => $userId, 'created_by' => $createdBy, 'created_time' => $createdTime, 'expires' => $expires, 'comments' => $comments);
         $this->database->insertRow('g0g1_bans', $columns);
-        $this->database->update('g0g1_users', array('user_level' => 0), array('user_id' => $userId));
+        $this->database->update('g0g1_users', array('user_level' => '0'), array('user_id' => "$userId"));
     }
 
     public function getBanDetails($userId) {
@@ -63,11 +69,9 @@ Class Ban extends Database {
      * @return boolean true = expired, false = not expired
      */
     public function banExpired($userId) {
-        $query = "SELECT expires FROM g0g1_bans WHERE user_id='$userId'";
-        $row = $this->database->query($query);
-        $results = $row->fetch();
+        $results = $this->database->getRows('g0g1_bans', array('expires'), array('user_id'=>$userId), 'expires', 1);
         $currentTime = time();
-        if ($results[0] < $currentTime) {
+        if ($results[0]['expires'] < $currentTime) {
             return true;
         } else {
             return false;
@@ -79,7 +83,7 @@ Class Ban extends Database {
      * @param $userId the id of user to unban
      */
     public function unban($userId) {
-        $this->database->update('g0g1_user', array('user_level' => 2), array('user_id' => $userId));
+        $this->database->update('g0g1_users', array('user_level' => 2), array('user_id' => "$userId"));
     }
 
     public function getBanCount() {

@@ -4,9 +4,6 @@ class Redeem extends Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->form = new Form();
-        $this->user = new User();
-        $this->pagination = new Pagination();
         if(!$this->user->isLoggedIn()) {
                     $_SESSION['returnPage'] = $_GET['url'];
                     header('Location: '.ROOT.'login', TRUE, 302);

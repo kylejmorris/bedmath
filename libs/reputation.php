@@ -5,10 +5,16 @@
  * Note: Reputation is not the final decision in a users success, but rather a tool used to help build them through experience on the site.
  */
 class Reputation {
-
-    public function __construct() {
-        $this->database = new Database();
-        $this->category = new Category();
+    
+    protected $database;
+    
+    public function __construct($db) {
+        if($db==null) {
+            $this->database = new Database();
+        } else {
+            $this->database = $db;
+        }
+        $this->category = new Category($this->database);
     }
 
     /**

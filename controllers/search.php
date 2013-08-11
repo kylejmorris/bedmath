@@ -2,9 +2,6 @@
 class Search extends Controller {
     public function __construct() {
 		parent::__construct();
-		$this->form = new Form();
-		$this->user = new User();
-		$this->pagination = new Pagination();
 	}
 	
 	public function index() {

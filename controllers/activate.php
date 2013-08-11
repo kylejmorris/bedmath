@@ -4,8 +4,6 @@ class Activate extends Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->user = new User();
-        $this->email = new Email();
     }
 
     public function index() {

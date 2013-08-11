@@ -7,11 +7,6 @@ class Reporting extends Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->form = new Form();
-        $this->writing = new Writing();
-        $this->report = new Report();
-        $this->user = new User();
-        $this->question = new Question();
     }
 
     /**
