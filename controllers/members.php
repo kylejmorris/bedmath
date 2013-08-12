@@ -24,7 +24,7 @@ class Members extends Controller {
 			$page = 1; 
 		}
 		$count = 5; 
-		$userList = $this->model->getUsers($page, $count); //Returning user list information for MemberList Feature
+		$userList = $this->model->getUsers($page, $count, 'user_id'); //Returning user list information for MemberList Feature
 		$stats = $this->model->getMemberStats(); //Grabbing statistics used in page summary, describing members on GlobeOfGeek ex(we have --- members, with ---- points)
 		$userCount = $this->user->userCount(); //Get number of users in database
 		$this->view->page = $page; //Passing page value to view

@@ -55,14 +55,14 @@ class User {
      * @param $count How many users to display on page. Default is 1
      * @param $order The order in which information is loaded. Default is by user_id
      */
-    public function getUsers($page = 1, $count = 10, $order = 'user_id') {
+    public function getUsers($page = 1, $count = 10, $order = 'user_id', $direction='ASC') {
         if (!in_array($order, $this->orderTypes)) {
             $order = "user_id";
         }
         $start = ($page * $count) - $count; //Determining which user to start gathering from, in terms of ID.
         $query = "SELECT * FROM g0g1_users ORDER BY $order ASC LIMIT $start,$count"; //Getting all users
         $row = $this->database->query($query);
-        $result = $row->fetchAll();
+        $result = $this->database->getByPage('g0g1_users', array('user_id', 'username', 'points', 'join_date', 'email', 'activated', 'user_level', 'avatar_id', 'invited_by', 'invites'), array(), array($order, $direction), $page, $count);
         for ($c = 0; $c < sizeof($result); $c++) {
             $result[$c]['user_level'] = $this->levelToText($result[$c]['user_level']); //Changing the value of user_level to the string equivilent 
         }

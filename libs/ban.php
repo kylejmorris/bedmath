@@ -109,6 +109,7 @@ Class Ban extends Database {
         for ($c = 0; $c < sizeof($results); $c++) {
             $results[$c]['user_id'] = $this->user->getNameFromId($results[$c]['user_id']);
             $results[$c]['created_time'] = date("M d, Y h:i:s A", $results[$c]['created_time']);
+            $results[$c]['created_by'] = $this->user->getNameFromId($results[$c]['created_by']);
             $results[$c]['expires'] = date("M d, Y h:i:s A", $results[$c]['expires']);
         }
         return $results;

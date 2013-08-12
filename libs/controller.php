@@ -46,13 +46,19 @@ class Controller {
         
     }
 
+    /**
+     * Note: Some objects are not included in this list, such as Image.
+     * Objects like Image are not required, as they need to be created separate from eachother. 
+     * When creating a new object like Image within a controller/model, simply use $image = new Image($this->database); 
+     * and this will have the same result.
+     */
     private function loadObjects() {
         $this->answer = new Answer($this->database);
         $this->category = new Category($this->database);
         $this->ban = new Ban($this->database);
         $this->email = new Email($this->database);
         $this->form = new Form(null, $this->database);
-        $this->image = new Image($this->database);
+        //$this->image = new Image($this->database); Image is not required, as a 
         $this->invite = new Invite($this->database);
         $this->notification = new Notification($this->database);
         $this->pagination = new Pagination($this->database);

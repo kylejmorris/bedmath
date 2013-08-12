@@ -22,6 +22,13 @@
 				</div>
 			</form>
 </div>
+Bid Buddy!
+<?php
+$keys = array_keys($this->bidBuddy); //Array of bid buddy topics
+for($c=0; $c<sizeof($this->bidBuddy); $c++) {
+    echo $keys[$c].': '.$this->bidBuddy[$keys[$c]].'<br>';
+}
+?>
 <script type="text/javascript">
     CKEDITOR.replace( 'full', {
     toolbar: 'Basic',

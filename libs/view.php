@@ -28,8 +28,9 @@ class View {
 
     function __construct() {
         $this->frame = array(            
-			'main' => 'template/content/main.php',
-			'header' => 'template/content/header.php',
+            'main' => 'template/content/main.php',
+            'mathjax' => 'template/content/mathjax.php',
+            'header' => 'template/content/header.php',
             'errors' => 'template/content/errors.php',
             'view' => $this->appType . 'views/' . $page . '.php',
             'footer' => 'template/content/footer.php');

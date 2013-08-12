@@ -191,7 +191,7 @@ class Image {
         return $this->height;
     }
 
-    public function setWidth($widht) {
+    public function setWidth($width) {
         $this->width = $width;
     }
 

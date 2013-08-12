@@ -14,22 +14,11 @@ class Members_Model extends Model {
     * @param $order The order in which information is loaded. Default is by user_id
     */
     public function getUsers($page=1, $count=10, $order) {
-	switch($order) { //Check value set as order, default will order info by username
-		case 'user_id':
-			$order = "user_id"; break;
-		case "points":
-			$order = 'points'; break;
-		default: 
-			$order = 'username'; break;
-	}
-        $start = ($page * $count)-$count ; //Determining which user to start gathering from, in terms of ID.
-	$query = "SELECT * FROM g0g1_users ORDER BY username ASC LIMIT $start,$count"; //Getting all users
-	$row = $this->database->query($query);
-	$result = $row->fetchAll();
-	for($c=0; $c<sizeof($result);$c++) {
-		$result[$c]['user_level'] = $this->user->levelToText($result[$c]['user_level']); //Changing the value of user_level to the string equivilent 
-	}
-	return $result;
+        if($order=='user_id') {
+            $direction = 'DESC';
+        }
+	$users = $this->user->getUsers($page, $count, $order, $direction);
+	return $users;
     }
     
     public function getMemberStats() {

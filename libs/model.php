@@ -37,9 +37,12 @@ class Model {
         $this->database = new Database();
         $this->loadObjects();
     }
-    
+
     /**
-     * Load all objects for models to use, this allows fully shared database object instead of a ridiculous amount of connections simultaneously.
+     * Note: Some objects are not included in this list, such as Image.
+     * Objects like Image are not required, as they need to be created separate from eachother. 
+     * When creating a new object like Image within a controller/model, simply use $image = new Image($this->database); 
+     * and this will have the same result.
      */
     private function loadObjects() {
         $this->answer = new Answer($this->database);

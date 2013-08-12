@@ -1,6 +1,7 @@
 <center>
     <h2>Question</h2>
     <?php
+    $this->question['avatar']->render();
     echo '<b>Title</b>: ' . $this->question['title'] . '<br>';
     echo '<b>Question</b>: ' . $this->question['full'] . '<br>';
     echo '<b>Bid</b>: ' . $this->question['bid'] . '<br>';
