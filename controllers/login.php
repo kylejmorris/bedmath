@@ -14,7 +14,7 @@ class Login extends Controller {
      */
     public function index() {
         $this->view->returnPage = $_SERVER['HTTP_REFERER'];
-        $this->view->render('login/index', array('header', 'footer'));
+        $this->view->render('login/index', array('header', 'footer', 'mathjax', 'ckeditor'));
     }
 
     /**
@@ -61,7 +61,7 @@ class Login extends Controller {
                 $GLOBALS['error']->addError('user', 'Username or password is incorrect');
             }
         }
-        $this->view->render('login/index', array('header', 'footer'));
+        $this->view->render('login/index', array('header', 'footer', 'mathjax', 'ckeditor'));
     }
 
     /**
@@ -80,11 +80,11 @@ class Login extends Controller {
         $expired = $this->ban->banExpired($userId);
         if ($expired) {
             $this->ban->unban($userId);
-            $this->view->render('login/unbanned');
+            $this->view->render('login/unbanned', array('mathjax', 'ckeditor'));
         } else {
             $this->view->details = $this->ban->getBanDetails($userId);
             $this->user->logout($this->user->getUserId());
-            $this->view->render('login/banned');
+            $this->view->render('login/banned', array('mathjax', 'ckeditor'));
         }
     }
 

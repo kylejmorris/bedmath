@@ -30,6 +30,7 @@ class View {
         $this->frame = array(            
             'main' => 'template/content/main.php',
             'mathjax' => 'template/content/mathjax.php',
+            'ckeditor' => 'template/content/ckeditor.php',
             'header' => 'template/content/header.php',
             'errors' => 'template/content/errors.php',
             'view' => $this->appType . 'views/' . $page . '.php',

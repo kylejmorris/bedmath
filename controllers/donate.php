@@ -22,7 +22,7 @@ class Donate extends Controller {
 	* Displays form allowing user to donate points
 	*/
 	public function points() {
-		$this->view->render("donate/points");
+		$this->view->render("donate/points", array('mathjax'));
 	}
 	
 	/**
@@ -52,7 +52,7 @@ class Donate extends Controller {
 				header('Location: '.ROOT.'/donate/success');
 			}
 		}
-		$this->view->render('donate/points');
+		$this->view->render('donate/points', array('mathjax', 'ckeditor'));
 		
 	}
 	
@@ -60,7 +60,7 @@ class Donate extends Controller {
 	* Displays confirmation that donation was succesfull
 	*/
 	public function success() {
-		$this->view->render("donate/success");
+		$this->view->render("donate/success", array('mathjax', 'ckeditor'));
 	}
 }
 ?>

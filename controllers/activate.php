@@ -8,7 +8,7 @@ class Activate extends Controller {
 
     public function index() {
         $this->view->userId = $this->user->getUserId();
-        $this->view->render('activate/index');
+        $this->view->render('activate/index', array('mathjax', 'ckeditor'));
     }
 
     public function sendActivation($id) {
@@ -18,7 +18,7 @@ class Activate extends Controller {
             $userDetails = $this->user->getDetailFromId($id);
             $email = $userDetails['email']; //Retrieving users email from details array
             $this->email->sendMail($email);
-            $this->view->render('activate/sent');
+            $this->view->render('activate/sent', array('mathjax', 'ckeditor'));
         }
     }
 

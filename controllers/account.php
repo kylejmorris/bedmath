@@ -18,11 +18,11 @@ Class Account extends Controller {
      * Displays main navigation to more specific account pages. 
      */
     public function index($test) {
-        $this->view->render("account/index");
+        $this->view->render("account/index", array('mathjax', 'ckeditor'));
     }
     
     public function changedPass() {
-        $this->view->render('account/changedpass');
+        $this->view->render('account/changedpass', array('mathjax', 'ckeditor'));
     }
 
     /**
@@ -41,17 +41,18 @@ Class Account extends Controller {
         $this->view->types = $this->points->getTransactionTypes();
         $this->view->pointStats = $pointStats;
         $this->view->pointsHistory = $pointsHistory;
-        $this->view->render("account/points");
+        $this->view->render("account/points", array('mathjax', 'ckeditor'));
     }
 
     public function profile() {
         $userId = $this->user->getUserId();
         $details = $this->user->getDetailFromId($userId);
-        $avatars = $this->image->getImagesByType(3);
+        $image = new Image($this->database);
+        $avatars = $image->getImagesByType(3);
         $this->view->avatars = $avatars;
         $this->view->details = $details;
 
-        $this->view->render('account/profile');
+        $this->view->render('account/profile', array('mathjax', 'ckeditor'));
     }
 
     public function runProfile() {
@@ -71,7 +72,7 @@ Class Account extends Controller {
     }
 
     public function newPass() {
-        $this->view->render('account/newpass');
+        $this->view->render('account/newpass', array('mathjax', 'ckeditor'));
     }
 
     public function runNewPass() {
@@ -118,7 +119,7 @@ Class Account extends Controller {
         $this->view->questions = $this->model->questions($page, $userId, $limit);
         $qCount = $this->question->getQuestionCount(array('asked_by' => $userId)); // Returns number of questions in which can be displayed on page.
         $this->view->pagination = $this->pagination->getPageList($page, 10, $qCount);
-        $this->view->render('account/questions');
+        $this->view->render('account/questions', array('ckeditor'));
     }
 
     /**
@@ -172,7 +173,7 @@ Class Account extends Controller {
             $this->model->runEditQuestion($qid, $formData);
             $this->view->render('account/edit_question_success');
         } else {
-            $this->view->render('error/error');
+            $this->view->render('error/error', array('ckeditor'));
         }
     }
 
@@ -185,7 +186,7 @@ Class Account extends Controller {
         $this->view->answers = $this->model->answers($page, $userId, $limit);
         $aCount = $this->answer->getAnswerCount(array('user' => $userId)); //Getting number of answers user has posted.
         $this->view->pagination = $this->pagination->getPageList($page, $limit, $aCount);
-        $this->view->render('account/answers');
+        $this->view->render('account/answers', array('ckeditor'));
     }
 
     /**
@@ -223,9 +224,9 @@ Class Account extends Controller {
         if ($form->isValid()) {
             $formData = $form->getFormData();
             $this->model->runEditAnswer($id, $formData);
-            $this->view->render('account/edit_answer_success');
+            $this->view->render('account/edit_answer_success', array('ckeditor'));
         } else {
-            $this->view->render('error/error');
+            $this->view->render('error/error', array('ckeditor'));
         }
     }
     
@@ -233,7 +234,7 @@ Class Account extends Controller {
         $userId = $this->user->getUserId();
         $this->view->history = $this->notification->getNotifications($type, null, $userId, $viewed, $page, 25);
         $this->notification->addNotification('question_posted', $userId, null, 14);
-        $this->view->render('account/notifications');
+        $this->view->render('account/notifications', array('ckeditor'));
     }
 
 }

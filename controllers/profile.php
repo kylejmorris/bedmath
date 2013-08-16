@@ -48,9 +48,9 @@ class Profile extends Controller {
                 $this->view->avatarWidth = 100; //Width of profile image
                 $this->view->avatarHeight = 150; //height of Profile image
                 if ($GLOBALS['error']->getErrorCount('user') == 0) {
-                    $this->view->render('profile/user');
+                    $this->view->render('profile/user', array('ckeditor'));
                 } else {
-                    $this->view->render('error/index');
+                    $this->view->render('error/index', array('ckeditor'));
                 }
             }
         } else {
@@ -73,9 +73,9 @@ class Profile extends Controller {
         $this->view->questionHistory = $this->model->getQuestionHistory($this->userId, $topic, $page);
         if ($GLOBALS['error']->getErrorCount('user') == 0) {
             if ($count > 0) {
-                $this->view->render('profile/user_questions');
+                $this->view->render('profile/user_questions', array('ckeditor'));
             } else {
-                $this->view->render('profile/user_questions_empty');
+                $this->view->render('profile/user_questions_empty', array('ckeditor'));
             }
         } else {
             $this->view->render('error/index');
@@ -93,12 +93,12 @@ class Profile extends Controller {
         $this->view->answerHistory = $this->model->getAnswerHistory($this->userId, $page, $this->answerHistLimit);
         if ($GLOBALS['error']->getErrorCount('user') == 0) {
             if ($count > 0) {
-                $this->view->render('profile/user_answers');
+                $this->view->render('profile/user_answers', array('ckeditor'));
             } else {
-                $this->view->render('profile/user_answers_empty');
+                $this->view->render('profile/user_answers_empty', array('ckeditor'));
             }
         } else {
-            $this->view->render('error/index');
+            $this->view->render('error/index', array('ckeditor'));
         }
     }
 
@@ -113,9 +113,9 @@ class Profile extends Controller {
         $this->view->reputationSummary = $this->model->getReputationSummary($this->userId, $page);
         if ($GLOBALS['error']->getErrorCount('user') == 0) {
             if ($count > 0) {
-                $this->view->render('profile/user_reputation');
+                $this->view->render('profile/user_reputation', array('ckeditor'));
             } else {
-                $this->view->render('profile/user_reputation_empty');
+                $this->view->render('profile/user_reputation_empty', array('ckeditor'));
             }
         } else {
             $this->view->render('error/index');
@@ -133,12 +133,12 @@ class Profile extends Controller {
         $this->view->inviteHistory = $this->model->getInviteHistory($this->userId, null, $page, $this->inviteHistLimit);
         if ($GLOBALS['error']->getErrorCount('user') == 0) {
             if ($count > 0) {
-                $this->view->render('profile/user_invites');
+                $this->view->render('profile/user_invites', array('ckeditor'));
             } else {
-                $this->view->render('profile/user_invites_empty');
+                $this->view->render('profile/user_invites_empty', array('ckeditor'));
             }
         } else {
-            $this->view->render('error/index');
+            $this->view->render('error/index', array('ckeditor'));
         }
         
     }

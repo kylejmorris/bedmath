@@ -9,7 +9,7 @@ class Team extends Controller {
         */
 	function __construct() {
 		parent::__construct();  
-                $this->view->render("team/index");
+                $this->view->render("team/index", array('mathjax'));
 	}
         
         public function index() {

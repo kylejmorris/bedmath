@@ -14,7 +14,7 @@ Class NewInvite extends Controller {
 		$this->email->generateDefaultMail(6, $userId);
 		$this->view->emailBody = $this->email->message;
                 $this->view->mailingCount = $this->email->mailSentCount(6, $userId, 86400);
-		$this->view->render('newinvite/index');
+		$this->view->render('newinvite/index', array('mathjax', 'ckeditor'));
 	}
 	
 	public function runInvite() {

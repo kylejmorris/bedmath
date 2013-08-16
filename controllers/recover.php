@@ -16,7 +16,7 @@ class Recover extends Controller {
 	public function validate($userId, $code) {
 		if($this->user->checkActivation($userId, $code)) {
 			$this->user->login($userId);
-			$this->view->render('account/newpass');
+			$this->view->render('account/newpass', array('mathjax'));
 		}
 	}
 	

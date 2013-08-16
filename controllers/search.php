@@ -26,9 +26,9 @@ class Search extends Controller {
 			$this->view->page = $page;
 			$this->view->query = $query;
 			$this->view->pagination = $this->pagination->getPageList($page, $limit, sizeof($this->view->users));
-			$this->view->render('search/users');
+			$this->view->render('search/users', array('mathjax'));
 		} else {
-			$this->view->render('search/noresults');
+			$this->view->render('search/noresults', array('mathjax'));
 		}
 	}
 }

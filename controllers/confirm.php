@@ -47,7 +47,7 @@ class Confirm extends Controller {
 		if($GLOBALS['error']->getErrorCount('all')==0) {
 			$this->view->answerDetail = $this->answer->getAnswerById($aid);
 			$this->view->tutorName = $this->user->getNameFromId($this->view->answerDetail['user']);
-			$this->view->render('confirm/question');
+			$this->view->render('confirm/question', array('ckeditor'));
 		} else {
 			$this->view->render('error/error');
 		}

@@ -21,14 +21,14 @@ class Buy extends Controller {
      */
     public function points() {
         $this->view->userId = $this->user->getUserId();
-        $this->view->render("buy/points");
+        $this->view->render("buy/points", array('mathjax', 'ckeditor'));
     }
 
     /**
      * Displays confirmation that donation was succesful
      */
     public function success() {
-        $this->view->render("buy/success");
+        $this->view->render("buy/success", array('mathjax', 'ckeditor'));
     }
 
 }

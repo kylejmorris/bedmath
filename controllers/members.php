@@ -32,7 +32,7 @@ class Members extends Controller {
 		$this->view->userList = $userList;
 		$this->view->stats = $stats;
 		$this->view->pagination = $this->pagination->getPageList($page, $count, $userCount); 
-		$this->view->render("members/index");
+		$this->view->render("members/index", array('mathjax', 'ckeditor'));
 		
 	}
 }

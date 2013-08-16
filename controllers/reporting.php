@@ -54,7 +54,7 @@ class Reporting extends Controller {
             $this->view->details = $this->user->getDetailFromId($id); //Get writing details and feed to view
             $this->view->reasons = $this->report->getReportReasons(1);
             $this->view->id = $id; //Sending content id to form to submit as hidden field
-            $this->view->render("reporting/user");
+            $this->view->render("reporting/user", array('mathjax'));
         } else {
             echo 'Please supply a valid content id';
         }

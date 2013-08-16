@@ -6,7 +6,7 @@ class Contact extends Controller {
     }
     
     public function index() {
-        $this->view->render('contact/index');
+        $this->view->render('contact/index', array('mathjax', 'ckeditor'));
     }
 }
 ?>

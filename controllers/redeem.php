@@ -11,7 +11,8 @@ class Redeem extends Controller {
     }
 
     public function index() {
-        $this->view->render('redeem/index');
+        $this->view->checks = $this->model->getChecks(); //displaying checks to user before they send redeem request. Showing things suggested, and required.
+        $this->view->render('redeem/index', array('mathjax'));
     }
 
     public function run() {
@@ -34,12 +35,12 @@ class Redeem extends Controller {
                 header("Location: " . ROOT . 'redeem/success');
             }
         } else {
-            $this->view->render('redeem/index');
+            $this->view->render('redeem/index', array('mathjax'));
         }
     }
 
     public function success() {
-        $this->view->render('redeem/success');
+        $this->view->render('redeem/success', array('mathjax'));
     }
 
 }

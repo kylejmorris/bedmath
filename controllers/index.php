@@ -17,7 +17,7 @@ class Index extends Controller {
         if ($this->user->isLoggedIn()) {
             header('Location: ' . ROOT . 'account', TRUE, 302);
         } else {
-            $this->view->render('index/index');
+            $this->view->render('index/index', array('ckeditor'));
         }
     }
 
