@@ -7,6 +7,10 @@ class Reporting extends Controller {
 
     public function __construct() {
         parent::__construct();
+        if (!$this->user->isLoggedIn()) {
+            $_SESSION['returnPage'] = $_GET['url'];
+            header('Location: ' . ROOT . 'login', TRUE, 302);
+        }
     }
 
     /**
@@ -17,46 +21,20 @@ class Reporting extends Controller {
     }
 
     /**
-     * Render page containing writing report form 
-     * @param $id the id of content to report
-     */
-    public function writing($id) {
-        if (!empty($id)) {
-            $this->view->details = $this->writing->getDetailBy('content_id', $id); //Get writing details and feed to view
-            $this->view->reasons = $this->report->getReportReasons(2);
-            $this->view->id = $id; //Sending content id to form to submit as hidden field
-            $this->view->render("reporting/writing");
-        } else {
-            echo 'Please supply a valid content id';
-        }
-    }
-
-    /**
-     * Processing data sent from writing page
-     */
-    public function runwriting() {
-        $formData = array(//Form to contain data sent from writing report
-            'reason' => '',
-            'evidence' => '',
-            'comments' => '',
-            'content_id' => '');
-        $formData = $this->form->getFormContent($formData); //Getting form data from writing report
-        $this->model->runReportWriting($formData); //calling to model in order to submit/process data
-        header("Location:" . ROOT . 'read/writing/' . $formData['content_id']);
-    }
-
-    /**
      * Render page containing user report form 
      * @param $id the id of user to report
      */
     public function user($id) {
-        if (!empty($id)) {
+        if(empty($id)) {
+            $GLOBALS['error']->addError('user', 'Please specify a user');
+        }
+        if ($GLOBALS['error']->getErrorCount('any')==0) {
             $this->view->details = $this->user->getDetailFromId($id); //Get writing details and feed to view
             $this->view->reasons = $this->report->getReportReasons(1);
             $this->view->id = $id; //Sending content id to form to submit as hidden field
             $this->view->render("reporting/user", array('mathjax'));
         } else {
-            echo 'Please supply a valid content id';
+            $this->view->render("reporting/user", array('mathjax'));
         }
     }
 
@@ -64,13 +42,27 @@ class Reporting extends Controller {
      * Processing data sent from user page
      */
     public function runuser() {
-        $formData = array(//Form to contain data sent from writing report
-            'reason' => '',
-            'evidence' => '',
-            'comments' => '',
-            'content_id' => '');
-        $formData = $this->form->getFormContent($formData); //Getting form data from writing report
-        $this->model->runReportUser($formData); //calling to model in order to submit/process data
+        $formData = array(//Getting data from login form
+            "reason" => array(
+                'required' => true,
+            ),
+            "evidence" => array(
+                'required' => true,
+                'min_length' => 1,
+                'max_length' => 1000
+            ),
+            "comments" => array(
+                'max_length' => 1000
+            ),
+            "content_id" => array(
+                'required' => true,
+                'is_numeric' => true
+        ));
+        $form = new Form($formData);
+        if ($form->isValid()) {
+            $formData = $form->getFormData();
+            $this->model->runReportUser($formData);
+        }
         header("Location:" . ROOT . 'profile/user/' . $formData['content_id']);
     }
 
@@ -79,9 +71,20 @@ class Reporting extends Controller {
      * @param $qid the id of question to report
      */
     public function question($qid) {
-        $this->view->question = $this->question->getDetailById($qid);
-        $this->view->reasons = $this->report->getReportReasons(3);
-        $this->view->render('reporting/question');
+        if ($qid == null) {
+            $GLOBALS['error']->addError('question', 'No question id specified');
+        }
+        if (!$this->question->exists($qid)) {
+            $GLOBALS['error']->addError('question', 'Question does not exist');
+        }
+        if ($GLOBALS['error']->getErrorCount('any') == 0) {
+
+            $this->view->question = $this->question->getDetailById($qid);
+            $this->view->reasons = $this->report->getReportReasons(3);
+            $this->view->render('reporting/question');
+        } else {
+            $this->view->render('reporting/question');
+        }
     }
 
     public function runquestion() {
@@ -101,12 +104,56 @@ class Reporting extends Controller {
         );
         $form = new Form($formData);
         if ($form->isValid()) {
-            echo 'asdf';
             $formData = $form->getFormData();
             $this->model->runReportQuestion($formData);
             header('Location: ' . ROOT . 'questions');
         }
-        $this->view->render('index/index');
+        $this->view->render('reporting/question');
+    }
+    
+    /**
+     * Report answer on site.
+     * @param type $aid answer's id.
+     */
+    public function answer($aid) {
+        if ($aid == null) {
+            $GLOBALS['error']->addError('answer', 'No answer id specified');
+        }
+        if (!$this->answer->exists($aid)) {
+            $GLOBALS['error']->addError('answer', 'Answer does not exist');
+        }
+        if ($GLOBALS['error']->getErrorCount('any') == 0) {
+            $this->view->answer = $this->model->getAnswer($aid);
+            $this->view->reasons = $this->report->getReportReasons(4);
+            $this->view->render('reporting/answer');
+        } else {
+            $this->view->render('reporting/answer');
+        }
+    }
+    
+    public function runAnswer() {
+        $formData = array(
+            'reason' => array(
+                'required' => true
+            ),
+            'evidence' => array(
+                'required' => false
+            ),
+            'comments' => array(
+                'required' => false
+            ),
+            'content_id' => array(
+                'required' => true
+            )
+        );
+        $form = new Form($formData);
+        if ($form->isValid()) {
+            $formData = $form->getFormData();
+            $this->model->runReportAnswer($formData);
+            $question = $this->question->getQuestionByAnswer($formData['content_id']);
+            header('Location: ' . ROOT . 'review/question/'.$question['id']);
+        }
+        $this->view->render('reporting/answer');
     }
 
 }

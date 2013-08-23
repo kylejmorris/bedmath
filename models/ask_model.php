@@ -3,11 +3,6 @@ class Ask_Model extends Model {
         private $inflation = 0.03; //3% increase in what ever the average bid currently is, will be suggested to user.
 	public function __construct() {
 		parent::__construct();
-		$this->user = new User();
-		$this->report = new Report(); 
-		$this->question = new Question();
-                $this->points = new Points();
-                $this->category = new Category();
 	}
 	
 	public function runAsk($form) {

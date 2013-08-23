@@ -106,11 +106,11 @@ class Question {
      * @param $id the answer id to get question from. 
      */
     public function getQuestionByAnswer($id) {
-        $columns = array('id', 'topic', 'title', 'full', 'bid', 'asked_by', 'solved', 'answer', 'asked_time', 'published');
+        $columns = array('question_id');
         $answer = new Answer();
         if ($answer->exists($id)) {
-            $question = $this->database->getRow('g0g1_questions', $columns, array('a' => $id));
-            return $question;
+            $answer= $this->database->getRow('g0g1_answers', $columns, array('id' => $id));
+            return $this->getDetailById($answer['question_id']);
         }
         return -1;
     }

@@ -4,10 +4,6 @@ class Questions_Model extends Model {
 
     public function __construct() {
         parent::__construct();
-        $this->question = new Question();
-        $this->answer = new Answer();
-        $this->user = new User();
-        $this->category = new Category();
     }
 
     public function view($page, $where, $limit) {

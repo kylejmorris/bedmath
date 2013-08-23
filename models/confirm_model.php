@@ -2,10 +2,6 @@
 class Confirm_Model extends Model {
 	public function __construct() {
 		parent::__construct();
-                $this->points = new Points();
-                $this->answer = new Answer();
-                $this->question = new Question();
-                $this->reputation = new Reputation();
 	}
 	
 	public function run($formData) {

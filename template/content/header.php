@@ -29,6 +29,7 @@
 							echo '<a class="left" href="'.ROOT.'mod/mod_points">Points</a>';
 							echo '<a class="left" href="'.ROOT.'mod/mod_questions">Questions</a>';
 							echo '<a class="left" href="'.ROOT.'mod/mod_answers">Answers</a>';
+                                                        echo '<a class="left" href="'.ROOT.'mod/mod_redeem">Redeem</a>';
 							echo '<div class="right"id="Reports">';
 							echo '<a href="'.ROOT.'mod/mod_report/reports/">';
 							if ($reportCount > 1 ) {

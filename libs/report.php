@@ -73,7 +73,6 @@ class Report extends Database {
             $results[$c]['type'] = $this->typeIdToName($results[$c]['type']);
             $results[$c]['reporter'] = $this->user->getNameFromId($results[$c]['reporter']);
             $results[$c]['reason'] = $this->reasonIdToName($results[$c]['reason']);
-            $results[$c]['time'] = date('g:m M d Y', $results[$c]['time']);
         }
         return $results;
     }

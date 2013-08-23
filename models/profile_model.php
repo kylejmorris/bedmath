@@ -4,14 +4,6 @@ class Profile_Model extends Model {
 
     public function __construct() {
         parent::__construct();
-        $this->user = new User();
-        $this->email = new Email();
-        $this->image = new Image();
-        $this->reputation = new Reputation();
-        $this->question = new Question();
-        $this->answer = new Answer();
-        $this->category = new Category();
-        $this->invite = new Invite();
     }
 
     /*

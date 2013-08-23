@@ -2,9 +2,6 @@
 class GiveAnswer_Model extends Model {
 	public function __construct() {
 		parent::__construct();
-		$this->user = new User();
-		$this->question = new Question();
-		$this->answer = new Answer();
 	}
 	
 

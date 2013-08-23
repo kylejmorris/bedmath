@@ -11,6 +11,15 @@
     <br>
     <a href="<?php echo ROOT . 'giveanswer/question/' . $this->qid; ?>">Answer!</a>
 </center>
+<?php
+if($this->solved==true) {
+    echo '<h3>Solved</h3>';
+    echo '<hr>';
+    echo 'Solved by: <a href='.ROOT.'profile/user/'.$this->solvedBy['user'].'>'.$this->solvedBy['username'].'</a>'. ' on '.date('D m Y-G:i', $this->solvedBy['time']).'<br>';
+    echo $this->solvedBy['full_text'].'<br>';
+    echo '<hr>';
+}
+?>
 <h2>Answers</h2>
 <?php
 foreach ($this->answers as $answer) {
@@ -26,17 +35,20 @@ foreach ($this->answers as $answer) {
         echo '<a href=' . ROOT . 'confirm/question/' . $this->question['id'] . '/' . $answer['id'] . '>Select Answer!</a><br><br>';
     }
     echo '<center>';
-    foreach($answer['replies'] as $reply) {
-        echo '<b>'.$reply['username'].'</b> replied: ';
-        echo $reply['full_text'].'<br>';
+    foreach ($answer['replies'] as $reply) {
+        echo '<b>' . $reply['username'] . '</b> replied: ';
+        echo $reply['full_text'] . '<br>';
     }
-    echo '<form action='.ROOT.'givereply/questionRun/'.$answer['question_id'].'/'.$answer['id'].' method="POST">';
-    echo '<textarea name="full_text" rows="2" cols="25" placeholder="Quick reply..."></textarea>';
-    echo '<input type="submit" value="post"></input>';
-    echo '</form>';
-    echo '<a href='.ROOT.'givereply/question/'.$answer['question_id'].'/'.$answer['id'].'>Full Reply</a><br>';
+    if ($answer['user_id'] == $this->userId || $this->question['asked_by_id'] == $this->userId) {
+        echo '<form action=' . ROOT . 'givereply/questionRun/' . $answer['question_id'] . '/' . $answer['id'] . ' method="POST">';
+        echo '<textarea name="full_text" rows="2" cols="25" placeholder="Quick reply..."></textarea>';
+        echo '<input type="submit" value="post"></input>';
+        echo '</form>';
+        echo '<a href=' . ROOT . 'givereply/question/' . $answer['question_id'] . '/' . $answer['id'] . '>Full Reply</a><br>';
+        
+    }
     echo '</center>';
-    echo '<a class="button" href='.ROOT.'review/replies/'.$answer['question_id'].'/'.$answer['id'].'>All Replies...</a><br><br><br>';
+    echo '<a class="button" href=' . ROOT . 'review/replies/' . $answer['question_id'] . '/' . $answer['id'] . '>All Replies...</a><br><br><br>';
 }
 ?>
 

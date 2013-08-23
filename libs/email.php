@@ -62,7 +62,7 @@ class Email {
      * 		[CURRENT_POINTS]: will contain current points of user on the site
      * @var array[string]
      */
-    public $search = array("[USERNAME]", "[USER_ID]", "[CURRENT_POINTS]", "[EMAIL_RECOVERY_CODE]");
+    public $search = array("[ROOT]", "[USERNAME]", "[USER_ID]", "[CURRENT_POINTS]", "[EMAIL_RECOVERY_CODE]");
 
     /**
      * Will contain values to replace for contents of $search. 
@@ -117,7 +117,7 @@ class Email {
      */
     public function getReplacement($userId) {
         $details = $this->user->getDetailFromId($userId);
-        $replace = array($details['username'], $details['user_id'], $details['points'], $details['activate_code']); //What is being replaced in email. Such as [USERNAME]
+        $replace = array(ROOT, $details['username'], $details['user_id'], $details['points'], $details['activate_code']); //What is being replaced in email. Such as [USERNAME]
         return $replace;
     }
 
@@ -204,7 +204,6 @@ class Email {
                     $this->logMail($senderId, trim($receiverEmail));
                 }
             } else {
-
                 $this->logMail($senderId, $addresses);
             }
         }

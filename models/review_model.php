@@ -4,15 +4,12 @@ class Review_Model extends Model {
 
     public function __construct() {
         parent::__construct();
-        $this->user = new User();
-        $this->question = new Question();
-        $this->answer = new Answer();
-        $this->reputation = new Reputation();
     }
 
     public function question($id) {
         $questionData = $this->question->getDetailById($id);
         $userDetail = $this->user->getDetailFromId($questionData['asked_by']);
+        $questionData['asked_by_id'] = $questionData['asked_by'];
         $questionData['asked_by'] = $this->user->getNameFromId($questionData['asked_by']);
         $image = new Image($this->database);
         $image->getImageByContent(3, $userDetail['avatar_id']);
@@ -38,6 +35,12 @@ class Review_Model extends Model {
             $answers[$c]['avatar'] = $image;
         }
         return $answers;
+    }
+    
+    public function getSolvedDetail($id) {
+        $solvedBy = $this->answer->getAcceptedAnswer($id);
+        $solvedBy['username'] = $this->user->getNameFromId($solvedBy['user']);
+        return $solvedBy;
     }
 
 }

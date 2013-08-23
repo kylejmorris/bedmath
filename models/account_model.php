@@ -2,13 +2,6 @@
 Class Account_Model extends Model {
 	public function __construct() {
 		parent::__construct();
-		$this->points = new Points(); 
-		$this->user = new User();
-		$this->writing = new Writing();
-		$this->question = new Question();
-		$this->category = new Category();
-                $this->answer = new Answer();
-                $this->pass = new Pass();
 	}
 	
 	/**

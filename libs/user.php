@@ -203,11 +203,9 @@ class User {
     }
 
     public function checkActivation($userId, $code) {
-        $query = "SELECT activate_code FROM g0g1_users WHERE user_id='$userId'";
-        $row = $this->database->query($query);
-        $result = $row->fetch();
-        if ($result[0] != "null") {
-            if ($code == $result[0]) {
+        $details = $this->getDetailFromId($userId);
+        if ($details['activate_code']!= "null") {
+            if ($code == $details['activate_code']) {
                 $query = "UPDATE g0g1_users SET activate_code='null' WHERE user_id='$userId'";
                 $this->database->query($query);
                 return true;
@@ -215,7 +213,7 @@ class User {
                 return false;
             }
         } else {
-            echo 'Error: User does not need activation';
+            return false;
         }
     }
 
@@ -224,7 +222,7 @@ class User {
      * @param type $userId
      */
     public function setActivation($userId) {
-        $this->database->update('g0g1_user', array('activated' => 1), array('user_id' => $userId));
+        $this->database->update('g0g1_users', array('activated' => 1), array('user_id' => $userId));
     }
 
     /**

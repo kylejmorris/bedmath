@@ -12,8 +12,8 @@
 					}
 				?>
 				</select> 
-				<textarea name="evidence">Supply evidence/description on the report</textarea>
-				<textarea name="comments">Any comments on this?</textarea>
+				<textarea name="evidence" placeholder="Supply evidence/description on the report"></textarea>
+				<textarea name="comments" placeholder="Any comments on this?"></textarea>
 				<input type="hidden" name="content_id" value="<?php echo $this->id; ?>">
 				<input type="submit" value="Send" class="button small">
 			</form>

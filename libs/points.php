@@ -244,6 +244,19 @@ class Points extends Database {
     public function editRedeemStatus($id, $new) {
         $this->database->update('g0g1_redeem', array('status'=>$new), array('id'=>$id));
     }
+    
+    /**
+     * Check if user currently has a pending redeem request. 
+     * @param type $userId the users id.
+     */
+    public function hasPendingRedeemRequest($userId) {
+        $count = $this->database->getCount('g0g1_redeem', array('user_id'=>$userId, 'status'=>'pending'));
+        if($count>0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }
 

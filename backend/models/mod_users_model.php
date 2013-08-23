@@ -2,8 +2,6 @@
 class Mod_Users_Model extends Model {
 	public function __construct() {
 		parent::__construct();
-		$this->ban = new Ban();
-		$this->user = new User();
 	}
 	
 	

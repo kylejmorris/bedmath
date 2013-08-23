@@ -2,7 +2,6 @@
 class Donate_Model extends Model {
 	public function __construct() {
 		parent::__construct();
-		$this->points = new Points();
 	}
 	
 	//Called from donate controller upon runPoints being executed

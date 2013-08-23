@@ -1,9 +1,10 @@
 <?php
-for($c=0; $c<sizeof($this->pagination); $c++) {
-	echo '<a href='.ROOT.'mod/mod_users/view/'.$this->pagination[$c].'/'.$this->limit.'>'.$this->pagination[$c].'</a>'.', ';
+foreach($this->pagination as $page) {
+	echo '<a href='.ROOT.'mod/mod_users/view/'.str_replace(',', '', $page).'>'.$page.'</a>, ';
 }
-echo '<br>';
 ?>
+<br>
+
 <table border=1>
 <th>id</th>
 <th>Username</th>

@@ -1,7 +1,7 @@
 <?php
 
 class Review extends Controller {
-
+    
     public function __construct() {
         parent::__construct();
     }
@@ -10,10 +10,16 @@ class Review extends Controller {
      *
      */
     public function question($id) {
+        $userId = $this->user->getUserId();
         $this->view->question = $this->model->question($id);
         $this->view->qid = $id; //for linking to question report page using same ID
         $this->view->answers = $this->model->getAnswers($id); //get answers for specified question id
-        $this->view->user = $this->user->getNameFromId($this->user->getUserId());
+        $this->view->user = $this->user->getNameFromId($userId);
+        $this->view->userId = $userId;
+        $this->view->solved = $this->question->isSolved($id);
+        if($this->view->solved==true) {
+            $this->view->solvedBy = $this->model->getSolvedDetail($id);
+        }
         $this->view->render('review/question');
     }
     

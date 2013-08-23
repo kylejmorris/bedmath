@@ -4,12 +4,6 @@ class Mod_Answers_Model extends Model {
 
     public function __construct() {
         parent::__construct();
-        $this->user = new User();
-        $this->question = new Question();
-        $this->pagination = new Pagination();
-        $this->category = new Category();
-        $this->answer = new Answer();
-        $this->reply = new Reply();
     }
 
     public function getSummary() {

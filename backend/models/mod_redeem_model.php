@@ -4,11 +4,6 @@ class Mod_Redeem_Model extends Model {
 
     public function __construct() {
         parent::__construct();
-        $this->user = new User();
-        $this->points = new Points();
-        $this->ban = new Ban();
-        $this->question = new Question();
-        $this->answer = new Answer();
         $this->email = new Email();
     }
 

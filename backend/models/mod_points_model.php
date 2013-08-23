@@ -2,8 +2,6 @@
 class Mod_Points_Model extends Model {
 	public function __construct() {
 		parent::__construct();
-		$this->user = new User();
-		$this->points = new Points();
 	}
 	
 	/**

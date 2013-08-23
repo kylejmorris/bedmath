@@ -2,7 +2,6 @@
 class Members_Model extends Model {
     public function __construct() {
       parent::__construct();
-      $this->user = new User();
     }
     /**
     * Gets full list of users and their data, returns as multidimentional array

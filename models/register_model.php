@@ -2,10 +2,7 @@
 class Register_Model extends Model {
     function __construct() {
         parent::__construct();
-	$this->user = new User();
-	$this->points = new Points(); 
 	$this->image = new Image(); 
-        $this->pass = new Pass();
     }
     
     //Processing registration info sent from controller. Making log and recording new user in database
